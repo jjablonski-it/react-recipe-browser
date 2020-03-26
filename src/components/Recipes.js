@@ -10,14 +10,15 @@ import {
 } from "reactstrap";
 
 import { GlobalContext } from "../context/GlobalContext";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 export const Display = () => {
   const { items, itemsLoading } = useContext(GlobalContext);
   return (
     <Container className="d-flex">
-      <Row>
+      <Row className="w-100 justify-content-center">
         {itemsLoading ? (
-          <Spinner />
+          <LoadingSpinner />
         ) : (
           items.hits &&
           items.hits.map(hit => (

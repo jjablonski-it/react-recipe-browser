@@ -13,9 +13,13 @@ export const Display = () => {
         {itemsLoading ? (
           <LoadingSpinner />
         ) : items.hits ? (
-          items.hits.map(hit => <Recipe key={hit.recipe.uri} hit={hit} />)
+          items.hits.length > 0 ? (
+            items.hits.map(hit => <Recipe key={hit.recipe.uri} hit={hit} />)
+          ) : (
+            <h5 className="my-5">No results</h5>
+          )
         ) : (
-          <h5 className="my-5">Enter the components</h5>
+          <h5 className="my-5">Enter the ingredients</h5>
         )}
       </Row>
     </Container>

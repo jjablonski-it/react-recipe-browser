@@ -27,14 +27,16 @@ export const GlobalProvider = ({ children }) => {
     dispatch({ type: "ITEMS_LOADING" });
     axios
       .get(
-        `https://api.edamam.com/search?app_key=${api_key}&app_id=${app_id}&to=${limit}&q=` +
-          q
+        `https://api.edamam.com/search?app_key=${api_key}&app_id=${app_id}&to=${limit}&q=${q.join(
+          " "
+        )}`
       )
       .then(res => dispatch({ type: "ITEMS_LOADED", payload: res.data }));
   };
 
   const addKeyword = kw => {
-    dispatch({ type: "ADD_KEYWORD", payload: kw });
+    kw = kw.toLowerCase();
+    if (kw.length > 0) dispatch({ type: "ADD_KEYWORD", payload: kw });
   };
 
   const removeKeyword = kw => {

@@ -25,10 +25,9 @@ export const GlobalProvider = ({ children }) => {
       .then(res => dispatch({ type: "ITEMS_LOADED", payload: res.data }));
   };
 
+  const { items, itemsLoading } = state;
   return (
-    <GlobalContext.Provider
-      value={{ items: state.items, itemsLoading: state.itemsLoading, getItems }}
-    >
+    <GlobalContext.Provider value={{ items, itemsLoading, getItems }}>
       {children}
     </GlobalContext.Provider>
   );

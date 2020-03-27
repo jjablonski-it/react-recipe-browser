@@ -1,16 +1,9 @@
 import React, { useContext } from "react";
-import {
-  Card,
-  CardBody,
-  CardImg,
-  Container,
-  Row,
-  Col,
-  Spinner
-} from "reactstrap";
+import { Container, Row } from "reactstrap";
 
 import { GlobalContext } from "../context/GlobalContext";
 import { LoadingSpinner } from "./LoadingSpinner";
+import { Recipe } from "./Recipe";
 
 export const Display = () => {
   const { items, itemsLoading } = useContext(GlobalContext);
@@ -19,18 +12,10 @@ export const Display = () => {
       <Row className="w-100 justify-content-center">
         {itemsLoading ? (
           <LoadingSpinner />
+        ) : items.hits ? (
+          items.hits.map(hit => <Recipe key={hit.recipe.uri} hit={hit} />)
         ) : (
-          items.hits &&
-          items.hits.map(hit => (
-            <Col md={3} key={hit.recipe.uri} className="my-2">
-              <Card>
-                <CardImg src={hit.recipe.image}></CardImg>
-                <CardBody>
-                  <a href={hit.recipe.url}>{hit.recipe.label}</a>
-                </CardBody>
-              </Card>
-            </Col>
-          ))
+          <h5 className="my-5">Enter the components</h5>
         )}
       </Row>
     </Container>

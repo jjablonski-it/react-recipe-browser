@@ -13,7 +13,7 @@ function App() {
   return (
     <GlobalProvider>
       <Container>
-        <h1>App</h1>
+        <h1 className="text-center">Recipe finder</h1>
         <Search />
         <Recipes />
       </Container>

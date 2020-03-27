@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Input, Form } from "reactstrap";
+import { Input, Form, Button, Col, Row } from "reactstrap";
 
 import { GlobalContext } from "../context/GlobalContext";
 
@@ -17,8 +17,14 @@ export const Search = () => {
   };
 
   return (
-    <Form onSubmit={submit}>
-      <Input onChange={onChange} value={search} name="search"></Input>
+    <Form onSubmit={submit} inline>
+      <Input
+        onChange={onChange}
+        value={search}
+        name="search"
+        className="flex-grow-1 mr-2"
+      />
+      <Button color="dark">Search</Button>
     </Form>
   );
 };

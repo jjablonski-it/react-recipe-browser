@@ -4,16 +4,21 @@ import { Input, Form, Button, Col, Row } from "reactstrap";
 import { GlobalContext } from "../context/GlobalContext";
 
 export const Search = () => {
-  const { getItems } = useContext(GlobalContext);
+  const { getItems, addKeyword, keywords } = useContext(GlobalContext);
   const [search, setSearch] = useState([]);
 
   const onChange = e => {
-    setSearch(e.target.value);
+    if (e.target.value.slice(-1) === " ") {
+      addKeyword(e.target.value.slice(0, -1));
+      setSearch("");
+    } else {
+      setSearch(e.target.value);
+    }
   };
 
   const submit = e => {
     e.preventDefault();
-    getItems(search);
+    getItems(keywords.join(" ") + " " + search);
   };
 
   return (

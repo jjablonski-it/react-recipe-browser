@@ -1,24 +1,17 @@
 import React from "react";
 
-import { Card, CardBody, CardImg, Col } from "reactstrap";
-import styled, { keyframes } from "styled-components";
-import { fadeIn } from "react-animations";
+import { Card, CardBody, CardImg } from "reactstrap";
+import { Link } from "react-router-dom";
 
-const FadeIn = styled.div`
-  animation: 1s ${keyframes`${fadeIn}`} ease-in;
-`;
-
-export const Recipe = ({ hit }) => {
+export const Recipe = ({ recipe, id }) => {
+  const { image, label } = recipe;
   return (
-    <Col md={4} lg={3} xs={6} className="my-2">
-      <FadeIn>
-        <Card>
-          <CardImg src={hit.recipe.image}></CardImg>
-          <CardBody>
-            <a href={hit.recipe.url}>{hit.recipe.label}</a>
-          </CardBody>
-        </Card>
-      </FadeIn>
-    </Col>
+    <Card>
+      <CardImg src={image}></CardImg>
+      <CardBody>
+        {/* <a href={hit.url}>{hit.label}</a> */}
+        <Link to={`/${id}`}>{label}</Link>
+      </CardBody>
+    </Card>
   );
 };

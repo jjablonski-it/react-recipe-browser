@@ -19,3 +19,5 @@ export const Keyword = ({ keyword }) => {
     </Button>
   );
 };
+
+export default Keyword;

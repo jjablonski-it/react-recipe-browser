@@ -1,5 +1,5 @@
 import React from "react";
-import { Spinner, Container } from "reactstrap";
+import { Spinner } from "reactstrap";
 
 export const LoadingSpinner = () => {
   const spinnerStyle = { width: "100px", height: "100px" };

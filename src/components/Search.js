@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Input, Form, Button, Col, Row } from "reactstrap";
+import { Input, Form, Button } from "reactstrap";
 
 import { GlobalContext } from "../context/GlobalContext";
 

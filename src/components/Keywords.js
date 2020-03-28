@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalContext";
 
 // Components
-import Keyword from "./Keywordd";
+import Keyword from "./Keyword";
 
 export const Keywords = () => {
   const { keywords } = useContext(GlobalContext);

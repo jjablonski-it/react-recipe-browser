@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Card, CardBody, CardImg } from "reactstrap";
 import { Link } from "react-router-dom";
 
+// Components
+import LoadingSpinner from "./LoadingSpinner";
+
 export const Recipe = ({ recipe, id }) => {
+  const [loading, setLoading] = useState(true);
   const { image, label } = recipe;
+
   return (
     <Card>
-      <CardImg src={image}></CardImg>
+      {loading && <LoadingSpinner />}
+
+      <CardImg src={image} onLoad={() => setLoading(false)} />
       <CardBody>
-        {/* <a href={hit.url}>{hit.label}</a> */}
         <Link to={`/${id}`}>{label}</Link>
       </CardBody>
     </Card>

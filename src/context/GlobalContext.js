@@ -31,7 +31,8 @@ export const GlobalProvider = ({ children }) => {
           " "
         )}`
       )
-      .then(res => dispatch({ type: "ITEMS_LOADED", payload: res.data }));
+      .then(res => dispatch({ type: "ITEMS_LOADED", payload: res.data }))
+      .catch(err => console.log(err));
   };
 
   const addKeyword = kw => {

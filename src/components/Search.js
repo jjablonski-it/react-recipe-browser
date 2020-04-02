@@ -29,7 +29,7 @@ export const Search = () => {
   };
 
   return (
-    <Form onSubmit={submit} inline>
+    <Form onSubmit={submit} inline className="mb-2">
       <Input
         onChange={onChange}
         value={search}

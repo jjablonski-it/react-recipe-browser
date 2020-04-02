@@ -353,14 +353,13 @@ export const GlobalProvider = ({ children }) => {
 
   const getItems = q => {
     dispatch({ type: "ITEMS_LOADING" });
-    //return;
     axios
       .get(
         `https://api.edamam.com/search?app_key=${api_key}&app_id=${app_id}&to=${limit}&q=${q.join(
           " "
         )}`
       )
-      .then(res => console.log(res.data))
+      .then(res => dispatch({ type: "ITEMS_LOADED", payload: res.data }))
       .catch(err => console.log(err));
   };
 

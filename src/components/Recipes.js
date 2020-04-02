@@ -7,7 +7,7 @@ import { Recipe } from "./Recipe";
 export const Display = () => {
   const { items, itemsLoading } = useContext(GlobalContext);
   return (
-    <Container className="d-flex">
+    <Container className="d-flex page">
       <Row className="w-100 justify-content-center">
         {itemsLoading ? (
           <LoadingSpinner lg />

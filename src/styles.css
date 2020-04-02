@@ -23,25 +23,32 @@
 }
 
 /* Pages */
+.page {
+  box-sizing: border-box;
+  position: absolute;
+}
+
+.details {
+  z-index: 100 !important;
+}
+
 .details img {
-  max-width: 500px;
-  max-height: 500px;
 }
 
-.page-enter > .details {
+.page-enter {
   opacity: 0;
 }
 
-.page-enter-active > .details {
+.page-enter-active {
   opacity: 1;
-  transition: 800ms;
+  transition: 1000ms;
 }
 
-.page-exit > .details {
+.page-exit {
   opacity: 1;
 }
 
-.page-exit-active > .details {
+.page-exit-active {
   opacity: 0;
-  transition: 400ms;
+  transition: 1000ms;
 }

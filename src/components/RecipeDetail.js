@@ -12,7 +12,7 @@ const RecipeDetail = ({ match: { params } }) => {
   if (!recipe) return notFound;
 
   return (
-    <Card>
+    <Card className="details">
       <CardImg src={recipe.image} />
       <CardBody>{recipe.label}</CardBody>
     </Card>

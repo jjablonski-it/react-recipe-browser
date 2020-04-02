@@ -1,0 +1,47 @@
+:root {
+  --time: 500ms;
+}
+
+/* Items */
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: 500ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: 500ms;
+}
+
+/* Pages */
+.details img {
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.page-enter > .details {
+  opacity: 0;
+}
+
+.page-enter-active > .details {
+  opacity: 1;
+  transition: 800ms;
+}
+
+.page-exit > .details {
+  opacity: 1;
+}
+
+.page-exit-active > .details {
+  opacity: 0;
+  transition: 400ms;
+}

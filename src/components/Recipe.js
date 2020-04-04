@@ -9,25 +9,17 @@ import "../styles.css";
 // Components
 import LoadingSpinner from "./LoadingSpinner";
 
-export const Recipe = ({ recipe, id }) => {
+export const Recipe = ({ recipe, id, setRecipeDom }) => {
   const [loading, setLoading] = useState(true);
   const { image, label } = recipe;
 
   return (
-    //   <CSSTransition
-    //     in={!loading}
-    //     timeout={500}
-    //     classNames="fade"
-    //     mountOnEnter={false}
-    //     unmountOnExit={false}
-    //   >
-    <Card className={loading ? "d-none" : "d-block"}>
-      {loading && <LoadingSpinner />}
-      <CardImg src={image} onLoad={() => setLoading(false)} />
-      <CardBody>
-        <Link to={`/${id}`}>{label}</Link>
-      </CardBody>
-    </Card>
-    // </CSSTransition>
+    <Link to={`/${id}`} onClick={(e) => setRecipeDom(e.target)}>
+      <Card className={loading ? "d-none" : "d-block"}>
+        {loading && <LoadingSpinner />}
+        <CardImg src={image} onLoad={() => setLoading(false)} />
+        <CardBody>{label}</CardBody>
+      </Card>
+    </Link>
   );
 };

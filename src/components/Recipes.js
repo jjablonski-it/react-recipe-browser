@@ -4,18 +4,22 @@ import { GlobalContext } from "../context/GlobalContext";
 import LoadingSpinner from "./LoadingSpinner";
 import { Recipe } from "./Recipe";
 
-export const Display = () => {
+const Recipes = ({ setRecipeDom }) => {
   const { items, itemsLoading } = useContext(GlobalContext);
   return (
-    <Container className="d-flex page">
+    <Container className="d-flex recipes page">
       <Row className="w-100 justify-content-center">
         {itemsLoading ? (
           <LoadingSpinner lg />
         ) : items.hits ? (
           items.hits.length > 0 ? (
-            items.hits.map(hit => (
+            items.hits.map((hit) => (
               <Col key={hit.recipe.uri} md={4} lg={3} xs={6} className="my-2">
-                <Recipe recipe={hit.recipe} id={items.hits.indexOf(hit)} />
+                <Recipe
+                  recipe={hit.recipe}
+                  id={items.hits.indexOf(hit)}
+                  setRecipeDom={setRecipeDom}
+                />
               </Col>
             ))
           ) : (
@@ -29,4 +33,4 @@ export const Display = () => {
   );
 };
 
-export default Display;
+export default Recipes;

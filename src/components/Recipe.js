@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { Card, CardBody, CardImg } from "reactstrap";
 import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
 
 import "../styles.css";
 

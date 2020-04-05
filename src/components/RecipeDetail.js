@@ -2,20 +2,19 @@ import React, { useContext, useEffect } from "react";
 import { Card, CardBody, CardImg } from "reactstrap";
 import { GlobalContext } from "../context/GlobalContext";
 import { Redirect, Link } from "react-router-dom";
-import { useTransition, animated, useSpring } from "react-spring";
+import { animated } from "react-spring";
 
 const notFound = <h6>Not found</h6>;
 
-const RecipeDetail = ({ match: { params }, transitionProps, key }) => {
+const RecipeDetail = ({ recipeId, transitionProps }) => {
   const { items } = useContext(GlobalContext);
-  const id = params.id;
-  let recipe = items && items.hits && items.hits[id].recipe;
-
-  useEffect(() => {
-    return () => {
-      console.log("Unmount");
-    };
-  }, []);
+  console.log(recipeId);
+  const recipe =
+    recipeId != NaN &&
+    recipeId >= 0 &&
+    items &&
+    items.hits &&
+    items.hits[recipeId].recipe;
 
   if (!recipe) return <Redirect to="/" />;
 
@@ -30,11 +29,11 @@ const RecipeDetail = ({ match: { params }, transitionProps, key }) => {
       }}
     >
       <Link to="/">
-        <div
+        <animated.div
           style={{
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(0,0,0,0.7)",
+            backgroundColor: transitionProps.backgroundColor,
             zIndex: 1,
           }}
         />

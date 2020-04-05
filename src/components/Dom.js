@@ -20,7 +20,7 @@ export const positionDom = (elem) => {
   const offset = window.scrollY;
 
   // Absolute position
-  let { width, height, top, left } = elem.getBoundingClientRect();
+  const { width, height, top, left } = elem.getBoundingClientRect();
 
-  return { width, height, top: top + offset, left };
+  return { width, height, top, left };
 };

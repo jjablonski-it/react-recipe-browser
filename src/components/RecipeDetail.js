@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Card, CardBody, CardImg } from "reactstrap";
 import { GlobalContext } from "../context/GlobalContext";
 import { Redirect, Link } from "react-router-dom";
@@ -6,9 +6,8 @@ import { animated } from "react-spring";
 
 const notFound = <h6>Not found</h6>;
 
-const RecipeDetail = ({ recipeId, transitionProps }) => {
+const RecipeDetail = ({ recipeId, transitionProps, recipeDom }) => {
   const { items } = useContext(GlobalContext);
-  console.log(recipeId);
   const recipe =
     recipeId != NaN &&
     recipeId >= 0 &&

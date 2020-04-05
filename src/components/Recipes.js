@@ -4,7 +4,7 @@ import { GlobalContext } from "../context/GlobalContext";
 import LoadingSpinner from "./LoadingSpinner";
 import { Recipe } from "./Recipe";
 
-const Recipes = ({ setRecipeDom }) => {
+const Recipes = ({ setRecipeDom, recipeId }) => {
   const { items, itemsLoading } = useContext(GlobalContext);
   return (
     <Container className="d-flex recipes page">
@@ -19,6 +19,7 @@ const Recipes = ({ setRecipeDom }) => {
                   recipe={hit.recipe}
                   id={items.hits.indexOf(hit)}
                   setRecipeDom={setRecipeDom}
+                  recipeId={recipeId}
                 />
               </Col>
             ))

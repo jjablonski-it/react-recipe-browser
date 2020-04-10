@@ -1,12 +1,20 @@
 import React, { useContext } from "react";
-import { Card, CardBody, CardImg } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  CardImg,
+  CardTitle,
+  ListGroup,
+  ListGroupItem,
+  CardLink,
+} from "reactstrap";
 import { GlobalContext } from "../context/GlobalContext";
 import { Redirect, Link } from "react-router-dom";
 import { animated } from "react-spring";
 
 const notFound = <h6>Not found</h6>;
 
-const RecipeDetail = ({ recipeId, transitionProps, recipeDom }) => {
+const RecipeDetail = ({ recipeId, transitionProps }) => {
   const { items } = useContext(GlobalContext);
   const recipe =
     recipeId != NaN &&
@@ -14,6 +22,8 @@ const RecipeDetail = ({ recipeId, transitionProps, recipeDom }) => {
     items &&
     items.hits &&
     items.hits[recipeId].recipe;
+
+  const { image, label, ingredientLines, source, time, calories, url } = recipe;
 
   if (!recipe) return <Redirect to="/" />;
 
@@ -38,9 +48,26 @@ const RecipeDetail = ({ recipeId, transitionProps, recipeDom }) => {
         />
       </Link>
       <animated.div style={transitionProps}>
-        <Card className="details">
-          <CardImg src={recipe.image} />
-          <CardBody>{recipe.label}</CardBody>
+        <Card
+          className="details"
+          style={{ maxHeight: "90vh", overflowY: "scroll" }}
+        >
+          <CardImg src={image} />
+          <CardBody>
+            <CardTitle>{label}</CardTitle>
+            <hr />
+            Ingredients:
+            <ListGroup>
+              {ingredientLines.map((line, i) => (
+                <ListGroupItem key={i}>{line}</ListGroupItem>
+              ))}
+            </ListGroup>
+            <hr />
+            Source:{" "}
+            <CardLink href={url} target="_blank">
+              {source}
+            </CardLink>
+          </CardBody>
         </Card>
       </animated.div>
     </div>

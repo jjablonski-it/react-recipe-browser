@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Card, CardBody, CardImg } from "reactstrap";
+import { Card, CardBody, CardImg, CardTitle } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
 
@@ -12,6 +12,7 @@ import LoadingSpinner from "./LoadingSpinner";
 export const Recipe = ({ recipe, id, setRecipeDom, recipeId }) => {
   const [loading, setLoading] = useState(true);
   const { image, label } = recipe;
+  const _yield = recipe.yield;
 
   const fade = useSpring({
     o: recipeId === id ? 0 : 1,
@@ -30,7 +31,12 @@ export const Recipe = ({ recipe, id, setRecipeDom, recipeId }) => {
         <Card className={loading ? "d-none" : "d-block"}>
           {loading && <LoadingSpinner />}
           <CardImg src={image} onLoad={() => setLoading(false)} />
-          <CardBody>{label}</CardBody>
+          <CardBody>
+            <CardTitle>
+              {label}
+              <span className="float-right">{_yield}</span>
+            </CardTitle>
+          </CardBody>
         </Card>
       </animated.div>
     </Link>

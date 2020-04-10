@@ -40,15 +40,23 @@ const App = ({ location: { pathname } }) => {
       ...pos,
     },
     enter: {
+      opacity: 1,
       position: "fixed",
-      width: window.innerWidth * 0.3,
-      height: window.innerHeight * 0.3,
+      width:
+        window.innerWidth > 800
+          ? window.innerWidth * 0.4
+          : window.innerWidth * 0.9,
+      height:
+        window.innerHeight > 800
+          ? window.innerHeight * 0.5
+          : window.innerHeight * 0.9,
       left: window.innerWidth / 2,
       top: 25,
       transform: "translate(-50%, 0)",
       backgroundColor: "rgba(0,0,0,0.8)",
     },
     leave: {
+      opacity: 0,
       position: "absolute",
       backgroundColor: "rgba(0,0,0,0)",
       transform: "translate(0%,0%)",

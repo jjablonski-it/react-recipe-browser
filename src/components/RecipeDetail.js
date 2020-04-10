@@ -11,6 +11,7 @@ import {
 import { GlobalContext } from "../context/GlobalContext";
 import { Redirect, Link } from "react-router-dom";
 import { animated } from "react-spring";
+import RecipeIcons from "./RecipeIcons";
 
 const notFound = <h6>Not found</h6>;
 
@@ -30,11 +31,12 @@ const RecipeDetail = ({ recipeId, transitionProps }) => {
   return (
     <div
       style={{
-        height: "100vh",
-        width: "100vw",
+        height: "150vh",
+        width: "150vw",
         position: "fixed",
         backgroundColor: "transparent",
         zIndex: 1,
+        overflow: "hidden",
       }}
     >
       <Link to="/">
@@ -50,23 +52,24 @@ const RecipeDetail = ({ recipeId, transitionProps }) => {
       <animated.div style={transitionProps}>
         <Card
           className="details"
-          style={{ maxHeight: "90vh", overflowY: "scroll" }}
+          style={{ maxHeight: "85vh", overflowY: "scroll" }}
         >
           <CardImg src={image} />
           <CardBody>
-            <CardTitle>{label}</CardTitle>
-            <hr />
-            Ingredients:
+            <CardTitle className="text-center">{label}</CardTitle>
+            <RecipeIcons recipe={recipe} />
+            <h5>Ingredients:</h5>
             <ListGroup>
               {ingredientLines.map((line, i) => (
                 <ListGroupItem key={i}>{line}</ListGroupItem>
               ))}
             </ListGroup>
-            <hr />
-            Source:{" "}
-            <CardLink href={url} target="_blank">
-              {source}
-            </CardLink>
+            <h5 className="text-center my-3">
+              Source:{" "}
+              <CardLink href={url} target="_blank">
+                {source}
+              </CardLink>
+            </h5>
           </CardBody>
         </Card>
       </animated.div>

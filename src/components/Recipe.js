@@ -8,10 +8,11 @@ import "../styles.css";
 
 // Components
 import LoadingSpinner from "./LoadingSpinner";
+import RecipeIcons from "./RecipeIcons";
 
 export const Recipe = ({ recipe, id, setRecipeDom, recipeId }) => {
   const [loading, setLoading] = useState(true);
-  const { image, label } = recipe;
+  const { image, label, time } = recipe;
   const _yield = recipe.yield;
 
   const fade = useSpring({
@@ -22,23 +23,21 @@ export const Recipe = ({ recipe, id, setRecipeDom, recipeId }) => {
   });
 
   return (
-    <Link to={`/${id}`} onClick={(e) => setRecipeDom(e.target)}>
-      <animated.div
-        style={{
-          opacity: fade.o.interpolate([0, 0.25, 0.5, 0.75, 1], [0, 0, 0, 0, 1]),
-        }}
-      >
-        <Card className={loading ? "d-none" : "d-block"}>
+    <animated.div
+      style={{
+        opacity: fade.o.interpolate([0, 0.75, 1], [0, 0, 1]),
+      }}
+    >
+      <Card className={loading ? "d-none" : "d-block"}>
+        <Link to={`/${id}`} onClick={(e) => setRecipeDom(e.target)}>
           {loading && <LoadingSpinner />}
           <CardImg src={image} onLoad={() => setLoading(false)} />
           <CardBody>
-            <CardTitle>
-              {label}
-              <span className="float-right">{_yield}</span>
-            </CardTitle>
+            <CardTitle className="text-center">{label}</CardTitle>
+            <RecipeIcons recipe={recipe} />
           </CardBody>
-        </Card>
-      </animated.div>
-    </Link>
+        </Link>
+      </Card>
+    </animated.div>
   );
 };

@@ -7,13 +7,13 @@ export const Search = () => {
   const { getItems, addKeyword, keywords } = useContext(GlobalContext);
   const [search, setSearch] = useState([]);
 
-  const fromInputToKeywords = kw => {
+  const fromInputToKeywords = (kw) => {
     const keyword = kw.slice(-1) === " " ? kw.slice(0, -1) : kw;
     addKeyword(keyword);
     setSearch("");
   };
 
-  const onChange = e => {
+  const onChange = (e) => {
     const value = e.target.value;
     if (value.slice(-1) === " ") {
       fromInputToKeywords(value);
@@ -22,19 +22,19 @@ export const Search = () => {
     }
   };
 
-  const submit = e => {
+  const submit = (e) => {
     e.preventDefault();
     fromInputToKeywords(search);
     getItems(keywords);
   };
 
   return (
-    <Form onSubmit={submit} inline className="mb-2">
+    <Form onSubmit={submit} className="d-flex">
       <Input
         onChange={onChange}
         value={search}
         name="search"
-        className="flex-grow-1 mr-2"
+        className="mr-2 d-inline"
       />
       <Button color="dark">Search</Button>
     </Form>

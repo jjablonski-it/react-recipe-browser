@@ -48,8 +48,8 @@ const App = ({ location: { pathname } }) => {
           : window.innerWidth * 0.9,
       height:
         window.innerHeight > 800
-          ? window.innerHeight * 0.5
-          : window.innerHeight * 0.9,
+          ? window.innerHeight * 0.4
+          : window.innerHeight * 0.8,
       left: window.innerWidth / 2,
       top: 25,
       transform: "translate(-50%, 0)",
@@ -71,15 +71,14 @@ const App = ({ location: { pathname } }) => {
     <GlobalProvider>
       {transition.map(
         ({ item, key, props }) =>
-          console.log(item) ||
-          ((item || item == 0) && (
+          (item || item == 0) && (
             <RecipeDetail
               key={key}
               transitionProps={props}
               recipeId={item}
               recipeDom={recipeParentDom}
             />
-          ))
+          )
       )}
       <Container>
         <h1 className="text-center">Recipe finder</h1>

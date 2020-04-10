@@ -21,22 +21,28 @@ export const Recipe = ({ recipe, id, setRecipeDom, recipeId }) => {
     },
   });
 
+  const fadeIn = useSpring({
+    opacity: loading ? 0 : 1,
+  });
+
   return (
-    <animated.div
-      style={{
-        opacity: fade.o.interpolate([0, 0.75, 1], [0, 0, 1]),
-      }}
-    >
-      <Card className={loading ? "d-none" : "d-block"}>
-        <Link to={`/${id}`} onClick={(e) => setRecipeDom(e.target)}>
-          {loading && <LoadingSpinner />}
-          <CardImg src={image} onLoad={() => setLoading(false)} />
-          <CardBody>
-            <CardTitle className="text-center">{label}</CardTitle>
-            <RecipeIcons recipe={recipe} />
-          </CardBody>
-        </Link>
-      </Card>
+    <animated.div style={fadeIn}>
+      <animated.div
+        style={{
+          opacity: fade.o.interpolate([0, 0.75, 1], [0, 0, 1]),
+        }}
+      >
+        <Card className={loading ? "d-none" : "d-block"}>
+          <Link to={`/${id}`} onClick={(e) => setRecipeDom(e.target)}>
+            {loading && <LoadingSpinner />}
+            <CardImg src={image} onLoad={() => setLoading(false)} />
+            <CardBody>
+              <CardTitle className="text-center">{label}</CardTitle>
+              <RecipeIcons recipe={recipe} />
+            </CardBody>
+          </Link>
+        </Card>
+      </animated.div>
     </animated.div>
   );
 };

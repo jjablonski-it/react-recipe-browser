@@ -12,8 +12,7 @@ import RecipeIcons from "./RecipeIcons";
 
 export const Recipe = ({ recipe, id, setRecipeDom, recipeId }) => {
   const [loading, setLoading] = useState(true);
-  const { image, label, time } = recipe;
-  const _yield = recipe.yield;
+  const { image, label } = recipe;
 
   const fade = useSpring({
     o: recipeId === id ? 0 : 1,

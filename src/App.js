@@ -71,7 +71,7 @@ const App = ({ location: { pathname } }) => {
     <GlobalProvider>
       {transition.map(
         ({ item, key, props }) =>
-          (item || item == 0) && (
+          (item || item === 0) && (
             <RecipeDetail
               key={key}
               transitionProps={props}

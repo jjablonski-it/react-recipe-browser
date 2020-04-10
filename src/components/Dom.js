@@ -16,9 +16,6 @@ export const parentDom = (currentElem, closestClass) => {
 export const positionDom = (elem) => {
   if (Object.keys(elem).length <= 0) return null;
 
-  // Scroll window offset
-  const offset = window.scrollY;
-
   // Absolute position
   const { width, height, top, left } = elem.getBoundingClientRect();
 

@@ -13,18 +13,16 @@ import { Redirect, Link } from "react-router-dom";
 import { animated } from "react-spring";
 import RecipeIcons from "./RecipeIcons";
 
-const notFound = <h6>Not found</h6>;
-
 const RecipeDetail = ({ recipeId, transitionProps }) => {
   const { items } = useContext(GlobalContext);
   const recipe =
-    recipeId != NaN &&
+    !isNaN(recipeId) &&
     recipeId >= 0 &&
     items &&
     items.hits &&
     items.hits[recipeId].recipe;
 
-  const { image, label, ingredientLines, source, time, calories, url } = recipe;
+  const { image, label, ingredientLines, source, url } = recipe;
 
   if (!recipe) return <Redirect to="/" />;
 

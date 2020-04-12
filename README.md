@@ -2,7 +2,7 @@
 
 Simple app for browsing recipes using [Edamam API](https://developer.edamam.com/edamam-recipe-api)
 
-![App](https://media.giphy.com/media/fq7qXQikKce9VQeV9Q/giphy.gif)
+![App](https://media.giphy.com/media/S9bqXCflA4JJ8X4K1U/giphy.gif)
 
 # Demo
 

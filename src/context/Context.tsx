@@ -1,7 +1,7 @@
 import { cleanup } from "@testing-library/react";
+import axios from "axios";
 import React, { createContext, useEffect, useReducer } from "react";
 import Reducer from "./Reducer";
-
 interface Recipe {
   [x: string]: any;
 }
@@ -26,8 +26,9 @@ export const Context = createContext<State>(initialState);
 
 export const Provider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
-  const getItems = () => {
+  const getItems = async () => {
     dispatch({ type: "ITEMS_LOADING" });
+    await axios.get("", { params: {} });
   };
   return <Context.Provider value={{ ...state }}>{children}</Context.Provider>;
 };

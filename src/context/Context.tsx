@@ -11,7 +11,10 @@ export interface State {
   keywords: string[];
 }
 
-export type Action = { type: "TEST" };
+export type Action =
+  | { type: "TEST" }
+  | { type: "ITEMS_LOADING" }
+  | { type: "ITEMS_LOADED" };
 
 const initialState: State = {
   items: [],
@@ -23,10 +26,8 @@ export const Context = createContext<State>(initialState);
 
 export const Provider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
-
-  useEffect(() => {
-    dispatch({ type: "TEST" });
-  }, []);
-
+  const getItems = () => {
+    dispatch({ type: "ITEMS_LOADING" });
+  };
   return <Context.Provider value={{ ...state }}>{children}</Context.Provider>;
 };

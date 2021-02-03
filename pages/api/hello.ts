@@ -2,6 +2,9 @@
 
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default (_req: NextApiRequest, res: NextApiResponse) => {
-  res.status(200).json({ name: "John Doe" });
+export default async (_req: NextApiRequest, res: NextApiResponse) => {
+  const quoteRes = await fetch("https://api.kanye.rest");
+  const resJson = await quoteRes.json();
+
+  res.status(200).json(resJson);
 };

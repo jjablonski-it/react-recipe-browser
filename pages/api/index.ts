@@ -1,9 +1,12 @@
+import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (_req: NextApiRequest, res: NextApiResponse) => {
-  const {} = process.env;
-  // const quoteRes = await fetch();
-  // const resJson = await quoteRes.json();
+const { APP_KEY, APP_ID, API_URL } = process.env;
 
-  // res.status(200).json(resJson);
+export default async (_req: NextApiRequest, res: NextApiResponse) => {
+  const recipeData = await axios.get(API_URL, {
+    params: { app_key: APP_KEY, app_id: APP_ID, q: "chicken" },
+  });
+
+  res.status(200).json(recipeData.data);
 };

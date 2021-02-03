@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import { State } from "./types";
 import { reducer } from "./Reducer";
+import axios from "axios";
 
 const initialState: State = {
   items: [],
@@ -18,8 +19,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
   }, []);
 
   const getItems = async (keywords: string[]) => {
-    const result = await fetch("/api/getRecipes");
-    const data = await result.json();
+    const data = await axios.get("/api");
     console.log(data);
   };
 

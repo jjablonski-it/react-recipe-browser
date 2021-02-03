@@ -9,8 +9,11 @@ const SearchBar = (props: Props) => {
 
   return (
     <form
-      onSubmit={() => {
-        getItems();
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log("Submit");
+
+        getItems("test");
       }}
       style={{ width: "100%" }}
     >

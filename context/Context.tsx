@@ -2,7 +2,11 @@ import React, { createContext, useEffect, useReducer } from "react";
 import { State } from "./types";
 import { reducer } from "./Reducer";
 
-const initialState: State = {};
+const initialState: State = {
+  items: [],
+  keywords: [],
+  loading: false,
+};
 
 const Context = createContext(initialState);
 
@@ -13,7 +17,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "TEST" });
   }, []);
 
-  return <Context.Provider value={{}}>{children}</Context.Provider>;
+  return <Context.Provider value={state}>{children}</Context.Provider>;
 };
 
 export default ContextProvider;

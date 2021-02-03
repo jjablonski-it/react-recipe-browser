@@ -8,7 +8,7 @@ const initialState: State = {
   loading: false,
 };
 
-const Context = createContext(initialState);
+export const Context = createContext(initialState);
 
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -17,7 +17,17 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "TEST" });
   }, []);
 
-  return <Context.Provider value={state}>{children}</Context.Provider>;
+  const getItems = async (keywords: string[]) => {
+    const result = await fetch("/api/getRecipes");
+    const data = await result.json();
+    console.log(data);
+  };
+
+  return (
+    <Context.Provider value={{ ...state, getItems }}>
+      {children}
+    </Context.Provider>
+  );
 };
 
 export default ContextProvider;

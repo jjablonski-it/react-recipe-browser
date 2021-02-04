@@ -155,9 +155,6 @@ export interface State {
   getItems?: any;
 }
 
-export type ActionType = { type: string; payload?: any };
-
 export type Action =
-  | { type: "TEST" }
-  | { type: "ITEMS_LOADING" }
-  | { type: "ITEMS_LOADED" };
+  | { type: "ITEMS_LOADED"; payload: Recipe[] }
+  | { type: "ITEMS_LOADING"; payload: null };

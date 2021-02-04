@@ -14,10 +14,6 @@ export const Context = createContext(initialState);
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  useEffect(() => {
-    dispatch({ type: "TEST" });
-  }, []);
-
   const getItems = async (...keywords: string[]) => {
     const q = keywords.join(" ");
     const { data } = await axios.get<ApiResponse>("/api", {

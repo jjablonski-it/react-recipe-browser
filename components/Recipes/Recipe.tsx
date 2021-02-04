@@ -22,7 +22,7 @@ interface Props {
 
 export const useStyle = makeStyles<Theme, RecipeInterface>({
   root: {
-    minHeight: 200,
+    height: 300,
     background: ({ image }) => `url(${image})`,
   },
   menu: {

@@ -9,60 +9,47 @@ import {
   CardHeader,
   Avatar,
   IconButton,
+  Theme,
 } from "@material-ui/core";
 import React from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
 import { makeStyles } from "@material-ui/core";
-import { Favorite } from "@material-ui/icons";
+import { Favorite, FavoriteBorderOutlined } from "@material-ui/icons";
 
 interface Props {
   recipe: RecipeInterface;
 }
 
-export const useStyle = makeStyles({
+export const useStyle = makeStyles<Theme, RecipeInterface>({
   root: {
-    maxWidth: 300,
+    minHeight: 200,
+    background: ({ image }) => `url(${image})`,
   },
-  media: {
-    height: 150,
+  menu: {
+    position: "absolute",
+    bottom: 0,
+  },
+  clickable: {
+    height: "100%",
   },
 });
 
-const Recipe = ({ recipe: { image, label, source } }: Props) => {
-  const classes = useStyle();
+const Recipe = ({ recipe }: Props) => {
+  const { label, source } = recipe;
+  const classes = useStyle(recipe);
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea className={classes.clickable}>
         <CardHeader
           action={
             <IconButton aria-label="add to favorites">
-              <Favorite />
+              <FavoriteBorderOutlined />
             </IconButton>
           }
           title={label}
           subheader={source}
         />
-        <CardMedia
-          className={classes.media}
-          image={image}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          ></Typography>
-        </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
     </Card>
   );
 };

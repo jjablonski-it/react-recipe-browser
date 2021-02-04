@@ -13,7 +13,7 @@ const SearchBar = (props: Props) => {
         e.preventDefault();
         console.log("Submit");
 
-        getItems("test");
+        getItems("chocolate milk");
       }}
       style={{ width: "100%" }}
     >

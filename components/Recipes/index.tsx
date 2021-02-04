@@ -5,7 +5,13 @@ import RecipeComp from "./Recipe";
 const Recipes = () => {
   const { items } = useContext(Context);
 
-  return items?.map((recipe, i) => <RecipeComp key={i} recipe={recipe} />);
+  return (
+    <>
+      {items?.map((recipe, i) => (
+        <RecipeComp key={i} recipe={recipe} />
+      ))}
+    </>
+  );
 };
 
 export default Recipes;

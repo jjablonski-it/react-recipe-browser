@@ -111,7 +111,6 @@ interface Ingredient {
   }; //	Food
   foodCategory: string; //	Shopping aisle category
 }
-
 export interface Recipe {
   uri: string; //	Ontology identifier
   label: string; //	Recipe title
@@ -147,7 +146,6 @@ export interface Recipe {
     | "fish-free"
     | "shellfish-free";
 }
-
 export interface State {
   items: Recipe[];
   loading: boolean;
@@ -157,4 +155,4 @@ export interface State {
 
 export type Action =
   | { type: "ITEMS_LOADED"; payload: Recipe[] }
-  | { type: "ITEMS_LOADING"; payload: null };
+  | { type: "ITEMS_LOADING" };

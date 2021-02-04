@@ -15,13 +15,16 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const getItems = async (...keywords: string[]) => {
+    dispatch({ type: "ITEMS_LOADING" });
     const q = keywords.join(" ");
     const { data } = await axios.get<ApiResponse>("/api", {
       params: {
         q,
       } as ApiRequest,
     });
-    console.log(data);
+
+    data.hits = data.hits.map((hit) => (hit as any).recipe);
+    dispatch({ type: "ITEMS_LOADED", payload: data.hits });
   };
 
   return (

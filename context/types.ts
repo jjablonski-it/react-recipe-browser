@@ -1,9 +1,9 @@
 type Range = `${number}-${number}`;
-interface ApiRequest {
-  q: string; //	Query text. For example q=chicken. *This or the r parameter are required
-  r: string; //	Returns information about a specific recipe based on its ID ie. r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_9b5945e03f05acbf9d69625138385408 *This or the q parameter are required
-  app_id: string; //	Your 3scale application ID
-  app_key: string; //	Your 3scale application key (please note app_id/app_key are an ordered pair)
+export interface ApiRequest {
+  q?: string; //	Query text. For example q=chicken. *This or the r parameter are required
+  r?: string; //	Returns information about a specific recipe based on its ID ie. r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_9b5945e03f05acbf9d69625138385408 *This or the q parameter are required
+  // app_id: string; //	Your 3scale application ID
+  // app_key: string; //	Your 3scale application key (please note app_id/app_key are an ordered pair)
   from?: number; //	First result index (default 0). Example: from=20. The maximum value of the “from” parameter is limitted by the number of results a plan is entitled to.
   to?: number; //	Last result index (exclusive, default from + 10). Example: to=30
   ingr?: number; //	Maximum number of ingredients. Example: ingr=5
@@ -51,9 +51,9 @@ interface ApiRequest {
     | "Asian"
     | "British"
     | "Caribbean"
-    | "	Central Europe"
+    | "Central Europe"
     | "Chinese"
-    | "	Eastern Europe"
+    | "Eastern Europe"
     | "French"
     | "Indian"
     | "Italian"
@@ -61,7 +61,7 @@ interface ApiRequest {
     | "Kosher"
     | "Mediterranean"
     | "Mexican"
-    | "	Middle Eastern"
+    | "Middle Eastern"
     | "Nordic"
     | "South American"
     | "South East Asian"; //	The type of cuisine of the recipe. You can simultatniousely use saveral cuisines this way “cuisineType=chinese&cuisineType=indian”
@@ -89,7 +89,7 @@ interface ApiRequest {
   excluded?: string; //	Excluding recipes with certain ingredients. The format is excluded=FOOD where FOOD is replaced by the name of the specific food you don’t want to be present in the recipe results. More than one food can be excluded at the same time. Example: excluded=vinegar&excluded=pretzel will exclude any recipes which contain vinegar or pretzels in their ingredient list
   callback?: string; //	Callback parameter for JSONP. This will “envelop” the result in a JavaScript function call to the specified callback. Optional
 }
-interface ApiResponse {
+export interface ApiResponse {
   count: number;
   from: number;
   to: number;
@@ -112,7 +112,7 @@ interface Ingredient {
   foodCategory: string; //	Shopping aisle category
 }
 
-interface Recipe {
+export interface Recipe {
   uri: string; //	Ontology identifier
   label: string; //	Recipe title
   image: string; //	Image URL

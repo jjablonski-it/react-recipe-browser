@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useReducer } from "react";
-import { State } from "./types";
+import { ApiRequest, ApiResponse, State } from "./types";
 import { reducer } from "./Reducer";
 import axios from "axios";
 
@@ -20,7 +20,11 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
 
   const getItems = async (...keywords: string[]) => {
     const q = keywords.join(" ");
-    const { data } = await axios.get("/api?q=" + q);
+    const { data } = await axios.get<ApiResponse>("/api", {
+      params: {
+        q,
+      } as ApiRequest,
+    });
     console.log(data);
   };
 

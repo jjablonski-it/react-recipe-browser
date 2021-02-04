@@ -20,7 +20,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
 
   const getItems = async (...keywords: string[]) => {
     const q = keywords.join(" ");
-    const data = await axios.get("/api?q=" + q);
+    const { data } = await axios.get("/api?q=" + q);
     console.log(data);
   };
 

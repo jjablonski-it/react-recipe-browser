@@ -1,3 +1,11 @@
+interface ApiResponse {
+  count: number;
+  from: number;
+  to: number;
+  hits: Recipe[];
+  more: boolean;
+  q: string;
+}
 interface Ingredient {
   foodId: string; //	Food identifier
   quantity: number; //	Quantity of specified measure

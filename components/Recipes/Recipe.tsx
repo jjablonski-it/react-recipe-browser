@@ -19,6 +19,7 @@ import IconValue from "./IconValue";
 
 interface Props {
   recipe: RecipeInterface;
+  setSelected: () => void;
 }
 
 export const useStyle = makeStyles<Theme, RecipeInterface>((theme) => ({
@@ -60,12 +61,12 @@ export const useStyle = makeStyles<Theme, RecipeInterface>((theme) => ({
   },
 }));
 
-const Recipe = ({ recipe }: Props) => {
+const Recipe = ({ recipe, setSelected }: Props) => {
   const { label, source, yield: _yield, totalTime, calories } = recipe;
   const classes = useStyle(recipe);
   return (
     <Card className={classes.root} elevation={3}>
-      <CardActionArea className={classes.clickable}></CardActionArea>
+      <CardActionArea className={classes.clickable} onClick={setSelected} />
       <CardHeader
         action={
           <IconButton

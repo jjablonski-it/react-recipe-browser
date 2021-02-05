@@ -1,7 +1,9 @@
-import { Grid } from "@material-ui/core";
+import { Backdrop, Grid } from "@material-ui/core";
 import { motion, Variants } from "framer-motion";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
+import { Recipe } from "../../context/types";
+import DetailedRecipe from "./DetailedRecipe";
 import RecipeComp from "./Recipe";
 
 const MotionGrid = motion.custom(Grid);
@@ -17,6 +19,7 @@ const item: Variants = {
 
 const Recipes = () => {
   const { items } = useContext(Context);
+  const [selected, setSelected] = useState<Recipe | null>(null);
 
   return (
     <Grid
@@ -42,9 +45,19 @@ const Recipes = () => {
             transition: { type: "spring", stiffness: 500 },
           }}
         >
-          <RecipeComp recipe={recipe} />
+          <RecipeComp recipe={recipe} setSelected={() => setSelected(recipe)} />
         </MotionGrid>
       ))}
+
+      <Backdrop
+        open={!!selected}
+        onClick={() => {
+          setSelected(null);
+        }}
+        style={{ zIndex: 100 }}
+      >
+        {!!selected && <DetailedRecipe recipe={selected!} />}
+      </Backdrop>
     </Grid>
   );
 };

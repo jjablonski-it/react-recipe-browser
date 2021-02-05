@@ -42,7 +42,7 @@ const Recipes = () => {
             transition: { type: "spring", stiffness: 500 },
           }}
         >
-          <RecipeComp recipe={recipe} />
+          <RecipeComp recipe={recipe} id={i} />
         </MotionGrid>
       ))}
     </Grid>

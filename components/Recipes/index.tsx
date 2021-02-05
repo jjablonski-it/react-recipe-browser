@@ -1,4 +1,4 @@
-import { Box, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { motion, Variants } from "framer-motion";
 import React, { useContext } from "react";
 import { Context } from "../../context/Context";
@@ -37,7 +37,10 @@ const Recipes = () => {
           variants={item}
           initial="hidden"
           animate="show"
-          whileHover={{ scale: 0.95 }}
+          whileHover={{
+            scale: 0.95,
+            transition: { type: "spring", stiffness: 500 },
+          }}
         >
           <RecipeComp recipe={recipe} />
         </MotionGrid>

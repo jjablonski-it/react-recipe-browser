@@ -145,6 +145,7 @@ export interface Recipe {
     | "soy-free"
     | "fish-free"
     | "shellfish-free";
+  totalTime: number;
 }
 export interface State {
   items: Recipe[];

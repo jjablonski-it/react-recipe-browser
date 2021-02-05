@@ -22,7 +22,7 @@ const Recipes = () => {
     <Grid
       container
       justify="space-around"
-      spacing={2}
+      spacing={1}
       style={{ marginTop: "10px" }}
     >
       {items?.map((recipe, i) => (

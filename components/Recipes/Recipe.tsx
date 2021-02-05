@@ -41,9 +41,6 @@ export const useStyle = makeStyles<Theme, RecipeInterface>((theme) => ({
     flexDirection: "column",
     justifyContent: "space-around",
   },
-  header: {
-    // alignSelf: "flex-start",
-  },
   secondary: {
     color: theme.palette.grey[200],
   },

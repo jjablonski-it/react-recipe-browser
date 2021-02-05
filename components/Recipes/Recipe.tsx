@@ -16,11 +16,9 @@ import {
 import React from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
 import IconValue from "./IconValue";
-import Link from "next/link";
 
 interface Props {
   recipe: RecipeInterface;
-  id: number;
 }
 
 export const useStyle = makeStyles<Theme, RecipeInterface>((theme) => ({
@@ -62,15 +60,12 @@ export const useStyle = makeStyles<Theme, RecipeInterface>((theme) => ({
   },
 }));
 
-const Recipe = ({ recipe, id }: Props) => {
+const Recipe = ({ recipe }: Props) => {
   const { label, source, yield: _yield, totalTime, calories } = recipe;
   const classes = useStyle(recipe);
   return (
     <Card className={classes.root} elevation={3}>
-      <Link href="/[id]" as={`/${id}`}>
-        <CardActionArea className={classes.clickable}></CardActionArea>
-      </Link>
-
+      <CardActionArea className={classes.clickable}></CardActionArea>
       <CardHeader
         action={
           <IconButton

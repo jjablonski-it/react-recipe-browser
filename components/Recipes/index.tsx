@@ -1,5 +1,5 @@
 import { Backdrop, Grid } from "@material-ui/core";
-import { motion, Variants } from "framer-motion";
+import { AnimateSharedLayout, motion, Variants } from "framer-motion";
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import { Recipe } from "../../context/types";
@@ -28,36 +28,41 @@ const Recipes = () => {
       spacing={1}
       style={{ marginTop: "10px" }}
     >
-      {items?.map((recipe, i) => (
-        <MotionGrid
-          key={i}
-          item
-          xs={12}
-          sm={6}
-          md={4}
-          lg={3}
-          custom={i}
-          variants={item}
-          initial="hidden"
-          animate="show"
-          whileHover={{
-            scale: 0.95,
-            transition: { type: "spring", stiffness: 500 },
-          }}
-        >
-          <RecipeComp recipe={recipe} setSelected={() => setSelected(recipe)} />
-        </MotionGrid>
-      ))}
+      <AnimateSharedLayout>
+        {items?.map((recipe, i) => (
+          <MotionGrid
+            key={i}
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            custom={i}
+            variants={item}
+            initial="hidden"
+            animate="show"
+            whileHover={{
+              scale: 0.95,
+              transition: { type: "spring", stiffness: 500 },
+            }}
+            layoutId={recipe.uri}
+          >
+            <RecipeComp
+              recipe={recipe}
+              setSelected={() => setSelected(recipe)}
+            />
+          </MotionGrid>
+        ))}
 
-      <Backdrop
-        open={!!selected}
-        onClick={() => {
-          setSelected(null);
-        }}
-        style={{ zIndex: 100 }}
-      >
-        {!!selected && <DetailedRecipe recipe={selected!} />}
-      </Backdrop>
+        <Backdrop
+          open={!!selected}
+          onClick={() => {
+            setSelected(null);
+          }}
+          style={{ zIndex: 100 }}
+        />
+        <DetailedRecipe recipe={selected!} />
+      </AnimateSharedLayout>
     </Grid>
   );
 };

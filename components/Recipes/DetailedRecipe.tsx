@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
 import Recipe from "./Recipe";
@@ -7,17 +8,20 @@ interface Props {
 }
 
 const DetailedRecipe = ({ recipe }: Props) => {
+  if (!recipe) return <></>;
   return (
-    <div
+    <motion.div
       style={{
         position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 101,
       }}
+      layoutId={recipe.uri}
     >
       <Recipe recipe={recipe} setSelected={() => {}} />
-    </div>
+    </motion.div>
   );
 };
 

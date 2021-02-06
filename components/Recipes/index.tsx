@@ -1,5 +1,10 @@
 import { Backdrop, Grid } from "@material-ui/core";
-import { AnimateSharedLayout, motion, Variants } from "framer-motion";
+import {
+  AnimatePresence,
+  AnimateSharedLayout,
+  motion,
+  Variants,
+} from "framer-motion";
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import { Recipe } from "../../context/types";
@@ -20,7 +25,7 @@ const item: Variants = {
 const Recipes = () => {
   const { items } = useContext(Context);
   const [selected, setSelected] = useState<Recipe | null>(null);
-
+  const [show, setShow] = useState(false);
   return (
     <Grid
       container
@@ -49,19 +54,24 @@ const Recipes = () => {
           >
             <RecipeComp
               recipe={recipe}
-              setSelected={() => setSelected(recipe)}
+              setSelected={() => {
+                setSelected(recipe);
+                setShow(true);
+              }}
             />
           </MotionGrid>
         ))}
 
         <Backdrop
-          open={!!selected}
+          open={show}
           onClick={() => {
-            setSelected(null);
+            setShow(false);
           }}
           style={{ zIndex: 100 }}
         />
-        <DetailedRecipe recipe={selected!} />
+        <AnimatePresence>
+          {show && <DetailedRecipe recipe={selected!} />}
+        </AnimatePresence>
       </AnimateSharedLayout>
     </Grid>
   );

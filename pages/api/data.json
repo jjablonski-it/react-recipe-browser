@@ -6732,7 +6732,7 @@
     },
     {
       "recipe": {
-        "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_7535024ea938a8a1292fdcaa7a0ea19d",
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_7535024ea938a8a1292fdcaa7a0ea19d0",
         "label": "DIY Chocolate-Covered Pretzel with Chocolate Milk recipes",
         "image": "https://www.edamam.com/web-img/cf1/cf15e1814d1713dfb940d060f8121bb8",
         "source": "EatingWell",
@@ -7385,7 +7385,7 @@
     },
     {
       "recipe": {
-        "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_671c3d3939af5841cb73d97dc4ab0103",
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_671c3d3939af5841cb73d97dc4ab01030",
         "label": "Chocolate Milk Pancakes",
         "image": "https://www.edamam.com/web-img/934/934596fc8fd1aec2ecf3fe68a0e98a8a.jpg",
         "source": "Whipped",

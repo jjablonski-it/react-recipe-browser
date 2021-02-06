@@ -64,6 +64,7 @@ export const useStyle = makeStyles<Theme, RecipeInterface>((theme) => ({
 const Recipe = ({ recipe, setSelected }: Props) => {
   const { label, source, yield: _yield, totalTime, calories } = recipe;
   const classes = useStyle(recipe);
+
   return (
     <Card className={classes.root} elevation={3}>
       <CardActionArea className={classes.clickable} onClick={setSelected} />

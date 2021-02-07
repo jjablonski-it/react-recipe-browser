@@ -13,17 +13,24 @@ import {
   WatchLater,
   Whatshot,
 } from "@material-ui/icons";
+import { motion } from "framer-motion";
 import React from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
 import IconValue from "./IconValue";
 
+const MotionCard = motion.custom(Card);
 interface Props {
   recipe: RecipeInterface;
   setSelected: () => void;
+  selected: boolean;
 }
 
-export const useStyle = makeStyles<Theme, RecipeInterface>((theme) => ({
+export const useStyle = makeStyles<
+  Theme,
+  RecipeInterface & { selected: boolean }
+>((theme) => ({
   root: {
+    zIndex: ({ selected }) => (selected ? 10 : 1),
     height: 400,
     borderRadius: "5%",
     color: theme.palette.grey[50],
@@ -61,12 +68,12 @@ export const useStyle = makeStyles<Theme, RecipeInterface>((theme) => ({
   },
 }));
 
-const Recipe = ({ recipe, setSelected }: Props) => {
-  const { label, source, yield: _yield, totalTime, calories } = recipe;
-  const classes = useStyle(recipe);
+const Recipe = ({ recipe, setSelected, selected }: Props) => {
+  const { label, source, yield: _yield, totalTime, calories, uri } = recipe;
+  const classes = useStyle({ ...recipe, selected });
 
   return (
-    <Card className={classes.root} elevation={3}>
+    <MotionCard className={classes.root} elevation={3} layoutId={`card ${uri}`}>
       <CardActionArea className={classes.clickable} onClick={setSelected} />
       <CardHeader
         action={
@@ -86,7 +93,7 @@ const Recipe = ({ recipe, setSelected }: Props) => {
         {!!totalTime && <IconValue icon={<WatchLater />} value={totalTime} />}
         <IconValue icon={<Whatshot />} value={Math.floor(calories)} />
       </CardContent>
-    </Card>
+    </MotionCard>
   );
 };
 

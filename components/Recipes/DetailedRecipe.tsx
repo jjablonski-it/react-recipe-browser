@@ -19,9 +19,8 @@ const DetailedRecipe = ({ recipe }: Props) => {
         alignItems: "center",
         zIndex: 101,
       }}
-      layoutId={recipe.uri}
     >
-      <Recipe recipe={recipe} setSelected={() => {}} />
+      <Recipe recipe={recipe} setSelected={() => {}} selected={true} />
     </motion.div>
   );
 };

@@ -34,7 +34,7 @@ const Recipes = () => {
       spacing={1}
       style={{ marginTop: "10px" }}
     >
-      <AnimateSharedLayout>
+      <AnimateSharedLayout type="crossfade">
         {items?.map((recipe, i) => (
           <MotionGrid
             key={i}
@@ -51,7 +51,6 @@ const Recipes = () => {
               scale: 0.95,
               transition: { type: "spring", stiffness: 500 },
             }}
-            layoutId={recipe.uri}
           >
             <RecipeComp
               recipe={recipe}
@@ -59,6 +58,7 @@ const Recipes = () => {
                 setSelected(recipe);
                 setShow(true);
               }}
+              selected={selected?.uri === recipe.uri}
             />
           </MotionGrid>
         ))}

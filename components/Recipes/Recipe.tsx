@@ -30,7 +30,7 @@ export const useStyle = makeStyles<
   RecipeInterface & { selected: boolean }
 >((theme) => ({
   root: {
-    zIndex: ({ selected }) => (selected ? 10 : 1),
+    zIndex: ({ selected }) => (selected ? 1 : 0),
     height: 400,
     borderRadius: "5%",
     color: theme.palette.grey[50],

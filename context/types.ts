@@ -120,7 +120,7 @@ export interface Recipe {
   yield: number; //	Number of servings
   calories: number; //	Total energy, kcal
   totalWeight: number; //	Total weight, (g)
-  ingredients: Ingredient[]; //	Ingredients list
+  ingredientLines: Ingredient[]; //	Ingredients list
   totalNutrients: string; //	Total nutrients for the entire recipe. TotalNutrients/yield equals nutrients per serving
   totalDaily: string; // daily value for the entire recipe. Total/Daily/yield equals nutrients per serving
   dietLabels: // (labels are per serving)

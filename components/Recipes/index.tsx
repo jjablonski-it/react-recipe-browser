@@ -34,7 +34,7 @@ const Recipes = () => {
       spacing={1}
       style={{ marginTop: "10px" }}
     >
-      <AnimateSharedLayout type="crossfade">
+      <AnimateSharedLayout type="switch">
         {items?.map((recipe, i) => (
           <MotionGrid
             key={i}

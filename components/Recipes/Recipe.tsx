@@ -25,74 +25,93 @@ interface Props {
   selected: boolean;
 }
 
-export const useStyle = makeStyles<
-  Theme,
-  RecipeInterface & { selected: boolean }
->((theme) => ({
+export const useStyle = makeStyles<Theme, any>((theme) => ({
   root: {
     zIndex: ({ selected }) => (selected ? 1 : 0),
     height: 400,
-    borderRadius: "5%",
+    borderRadius: "3%",
     color: theme.palette.grey[50],
-    background: ({ image }) =>
-      // `radial-gradient(circle, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .3) 100%)`,
-      `linear-gradient(rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 85%, rgba(0,0,0,.6) 100%), url(${image})`,
-    backgroundSize: "cover!important",
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-  },
-  menu: {
-    position: "absolute",
-    bottom: 0,
+    width: "100%",
   },
   clickable: {
+    height: "100%",
+    width: "100%",
+  },
+  imageContainer: {
     height: "100%",
     width: "100%",
     position: "absolute",
     margin: 0,
     top: 0,
   },
+  image: {
+    // position: "absolute",
+    transform: "scale(1.4)",
+  },
+  overlay: {
+    top: 0,
+    left: 0,
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    zIndex: 1,
+    background: `linear-gradient(rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 87%, rgba(0,0,0,.6) 100%)`,
+  },
   header: {
-    // alignSelf: "flex-start",
+    width: 300,
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    position: "absolute",
+    top: 0,
+    zIndex: 2,
+    height: "100%",
   },
   secondary: {
     color: theme.palette.grey[200],
   },
   footer: {
     display: "flex",
-    width: "100%",
+    width: 300,
+    alignSelf: "center",
     justifyContent: "space-between",
     marginTop: "auto",
   },
 }));
 
 const Recipe = ({ recipe, setSelected, selected }: Props) => {
-  const { label, source, yield: _yield, totalTime, calories, uri } = recipe;
-  const classes = useStyle({ ...recipe, selected });
+  const {
+    label,
+    source,
+    yield: _yield,
+    totalTime,
+    calories,
+    uri,
+    image,
+  } = recipe;
+  const classes = useStyle({ selected });
 
   return (
     <MotionCard className={classes.root} elevation={3} layoutId={`card ${uri}`}>
-      <CardActionArea className={classes.clickable} onClick={setSelected} />
-      <CardHeader
-        action={
-          <IconButton
-            className={classes.secondary}
-            aria-label="add to favorites"
-          >
-            <FavoriteBorderOutlined />
-          </IconButton>
-        }
-        title={label}
-        subheader={<span className={classes.secondary}>{source}</span>}
-        className={classes.header}
-      />
-      <CardContent className={classes.footer}>
-        <IconValue icon={<Person />} value={_yield} />
-        {!!totalTime && <IconValue icon={<WatchLater />} value={totalTime} />}
-        <IconValue icon={<Whatshot />} value={Math.floor(calories)} />
-      </CardContent>
+      <CardActionArea className={classes.clickable} onClick={setSelected}>
+        <div className={classes.overlay} />
+        <img src={image} className={classes.image} />
+        <div className={classes.content}>
+          <CardHeader
+            title={label}
+            subheader={source}
+            className={classes.header}
+          />
+          <CardContent className={classes.footer}>
+            <IconValue icon={<Person />} value={_yield} />
+            {!!totalTime && (
+              <IconValue icon={<WatchLater />} value={totalTime} />
+            )}
+            <IconValue icon={<Whatshot />} value={Math.floor(calories)} />
+          </CardContent>
+        </div>
+      </CardActionArea>
     </MotionCard>
   );
 };

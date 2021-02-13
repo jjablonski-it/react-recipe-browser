@@ -1,7 +1,10 @@
+import { Grid } from "@material-ui/core";
 import { motion } from "framer-motion";
 import React from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
 import Recipe from "./Recipe";
+
+const MotionGrid = motion.custom(Grid);
 
 interface Props {
   recipe: RecipeInterface;
@@ -11,7 +14,7 @@ const DetailedRecipe = ({ recipe }: Props) => {
   if (!recipe) return <></>;
 
   return (
-    <motion.div
+    <MotionGrid
       style={{
         position: "fixed",
         display: "flex",
@@ -19,9 +22,11 @@ const DetailedRecipe = ({ recipe }: Props) => {
         alignItems: "center",
         zIndex: 101,
       }}
+      item
+      xs={12}
     >
       <Recipe recipe={recipe} setSelected={() => {}} selected={true} />
-    </motion.div>
+    </MotionGrid>
   );
 };
 

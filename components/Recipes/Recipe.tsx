@@ -3,12 +3,15 @@ import {
   CardActionArea,
   CardContent,
   CardHeader,
+  Fab,
   IconButton,
   makeStyles,
   Theme,
 } from "@material-ui/core";
 import {
+  Favorite,
   FavoriteBorderOutlined,
+  FavoriteOutlined,
   Person,
   WatchLater,
   Whatshot,
@@ -20,6 +23,7 @@ import IconValue from "./IconValue";
 
 const MotionCard = motion.custom(Card);
 const MotionCardHeader = motion.custom(CardHeader);
+const MotionIconButton = motion.custom(IconButton);
 interface Props {
   recipe: RecipeInterface;
   setSelected: () => void;
@@ -34,6 +38,7 @@ export const useStyle = makeStyles<Theme, any>((theme) => ({
     borderRadius: "3%",
     color: theme.palette.grey[50],
     width: "100%",
+    position: "relative",
   },
   clickable: {
     height: "100%",
@@ -47,10 +52,7 @@ export const useStyle = makeStyles<Theme, any>((theme) => ({
     top: 0,
   },
   image: {
-    // position: "absolute",
-    // transform: "scale(1.4)",
     width: 500,
-    // height: 500,
   },
   overlay: {
     top: 0,
@@ -59,19 +61,22 @@ export const useStyle = makeStyles<Theme, any>((theme) => ({
     height: "100%",
     width: "100%",
     zIndex: 1,
-    background: `linear-gradient(rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 87%, rgba(0,0,0,.6) 100%)`,
+    background: `linear-gradient(rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 87%, rgba(0,0,0,.6) 100%)`,
   },
   header: {
-    width: 300,
+    width: 260,
+    padding: "inherit",
   },
   content: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "space-around",
     position: "absolute",
     top: 0,
     zIndex: 2,
     height: "100%",
     width: "100%",
+    padding: 4,
   },
   secondary: {
     color: theme.palette.grey[200],
@@ -81,8 +86,14 @@ export const useStyle = makeStyles<Theme, any>((theme) => ({
     width: "100%",
     justifyContent: "space-between",
     marginTop: "auto",
-    paddingBottom: 0,
-    marginBottom: 0,
+    padding: "inherit",
+    paddingBottom: "4px!important",
+  },
+  fab: {
+    position: "absolute",
+    right: 1,
+    top: 5,
+    zIndex: 2,
   },
 }));
 
@@ -140,6 +151,9 @@ const Recipe = ({ recipe, setSelected, selected, style }: Props) => {
           </CardContent>
         </div>
       </CardActionArea>
+      <MotionIconButton className={classes.fab} layoutId={`icon ${uri}`}>
+        <FavoriteBorderOutlined className={classes.secondary} />
+      </MotionIconButton>
     </MotionCard>
   );
 };

@@ -19,6 +19,7 @@ import { Recipe as RecipeInterface } from "../../context/types";
 import IconValue from "./IconValue";
 
 const MotionCard = motion.custom(Card);
+const MotionCardHeader = motion.custom(CardHeader);
 interface Props {
   recipe: RecipeInterface;
   setSelected: () => void;
@@ -47,7 +48,9 @@ export const useStyle = makeStyles<Theme, any>((theme) => ({
   },
   image: {
     // position: "absolute",
-    transform: "scale(1.4)",
+    // transform: "scale(1.4)",
+    width: 500,
+    // height: 500,
   },
   overlay: {
     top: 0,
@@ -68,16 +71,18 @@ export const useStyle = makeStyles<Theme, any>((theme) => ({
     top: 0,
     zIndex: 2,
     height: "100%",
+    width: "100%",
   },
   secondary: {
     color: theme.palette.grey[200],
   },
   footer: {
     display: "flex",
-    width: 300,
-    alignSelf: "center",
+    width: "100%",
     justifyContent: "space-between",
     marginTop: "auto",
+    paddingBottom: 0,
+    marginBottom: 0,
   },
 }));
 
@@ -102,19 +107,36 @@ const Recipe = ({ recipe, setSelected, selected, style }: Props) => {
     >
       <CardActionArea className={classes.clickable} onClick={setSelected}>
         <div className={classes.overlay} />
-        <img src={image} className={classes.image} />
+        <motion.img
+          src={image}
+          className={classes.image}
+          layoutId={`image ${uri}`}
+        />
         <div className={classes.content}>
-          <CardHeader
+          <MotionCardHeader
             title={label}
             subheader={source}
             className={classes.header}
+            layoutId={`header ${uri}`}
           />
           <CardContent className={classes.footer}>
-            <IconValue icon={<Person />} value={_yield} />
+            <IconValue
+              icon={<Person />}
+              value={_yield}
+              layoutId={`person_icon ${uri}`}
+            />
             {!!totalTime && (
-              <IconValue icon={<WatchLater />} value={totalTime} />
+              <IconValue
+                icon={<WatchLater />}
+                value={totalTime}
+                layoutId={`time_icon ${uri}`}
+              />
             )}
-            <IconValue icon={<Whatshot />} value={Math.floor(calories)} />
+            <IconValue
+              icon={<Whatshot />}
+              value={Math.floor(calories)}
+              layoutId={`calories_icon ${uri}`}
+            />
           </CardContent>
         </div>
       </CardActionArea>

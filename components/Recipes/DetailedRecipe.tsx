@@ -25,7 +25,12 @@ const DetailedRecipe = ({ recipe }: Props) => {
       item
       xs={12}
     >
-      <Recipe recipe={recipe} setSelected={() => {}} selected={true} />
+      <Recipe
+        recipe={recipe}
+        setSelected={() => {}}
+        selected={true}
+        style={{ width: 500 }}
+      />
     </MotionGrid>
   );
 };

@@ -23,6 +23,7 @@ interface Props {
   recipe: RecipeInterface;
   setSelected: () => void;
   selected: boolean;
+  style?: React.CSSProperties;
 }
 
 export const useStyle = makeStyles<Theme, any>((theme) => ({
@@ -80,7 +81,7 @@ export const useStyle = makeStyles<Theme, any>((theme) => ({
   },
 }));
 
-const Recipe = ({ recipe, setSelected, selected }: Props) => {
+const Recipe = ({ recipe, setSelected, selected, style }: Props) => {
   const {
     label,
     source,
@@ -93,7 +94,12 @@ const Recipe = ({ recipe, setSelected, selected }: Props) => {
   const classes = useStyle({ selected });
 
   return (
-    <MotionCard className={classes.root} elevation={3} layoutId={`card ${uri}`}>
+    <MotionCard
+      className={classes.root}
+      elevation={3}
+      layoutId={`card ${uri}`}
+      style={style}
+    >
       <CardActionArea className={classes.clickable} onClick={setSelected}>
         <div className={classes.overlay} />
         <img src={image} className={classes.image} />

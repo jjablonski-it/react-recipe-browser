@@ -7,7 +7,7 @@ const MotionChip = motion.custom(Chip);
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
-  const { getItems, addKeyword, keywords } = useContext(Context);
+  const { getItems, addKeyword, removeKeyword, keywords } = useContext(Context);
 
   return (
     <form
@@ -45,6 +45,7 @@ const SearchBar = () => {
             color="primary"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            onClick={() => removeKeyword!(keyword)}
           />
         ))}
       </motion.div>

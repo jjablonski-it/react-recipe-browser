@@ -11,8 +11,6 @@ const SearchBar = (props: Props) => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log("Submit");
-
         getItems("chocolate milk");
       }}
       style={{ width: "100%" }}

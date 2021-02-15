@@ -155,9 +155,13 @@ export interface State {
   items: Recipe[];
   loading: boolean;
   keywords: string[];
-  getItems?: any;
+  getItems?: () => void;
+  addKeyword?: (keyword: string) => void;
+  removeKeyword?: (keyword: string) => void;
 }
 
 export type Action =
   | { type: "ITEMS_LOADED"; payload: Recipe[] }
-  | { type: "ITEMS_LOADING" };
+  | { type: "ITEMS_LOADING" }
+  | { type: "ADD_KEYWORD"; payload: string }
+  | { type: "REMOVE_KEYWORD"; payload: string };

@@ -14,9 +14,11 @@ export const Context = createContext(initialState);
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const getItems = async (...keywords: string[]) => {
+  const getItems = async () => {
     dispatch({ type: "ITEMS_LOADING" });
-    const q = keywords.join(" ");
+    const q = state.keywords.join(" ");
+    console.log(q);
+
     const { data } = await axios.get<ApiResponse>("/api", {
       params: {
         q,
@@ -27,8 +29,16 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "ITEMS_LOADED", payload: data.hits });
   };
 
+  const addKeyword = (keyword: string) => {
+    dispatch({ type: "ADD_KEYWORD", payload: keyword });
+  };
+
+  const removeKeyword = (keyword: string) => {
+    dispatch({ type: "REMOVE_KEYWORD", payload: keyword });
+  };
+
   return (
-    <Context.Provider value={{ ...state, getItems }}>
+    <Context.Provider value={{ ...state, getItems, addKeyword, removeKeyword }}>
       {children}
     </Context.Provider>
   );

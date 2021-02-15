@@ -14,5 +14,17 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         loading: true,
       };
+
+    case "ADD_KEYWORD":
+      return { ...state, keywords: [...state.keywords, action.payload] };
+
+    case "REMOVE_KEYWORD": {
+      return {
+        ...state,
+        keywords: [
+          ...state.keywords.filter((keyword) => keyword !== action.payload),
+        ],
+      };
+    }
   }
 };

@@ -28,10 +28,9 @@ const DetailedRecipe = ({ recipe, close }: Props) => {
       }}
       drag="y"
       dragConstraints={{ left: 0, right: 0, top: -300, bottom: 0 }}
-      // @ts-ignore
-      onDrag={({ layerY }) => {
-        if (layerY > 300 || layerY < -500) close();
-      }}
+      // onDrag={({ layerY }) => {
+      //   if (layerY > 300 || layerY < -500) close();
+      // }}
     >
       <MotionGrid
         container

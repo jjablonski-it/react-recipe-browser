@@ -16,6 +16,7 @@ export const reducer = (state: State, action: Action): State => {
       };
 
     case "ADD_KEYWORD":
+      if (state.keywords.includes(action.payload)) return state;
       return { ...state, keywords: [...state.keywords, action.payload] };
 
     case "REMOVE_KEYWORD": {

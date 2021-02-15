@@ -1,21 +1,53 @@
-import { TextField } from "@material-ui/core";
-import React, { useContext } from "react";
+import { Chip, TextField } from "@material-ui/core";
+import { motion } from "framer-motion";
+import React, { useContext, useState } from "react";
 import { Context } from "../context/Context";
 
-interface Props {}
+const MotionChip = motion.custom(Chip);
 
-const SearchBar = (props: Props) => {
-  const { getItems } = useContext(Context);
+const SearchBar = () => {
+  const [value, setValue] = useState("");
+  const { getItems, addKeyword, keywords } = useContext(Context);
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        getItems("chocolate milk");
+        getItems!();
       }}
       style={{ width: "100%" }}
     >
-      <TextField label="Search" fullWidth color="secondary" />
+      <TextField
+        value={value}
+        label="Search"
+        fullWidth
+        color="secondary"
+        onChange={(e) => {
+          const value = e.target.value;
+          if (value[value.length - 1] === " ") {
+            addKeyword!(value.trim());
+            setValue("");
+          } else setValue(() => e.target.value);
+        }}
+      />
+      <motion.div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-evenly",
+        }}
+      >
+        {keywords.map((keyword) => (
+          <MotionChip
+            label={keyword}
+            style={{ margin: 5 }}
+            layout
+            color="primary"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          />
+        ))}
+      </motion.div>
     </form>
   );
 };

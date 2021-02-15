@@ -1,4 +1,4 @@
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, List, ListItem, ListItemText, Paper } from "@material-ui/core";
 import { motion, useMotionValue, Variants } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
@@ -8,11 +8,12 @@ const MotionGrid = motion.custom(Grid);
 const MotionPaper = motion.custom(Paper);
 interface Props {
   recipe: RecipeInterface;
+  close: () => void;
 }
 
 const maxWidth = 500;
 
-const DetailedRecipe = ({ recipe }: Props) => {
+const DetailedRecipe = ({ recipe, close }: Props) => {
   if (!recipe) return <></>;
 
   return (
@@ -20,35 +21,49 @@ const DetailedRecipe = ({ recipe }: Props) => {
       container
       style={{
         position: "fixed",
-        top: 50,
-        justifyContent: "center",
+        top: 20,
         zIndex: 101,
         width: "auto",
       }}
-      drag
-      dragDirectionLock
-      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+      drag="y"
+      dragConstraints={{ left: 0, right: 0, top: -200, bottom: 0 }}
+      // @ts-ignore
+      onDrag={({ layerY }) => {
+        layerY > 300 && close();
+      }}
     >
-      <MotionGrid container item layoutId={`container ${recipe.uri}`}>
-        <MotionGrid item xs style={{ maxWidth, width: "95vw" }}>
-          <Recipe
-            recipe={recipe}
-            setSelected={() => {}}
-            selected={true}
-            style={{ height: "100%" }}
-          />
+      <MotionGrid
+        container
+        item
+        layoutId={`container ${recipe.uri}`}
+        style={{ justifyContent: "center", maxWidth }}
+      >
+        <MotionGrid item xs={12}>
+          <Recipe recipe={recipe} setSelected={() => {}} selected={true} />
         </MotionGrid>
-        <Grid item xs={12} sm style={{ maxWidth, minWidth: 200 }}>
+        <Grid
+          item
+          xs={12}
+          style={{
+            maxWidth,
+            minWidth: 200,
+            width: "95vw",
+          }}
+        >
           <MotionPaper
             style={{
               height: "100%",
+              marginTop: -15,
+              padding: "15px 0",
             }}
           >
-            <ul style={{ margin: 0 }}>
+            <List style={{ margin: 0 }}>
               {recipe.ingredientLines.map((ing) => (
-                <li>{ing}</li>
+                <ListItem>
+                  <ListItemText primary={ing} />
+                </ListItem>
               ))}
-            </ul>
+            </List>
           </MotionPaper>
         </Grid>
       </MotionGrid>

@@ -9,10 +9,16 @@ const SearchBar = () => {
   const [value, setValue] = useState("");
   const { getItems, addKeyword, removeKeyword, keywords } = useContext(Context);
 
+  const newKeyword = (value: string) => {
+    if (value) addKeyword!(value.trim().toLocaleLowerCase());
+    setValue("");
+  };
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        newKeyword(value);
         getItems!();
       }}
       style={{ width: "100%" }}
@@ -25,8 +31,7 @@ const SearchBar = () => {
         onChange={(e) => {
           const value = e.target.value;
           if (value[value.length - 1] === " ") {
-            addKeyword!(value.trim());
-            setValue("");
+            newKeyword(value.trim());
           } else setValue(() => e.target.value);
         }}
       />

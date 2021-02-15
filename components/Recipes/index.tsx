@@ -3,9 +3,10 @@ import {
   AnimatePresence,
   AnimateSharedLayout,
   motion,
+  useDomEvent,
   Variants,
 } from "framer-motion";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../context/Context";
 import { Recipe } from "../../context/types";
 import DetailedRecipe from "./DetailedRecipe";
@@ -26,6 +27,14 @@ const Recipes = () => {
   const { items } = useContext(Context);
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [show, setShow] = useState(false);
+  // useDomEvent(useRef(window as any), "scroll", () => show && setShow(false));
+
+  useEffect(() => {
+    if (window) window.addEventListener("scroll", () => setShow(false));
+    return () => {
+      window.removeEventListener("scroll", () => setShow(false));
+    };
+  }, []);
 
   return (
     <Grid
@@ -34,7 +43,7 @@ const Recipes = () => {
       spacing={1}
       style={{ marginTop: "10px" }}
     >
-      <AnimateSharedLayout type="switch">
+      <AnimateSharedLayout type="crossfade">
         {items?.map((recipe, i) => (
           <MotionGrid
             key={i}
@@ -52,6 +61,7 @@ const Recipes = () => {
             //   transition: { type: "spring", stiffness: 500 },
             // }}
             layoutId={`container ${recipe.uri}`}
+            layout
           >
             <RecipeComp
               recipe={recipe}

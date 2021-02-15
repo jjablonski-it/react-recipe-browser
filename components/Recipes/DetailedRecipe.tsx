@@ -26,8 +26,9 @@ const DetailedRecipe = ({ recipe }: Props) => {
         width: "auto",
       }}
       layoutId={`container ${recipe.uri}`}
+      layout
     >
-      <MotionGrid item xs style={{ maxWidth, width: "100vw" }}>
+      <MotionGrid item xs style={{ maxWidth, width: "95vw" }}>
         <Recipe
           recipe={recipe}
           setSelected={() => {}}

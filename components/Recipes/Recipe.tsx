@@ -114,6 +114,7 @@ const Recipe = ({ recipe, setSelected, selected, style }: Props) => {
       className={classes.root}
       elevation={3}
       layoutId={`card ${uri}`}
+      layout
       style={style}
     >
       <CardActionArea className={classes.clickable} onClick={setSelected}>

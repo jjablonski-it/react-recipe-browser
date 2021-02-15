@@ -17,7 +17,7 @@ const SearchBar = (props: Props) => {
       }}
       style={{ width: "100%" }}
     >
-      <TextField label="Search" fullWidth />
+      <TextField label="Search" fullWidth color="secondary" />
     </form>
   );
 };

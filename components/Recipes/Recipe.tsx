@@ -29,6 +29,7 @@ interface Props {
   setSelected: () => void;
   selected: boolean;
   style?: React.CSSProperties;
+  active?: boolean;
 }
 
 export const useStyle = makeStyles<Theme, any>((theme) => ({
@@ -97,7 +98,13 @@ export const useStyle = makeStyles<Theme, any>((theme) => ({
   },
 }));
 
-const Recipe = ({ recipe, setSelected, selected, style }: Props) => {
+const Recipe = ({
+  recipe,
+  setSelected,
+  selected,
+  style,
+  active = false,
+}: Props) => {
   const {
     label,
     source,
@@ -116,7 +123,11 @@ const Recipe = ({ recipe, setSelected, selected, style }: Props) => {
       layoutId={`card ${uri}`}
       style={style}
     >
-      <CardActionArea className={classes.clickable} onClick={setSelected}>
+      <CardActionArea
+        className={classes.clickable}
+        onClick={setSelected}
+        disabled={active}
+      >
         <div className={classes.overlay} />
         <motion.img
           src={image}

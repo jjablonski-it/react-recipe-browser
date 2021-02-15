@@ -45,7 +45,7 @@ const DetailedRecipe = ({ recipe }: Props) => {
         zIndex: 101,
         width: "auto",
         maxWidth: "90vw",
-        cursor: "grab!important",
+        cursor: "grab",
       }}
       drag="y"
       draggable
@@ -58,7 +58,12 @@ const DetailedRecipe = ({ recipe }: Props) => {
         style={{ justifyContent: "center", maxWidth }}
       >
         <MotionGrid item xs={12}>
-          <Recipe recipe={recipe} setSelected={() => {}} selected={true} />
+          <Recipe
+            recipe={recipe}
+            setSelected={() => {}}
+            selected={true}
+            active={true}
+          />
         </MotionGrid>
         <Grid
           item
@@ -99,6 +104,7 @@ const DetailedRecipe = ({ recipe }: Props) => {
                   </ListItem>
                 </>
               ))}
+              <Divider />
             </List>
             <Link
               color="secondary"

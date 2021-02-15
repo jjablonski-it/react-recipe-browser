@@ -61,7 +61,6 @@ const Recipes = () => {
             //   transition: { type: "spring", stiffness: 500 },
             // }}
             layoutId={`container ${recipe.uri}`}
-            layout
           >
             <RecipeComp
               recipe={recipe}

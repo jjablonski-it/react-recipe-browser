@@ -47,10 +47,11 @@ const Recipes = () => {
             variants={item}
             initial="hidden"
             animate="show"
-            whileHover={{
-              scale: 0.95,
-              transition: { type: "spring", stiffness: 500 },
-            }}
+            // whileHover={{
+            //   scale: 0.95,
+            //   transition: { type: "spring", stiffness: 500 },
+            // }}
+            layoutId={`container ${recipe.uri}`}
           >
             <RecipeComp
               recipe={recipe}

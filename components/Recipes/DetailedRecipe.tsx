@@ -13,58 +13,45 @@ interface Props {
 const maxWidth = 500;
 
 const DetailedRecipe = ({ recipe }: Props) => {
-  // const [loaded, setLoaded] = useState(false);
-
-  // useEffect(() => {
-  //   setLoaded(true);
-  //   return () => {
-  //     setLoaded(false);
-  //   };
-  // }, []);
-  const containerY = useMotionValue(0);
   if (!recipe) return <></>;
 
   return (
     <MotionGrid
       container
-      item
       style={{
         position: "fixed",
         top: 50,
         justifyContent: "center",
         zIndex: 101,
         width: "auto",
-        y: containerY,
       }}
-      layoutId={`container ${recipe.uri}`}
-      layout
       drag
       dragDirectionLock
+      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
     >
-      <MotionGrid item xs style={{ maxWidth, width: "95vw" }}>
-        <Recipe
-          recipe={recipe}
-          setSelected={() => {}}
-          selected={true}
-          style={{ height: "100%" }}
-        />
+      <MotionGrid container item layoutId={`container ${recipe.uri}`}>
+        <MotionGrid item xs style={{ maxWidth, width: "95vw" }}>
+          <Recipe
+            recipe={recipe}
+            setSelected={() => {}}
+            selected={true}
+            style={{ height: "100%" }}
+          />
+        </MotionGrid>
+        <Grid item xs={12} sm style={{ maxWidth, minWidth: 200 }}>
+          <MotionPaper
+            style={{
+              height: "100%",
+            }}
+          >
+            <ul style={{ margin: 0 }}>
+              {recipe.ingredientLines.map((ing) => (
+                <li>{ing}</li>
+              ))}
+            </ul>
+          </MotionPaper>
+        </Grid>
       </MotionGrid>
-      <Grid item xs={12} sm style={{ maxWidth, minWidth: 200 }}>
-        <MotionPaper
-          style={{
-            height: "100%",
-            // marginLeft: -10,
-            // paddingLeft: 10,
-            // paddingBottom: 5,
-          }}
-        >
-          <ul style={{ margin: 0 }}>
-            {recipe.ingredientLines.map((ing) => (
-              <li>{ing}</li>
-            ))}
-          </ul>
-        </MotionPaper>
-      </Grid>
     </MotionGrid>
   );
 };

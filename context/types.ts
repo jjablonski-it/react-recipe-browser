@@ -124,14 +124,17 @@ export interface Recipe {
   totalNutrients: string; //	Total nutrients for the entire recipe. TotalNutrients/yield equals nutrients per serving
   totalDaily: string; // daily value for the entire recipe. Total/Daily/yield equals nutrients per serving
   dietLabels: // (labels are per serving)
-  | "balanced"
+  (
+    | "balanced"
     | "high-protein"
     | "high-fiber"
     | "low-fat"
     | "low-carb"
-    | "low-sodium";
+    | "low-sodium"
+  )[];
   healthLabels: // (labels are per serving)
-  | "vegan"
+  (
+    | "vegan"
     | "vegetarian"
     | "paleo"
     | "dairy-free"
@@ -144,7 +147,8 @@ export interface Recipe {
     | "tree-nut-free"
     | "soy-free"
     | "fish-free"
-    | "shellfish-free";
+    | "shellfish-free"
+  )[];
   totalTime: number;
 }
 export interface State {

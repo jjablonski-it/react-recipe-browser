@@ -81,9 +81,7 @@ const Recipes = () => {
           style={{ zIndex: 100 }}
         />
         <AnimatePresence>
-          {show && (
-            <DetailedRecipe recipe={selected!} close={() => setShow(false)} />
-          )}
+          {show && <DetailedRecipe recipe={selected!} />}
         </AnimatePresence>
       </AnimateSharedLayout>
     </Grid>

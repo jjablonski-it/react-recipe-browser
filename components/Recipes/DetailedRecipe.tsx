@@ -1,6 +1,15 @@
-import { Grid, List, ListItem, ListItemText, Paper } from "@material-ui/core";
-import { motion, useMotionValue, Variants } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import {
+  Chip,
+  Divider,
+  Grid,
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
+} from "@material-ui/core";
+import { motion } from "framer-motion";
+import React from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
 import Recipe from "./Recipe";
 
@@ -8,13 +17,24 @@ const MotionGrid = motion.custom(Grid);
 const MotionPaper = motion.custom(Paper);
 interface Props {
   recipe: RecipeInterface;
-  close: () => void;
 }
 
 const maxWidth = 500;
 
-const DetailedRecipe = ({ recipe, close }: Props) => {
+const chipContainerStyle: React.CSSProperties = {
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "space-evenly",
+};
+
+const chipItemStyle: React.CSSProperties = {
+  margin: 5,
+  marginTop: 10,
+};
+
+const DetailedRecipe = ({ recipe }: Props) => {
   if (!recipe) return <></>;
+  const { ingredientLines, healthLabels, dietLabels, url } = recipe;
 
   return (
     <MotionGrid
@@ -25,12 +45,11 @@ const DetailedRecipe = ({ recipe, close }: Props) => {
         zIndex: 101,
         width: "auto",
         maxWidth: "90vw",
+        cursor: "grab!important",
       }}
       drag="y"
-      dragConstraints={{ left: 0, right: 0, top: -300, bottom: 0 }}
-      // onDrag={({ layerY }) => {
-      //   if (layerY > 300 || layerY < -500) close();
-      // }}
+      draggable
+      dragConstraints={{ top: -300, bottom: 0 }}
     >
       <MotionGrid
         container
@@ -47,6 +66,7 @@ const DetailedRecipe = ({ recipe, close }: Props) => {
           style={{
             maxWidth,
             minWidth: 200,
+            opacity: 0.98,
           }}
         >
           <MotionPaper
@@ -54,15 +74,41 @@ const DetailedRecipe = ({ recipe, close }: Props) => {
               height: "100%",
               marginTop: -15,
               padding: "15px 0",
+              textAlign: "center",
             }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
+            <div style={chipContainerStyle}>
+              {healthLabels.map((lbl) => (
+                <Chip label={lbl} color="secondary" style={chipItemStyle} />
+              ))}
+            </div>
+            <div style={chipContainerStyle}>
+              {dietLabels.map((lbl) => (
+                <Chip label={lbl} style={chipItemStyle} />
+              ))}
+            </div>
             <List style={{ margin: 0 }}>
-              {recipe.ingredientLines.map((ing) => (
-                <ListItem>
-                  <ListItemText primary={ing} />
-                </ListItem>
+              {ingredientLines.map((ing) => (
+                <>
+                  <Divider />
+                  <ListItem>
+                    <ListItemText primary={ing} />
+                  </ListItem>
+                </>
               ))}
             </List>
+            <Link
+              color="secondary"
+              href={url}
+              variant={"h5"}
+              style={{ marginBottom: 15 }}
+              target="_blank"
+            >
+              Source
+            </Link>
           </MotionPaper>
         </Grid>
       </MotionGrid>

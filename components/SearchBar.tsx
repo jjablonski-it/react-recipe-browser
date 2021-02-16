@@ -10,7 +10,8 @@ const SearchBar = () => {
   const { getItems, addKeyword, removeKeyword, keywords } = useContext(Context);
 
   const newKeyword = (value: string) => {
-    if (value) addKeyword!(value.trim().toLocaleLowerCase());
+    value = value.trim();
+    if (value) addKeyword!(value.toLocaleLowerCase());
     setValue("");
   };
 
@@ -31,7 +32,7 @@ const SearchBar = () => {
         onChange={(e) => {
           const value = e.target.value;
           if (value[value.length - 1] === " ") {
-            newKeyword(value.trim());
+            newKeyword(value);
           } else setValue(() => e.target.value);
         }}
       />

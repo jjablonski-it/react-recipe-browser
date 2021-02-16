@@ -13,15 +13,17 @@ export const Context = createContext(initialState);
 
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { keywords, items } = state;
 
   const getItems = async () => {
     dispatch({ type: "ITEMS_LOADING" });
-    const q = state.keywords.join(" ");
+    const q = keywords.join(" ");
     console.log(q);
 
     const { data } = await axios.get<ApiResponse>("/api", {
       params: {
         q,
+        from: items.length,
       } as ApiRequest,
     });
 

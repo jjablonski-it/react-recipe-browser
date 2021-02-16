@@ -1,8 +1,8 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
-import data from "./data.json";
+// import data from "./data.json";
 
-const LIMIT = 96;
+const LIMIT = 48;
 const { APP_KEY, APP_ID, API_URL } = process.env;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -11,9 +11,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const q = req.query.q;
   const from = +req.query.from;
-
   const to = from + LIMIT;
-  if (!to) return res.status(400);
+
+  console.log("from:", from, "to:", to);
+  if (!q || !to) return res.status(400).json({});
 
   const recipeData = await axios.get(API_URL, {
     params: {

@@ -19,7 +19,9 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
 
   const getItems = async () => {
     if (keywords.length === 0) return;
+
     dispatch({ type: "ITEMS_LOADING" });
+
     const q = keywords.join(" ");
     const isSame = q === lastQ;
     lastQ = q;

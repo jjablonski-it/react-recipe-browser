@@ -2,7 +2,7 @@ import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 import data from "./data.json";
 
-const LIMIT = 24;
+const LIMIT = 96;
 const { APP_KEY, APP_ID, API_URL } = process.env;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

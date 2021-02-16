@@ -86,23 +86,28 @@ const DetailedRecipe = ({ recipe }: Props) => {
             exit={{ opacity: 0 }}
           >
             <div style={chipContainerStyle}>
-              {healthLabels.map((lbl) => (
-                <Chip label={lbl} color="secondary" style={chipItemStyle} />
+              {healthLabels.map((lbl, i) => (
+                <Chip
+                  key={i}
+                  label={lbl}
+                  color="secondary"
+                  style={chipItemStyle}
+                />
               ))}
             </div>
             <div style={chipContainerStyle}>
-              {dietLabels.map((lbl) => (
-                <Chip label={lbl} style={chipItemStyle} />
+              {dietLabels.map((lbl, i) => (
+                <Chip key={i} label={lbl} style={chipItemStyle} />
               ))}
             </div>
             <List style={{ margin: 0 }}>
-              {ingredientLines.map((ing) => (
-                <>
+              {ingredientLines.map((ing, i) => (
+                <span key={i}>
                   <Divider />
                   <ListItem>
                     <ListItemText primary={ing} />
                   </ListItem>
-                </>
+                </span>
               ))}
               <Divider />
             </List>

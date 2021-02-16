@@ -9,6 +9,13 @@ export const reducer = (state: State, action: Action): State => {
         items: action.payload,
       };
 
+    case "ITEMS_APPEND":
+      return {
+        ...state,
+        loading: false,
+        items: [...state.items, ...action.payload],
+      };
+
     case "ITEMS_LOADING":
       return {
         ...state,
@@ -27,5 +34,10 @@ export const reducer = (state: State, action: Action): State => {
         ],
       };
     }
+
+    case "SET_MORE":
+      console.log("more", action.payload);
+
+      return { ...state, more: action.payload };
   }
 };

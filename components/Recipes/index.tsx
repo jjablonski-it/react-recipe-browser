@@ -24,17 +24,29 @@ const item: Variants = {
 };
 
 const Recipes = () => {
-  const { items } = useContext(Context);
+  const { items, getItems, loading, more } = useContext(Context);
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [show, setShow] = useState(false);
   // useDomEvent(useRef(window as any), "scroll", () => show && setShow(false));
 
+  const handleScroll = (_e: Event) => {
+    setShow(false);
+    if (
+      window.innerHeight + window.pageYOffset >=
+      document.body.offsetHeight - 2
+    )
+      if (!loading && more) {
+        console.log("MOAR");
+        getItems!();
+      }
+  };
+
   useEffect(() => {
-    if (window) window.addEventListener("scroll", () => setShow(false));
+    if (window) window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", () => setShow(false));
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [more, loading]);
 
   return (
     <Grid

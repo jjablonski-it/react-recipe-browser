@@ -155,6 +155,7 @@ export interface State {
   items: Recipe[];
   loading: boolean;
   keywords: string[];
+  more: boolean;
   getItems?: () => void;
   addKeyword?: (keyword: string) => void;
   removeKeyword?: (keyword: string) => void;
@@ -162,6 +163,8 @@ export interface State {
 
 export type Action =
   | { type: "ITEMS_LOADED"; payload: Recipe[] }
+  | { type: "ITEMS_APPEND"; payload: Recipe[] }
   | { type: "ITEMS_LOADING" }
   | { type: "ADD_KEYWORD"; payload: string }
-  | { type: "REMOVE_KEYWORD"; payload: string };
+  | { type: "REMOVE_KEYWORD"; payload: string }
+  | { type: "SET_MORE"; payload: boolean };

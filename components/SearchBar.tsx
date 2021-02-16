@@ -43,8 +43,9 @@ const SearchBar = () => {
           justifyContent: "space-evenly",
         }}
       >
-        {keywords.map((keyword) => (
+        {keywords.map((keyword, i) => (
           <MotionChip
+            key={i}
             label={keyword}
             style={{ margin: 5 }}
             layout

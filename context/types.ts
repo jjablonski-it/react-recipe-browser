@@ -156,7 +156,7 @@ export interface State {
   loading: boolean;
   keywords: string[];
   more: boolean;
-  getItems?: () => void;
+  getItems?: (keywords: string[]) => void;
   addKeyword?: (keyword: string) => void;
   removeKeyword?: (keyword: string) => void;
   clearItems?: () => void;

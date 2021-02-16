@@ -17,7 +17,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { keywords, items } = state;
 
-  const getItems = async () => {
+  const getItems = async (keywords: string[]) => {
     if (keywords.length === 0) return;
     dispatch({ type: "ITEMS_LOADING" });
 

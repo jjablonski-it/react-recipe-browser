@@ -30,7 +30,7 @@ const item: Variants = {
 };
 
 const Recipes = () => {
-  const { items, getItems, loading, more } = useContext(Context);
+  const { items, getItems, loading, more, keywords } = useContext(Context);
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [show, setShow] = useState(false);
   // useDomEvent(useRef(window as any), "scroll", () => show && setShow(false));
@@ -43,7 +43,7 @@ const Recipes = () => {
     )
       if (!loading && more) {
         console.log("MOAR");
-        getItems!();
+        getItems!(keywords);
       }
   };
 

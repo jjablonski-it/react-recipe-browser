@@ -17,17 +17,19 @@ const SearchBar = () => {
 
   const newKeyword = (value: string) => {
     value = value.trim();
-    if (value) addKeyword!(value.toLocaleLowerCase());
-    setValue("");
+    if (value) {
+      addKeyword!(value.toLocaleLowerCase());
+      setValue("");
+    }
   };
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        newKeyword(value);
         clearItems!();
-        getItems!();
+        getItems!([...keywords, value]);
+        newKeyword(value);
       }}
       style={{ width: "100%" }}
     >
@@ -38,7 +40,7 @@ const SearchBar = () => {
         color="secondary"
         onChange={(e) => {
           const value = e.target.value;
-          if (value[value.length - 1] === " ") {
+          if (value.slice(-1) === " ") {
             newKeyword(value);
           } else setValue(() => e.target.value);
         }}

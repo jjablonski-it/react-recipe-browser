@@ -7,7 +7,13 @@ const MotionChip = motion.custom(Chip);
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
-  const { getItems, addKeyword, removeKeyword, keywords } = useContext(Context);
+  const {
+    getItems,
+    addKeyword,
+    removeKeyword,
+    keywords,
+    clearItems,
+  } = useContext(Context);
 
   const newKeyword = (value: string) => {
     value = value.trim();
@@ -20,6 +26,7 @@ const SearchBar = () => {
       onSubmit={(e) => {
         e.preventDefault();
         newKeyword(value);
+        clearItems!();
         getItems!();
       }}
       style={{ width: "100%" }}

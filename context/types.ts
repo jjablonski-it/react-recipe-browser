@@ -159,6 +159,7 @@ export interface State {
   getItems?: () => void;
   addKeyword?: (keyword: string) => void;
   removeKeyword?: (keyword: string) => void;
+  clearItems?: () => void;
 }
 
 export type Action =
@@ -167,4 +168,5 @@ export type Action =
   | { type: "ITEMS_LOADING" }
   | { type: "ADD_KEYWORD"; payload: string }
   | { type: "REMOVE_KEYWORD"; payload: string }
-  | { type: "SET_MORE"; payload: boolean };
+  | { type: "SET_MORE"; payload: boolean }
+  | { type: "CLEAR_ITEMS" };

@@ -19,7 +19,6 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
 
   const getItems = async () => {
     if (keywords.length === 0) return;
-
     dispatch({ type: "ITEMS_LOADING" });
 
     const q = keywords.join(" ");
@@ -51,8 +50,14 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "REMOVE_KEYWORD", payload: keyword });
   };
 
+  const clearItems = () => {
+    dispatch({ type: "CLEAR_ITEMS" });
+  };
+
   return (
-    <Context.Provider value={{ ...state, getItems, addKeyword, removeKeyword }}>
+    <Context.Provider
+      value={{ ...state, getItems, addKeyword, removeKeyword, clearItems }}
+    >
       {children}
     </Context.Provider>
   );

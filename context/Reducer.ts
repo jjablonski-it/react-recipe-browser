@@ -22,6 +22,9 @@ export const reducer = (state: State, action: Action): State => {
         loading: true,
       };
 
+    case "CLEAR_ITEMS":
+      return { ...state, items: [] };
+
     case "ADD_KEYWORD":
       if (state.keywords.includes(action.payload)) return state;
       return { ...state, keywords: [...state.keywords, action.payload] };

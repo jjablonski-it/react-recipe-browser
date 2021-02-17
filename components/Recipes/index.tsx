@@ -1,16 +1,11 @@
-import {
-  Backdrop,
-  Box,
-  CircularProgress,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Backdrop, Grid } from "@material-ui/core";
 import { AnimatePresence, AnimateSharedLayout, Variants } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { Recipe } from "../../context/types";
 import { MotionGrid } from "../MotionElements";
 import DetailedRecipe from "./DetailedRecipe";
+import Footer from "./Footer";
 import RecipeComp from "./Recipe";
 
 const item: Variants = {
@@ -102,14 +97,12 @@ const Recipes = () => {
           </AnimatePresence>
         </AnimateSharedLayout>
       </Grid>
-      <Box display="flex" mb={10}>
-        {loading && <CircularProgress />}
-        {!loading && !more && (
-          <Typography variant="h5" color="textSecondary">
-            No {items.length > 0 && "more "}recipes
-          </Typography>
-        )}
-      </Box>
+      <Footer
+        loading={loading}
+        more={more}
+        keywordsLen={keywords.length}
+        itemsLen={items.length}
+      />
     </>
   );
 };

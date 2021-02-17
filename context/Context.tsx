@@ -7,7 +7,7 @@ const initialState: State = {
   items: [],
   keywords: [],
   loading: false,
-  more: false,
+  more: true,
 };
 
 export const Context = createContext(initialState);

@@ -15,10 +15,9 @@ import {
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../context/Context";
 import { Recipe } from "../../context/types";
+import { MotionGrid } from "../MotionElements";
 import DetailedRecipe from "./DetailedRecipe";
 import RecipeComp from "./Recipe";
-
-const MotionGrid = motion.custom(Grid);
 
 const item: Variants = {
   hidden: { opacity: 0, y: -20 },

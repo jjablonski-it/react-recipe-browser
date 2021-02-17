@@ -2,7 +2,7 @@ import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 // import data from "./data.json";
 
-const LIMIT = 24;
+const LIMIT = 4;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // TESTING

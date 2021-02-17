@@ -1,17 +1,11 @@
 import {
-  Card,
   CardActionArea,
   CardContent,
-  CardHeader,
-  Fab,
-  IconButton,
   makeStyles,
   Theme,
 } from "@material-ui/core";
 import {
-  Favorite,
   FavoriteBorderOutlined,
-  FavoriteOutlined,
   Person,
   WatchLater,
   Whatshot,
@@ -19,11 +13,13 @@ import {
 import { motion } from "framer-motion";
 import React from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
+import {
+  MotionCard,
+  MotionCardHeader,
+  MotionIconButton,
+} from "../MotionElements";
 import IconValue from "./IconValue";
 
-const MotionCard = motion.custom(Card);
-const MotionCardHeader = motion.custom(CardHeader);
-const MotionIconButton = motion.custom(IconButton);
 interface Props {
   recipe: RecipeInterface;
   setSelected: () => void;

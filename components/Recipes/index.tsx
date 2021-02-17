@@ -58,31 +58,35 @@ const Recipes = () => {
         style={{ margin: "10px 0 50px 0" }}
       >
         <AnimateSharedLayout type="crossfade">
-          {items?.map((recipe, i) => (
-            <MotionGrid
-              key={i}
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              lg={3}
-              custom={i}
-              variants={item}
-              initial="hidden"
-              animate="show"
-              layoutId={`container ${i}`}
-            >
-              <RecipeComp
-                recipe={recipe}
-                setSelected={() => {
-                  setSelected(recipe);
-                  setShow(true);
-                }}
-                id={i}
-                selected={!!selected && getRecipeId(selected) === i}
-              />
-            </MotionGrid>
-          ))}
+          {items?.map((recipe, i) => {
+            const isSelected = !!selected && getRecipeId(selected) === i;
+            return (
+              <MotionGrid
+                key={i}
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                custom={i}
+                variants={item}
+                initial="hidden"
+                animate="show"
+                layoutId={`container ${i}`}
+                style={{ zIndex: isSelected ? 1 : 0 }}
+              >
+                <RecipeComp
+                  recipe={recipe}
+                  setSelected={() => {
+                    setSelected(recipe);
+                    setShow(true);
+                  }}
+                  id={i}
+                  selected={isSelected}
+                />
+              </MotionGrid>
+            );
+          })}
 
           <Backdrop
             open={show}

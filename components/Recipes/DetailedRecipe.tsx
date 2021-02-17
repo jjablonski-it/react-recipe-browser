@@ -1,17 +1,16 @@
 import {
-  Chip,
   Divider,
   Grid,
   Link,
   List,
   ListItem,
   ListItemText,
-  makeStyles,
   Paper,
 } from "@material-ui/core";
 import { motion } from "framer-motion";
 import React from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
+import Chips from "./Chips";
 import Recipe from "./Recipe";
 import { useDetailedRecipeStyles } from "./style";
 
@@ -60,21 +59,8 @@ const DetailedRecipe = ({ recipe, id }: Props) => {
             exit={{ opacity: 0 }}
             className={classes.paper}
           >
-            <div className={classes.chipContainer}>
-              {healthLabels.map((lbl, i) => (
-                <Chip
-                  key={i}
-                  label={lbl}
-                  color="secondary"
-                  className={classes.chipItem}
-                />
-              ))}
-            </div>
-            <div className={classes.chipContainer}>
-              {dietLabels.map((lbl, i) => (
-                <Chip key={i} label={lbl} className={classes.chipItem} />
-              ))}
-            </div>
+            <Chips data={healthLabels} color="secondary" />
+            <Chips data={dietLabels} />
             <List className={classes.list}>
               {ingredientLines.map((ing, i) => (
                 <span key={i}>

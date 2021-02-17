@@ -92,15 +92,6 @@ export const useDetailedRecipeStyles = makeStyles<Theme, { maxWidth: number }>({
     padding: "15px 0",
     textAlign: "center",
   },
-  chipContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-evenly",
-  },
-  chipItem: {
-    margin: 5,
-    marginTop: 10,
-  },
   list: {
     margin: 0,
   },
@@ -118,5 +109,17 @@ export const useIconValueStyles = makeStyles({
   },
   value: {
     marginLeft: 2,
+  },
+});
+
+export const useChipsStyles = makeStyles({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+  },
+  item: {
+    margin: 5,
+    marginTop: 10,
   },
 });

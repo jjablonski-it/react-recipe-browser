@@ -7,14 +7,19 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         loading: false,
         items: action.payload,
+        prevItemsCount: 0,
       };
 
-    case "ITEMS_APPEND":
+    case "ITEMS_APPEND": {
+      const prevItemsCount = state.items.length;
+
       return {
         ...state,
         loading: false,
         items: [...state.items, ...action.payload],
+        prevItemsCount,
       };
+    }
 
     case "ITEMS_LOADING":
       return {

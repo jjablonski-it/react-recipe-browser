@@ -153,6 +153,7 @@ export interface Recipe {
 }
 export interface State {
   items: Recipe[];
+  prevItemsCount: number;
   loading: boolean;
   keywords: string[];
   more: boolean;

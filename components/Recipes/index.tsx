@@ -13,12 +13,19 @@ const item: Variants = {
   show: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.05 * i },
+    transition: { delay: 0.2 * i },
   }),
 };
 
 const Recipes = () => {
-  const { items, getItems, loading, more, keywords } = useContext(Context);
+  const {
+    items,
+    getItems,
+    loading,
+    more,
+    keywords,
+    prevItemsCount,
+  } = useContext(Context);
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [show, setShow] = useState(false);
 
@@ -44,6 +51,8 @@ const Recipes = () => {
     };
   }, [more, loading]);
 
+  console.log(prevItemsCount);
+
   return (
     <>
       <Grid
@@ -63,7 +72,7 @@ const Recipes = () => {
                 sm={6}
                 md={4}
                 lg={3}
-                custom={i}
+                custom={i - prevItemsCount}
                 variants={item}
                 initial="hidden"
                 animate="show"

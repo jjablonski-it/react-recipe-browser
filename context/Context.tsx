@@ -5,6 +5,7 @@ import axios from "axios";
 
 const initialState: State = {
   items: [],
+  prevItemsCount: 0,
   keywords: [],
   loading: false,
   more: true,
@@ -15,7 +16,7 @@ let lastQ = "";
 
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { keywords, items } = state;
+  const { items } = state;
 
   const getItems = async (keywords: string[]) => {
     if (keywords.length === 0) return;

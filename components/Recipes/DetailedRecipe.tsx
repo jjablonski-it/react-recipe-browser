@@ -63,7 +63,12 @@ const DetailedRecipe = ({ recipe, id }: Props) => {
           />
         </MotionGrid>
         <Grid item xs={12} className={classes.paperGrid}>
-          <MotionPaper className={classes.paper}>
+          <MotionPaper
+            className={classes.paper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             <Chips data={healthLabels} color="secondary" />
             <Chips data={dietLabels} />
             <List className={classes.list}>

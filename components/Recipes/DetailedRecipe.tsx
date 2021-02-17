@@ -17,6 +17,7 @@ const MotionGrid = motion.custom(Grid);
 const MotionPaper = motion.custom(Paper);
 interface Props {
   recipe: RecipeInterface;
+  id: number;
 }
 
 const maxWidth = 500;
@@ -32,7 +33,7 @@ const chipItemStyle: React.CSSProperties = {
   marginTop: 10,
 };
 
-const DetailedRecipe = ({ recipe }: Props) => {
+const DetailedRecipe = ({ recipe, id }: Props) => {
   if (!recipe) return <></>;
   const { ingredientLines, healthLabels, dietLabels, url } = recipe;
 
@@ -54,7 +55,7 @@ const DetailedRecipe = ({ recipe }: Props) => {
       <MotionGrid
         container
         item
-        layoutId={`container ${recipe.uri}`}
+        layoutId={`container ${id}`}
         style={{ justifyContent: "center", maxWidth }}
       >
         <MotionGrid item xs={12}>
@@ -63,6 +64,7 @@ const DetailedRecipe = ({ recipe }: Props) => {
             setSelected={() => {}}
             selected={true}
             active={true}
+            id={id}
           />
         </MotionGrid>
         <Grid

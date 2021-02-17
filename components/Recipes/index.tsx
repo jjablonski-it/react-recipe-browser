@@ -33,7 +33,10 @@ const Recipes = () => {
   const { items, getItems, loading, more, keywords } = useContext(Context);
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [show, setShow] = useState(false);
-  // useDomEvent(useRef(window as any), "scroll", () => show && setShow(false));
+
+  const getRecipeId = (recipe: Recipe): number => {
+    return items.indexOf(recipe);
+  };
 
   const handleScroll = (_e: Event) => {
     setShow(false);
@@ -63,39 +66,31 @@ const Recipes = () => {
         style={{ margin: "10px 0 50px 0" }}
       >
         <AnimateSharedLayout type="crossfade">
-          {items
-            ?.filter(
-              (value, i, self) =>
-                self.findIndex((val) => val.uri == value.uri) === i
-            )
-            .map((recipe, i) => (
-              <MotionGrid
-                key={i}
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                custom={i}
-                variants={item}
-                initial="hidden"
-                animate="show"
-                // whileHover={{
-                //   scale: 0.95,
-                //   transition: { type: "spring", stiffness: 500 },
-                // }}
-                layoutId={`container ${recipe.uri}`}
-              >
-                <RecipeComp
-                  recipe={recipe}
-                  setSelected={() => {
-                    setSelected(recipe);
-                    setShow(true);
-                  }}
-                  selected={selected?.uri === recipe.uri}
-                />
-              </MotionGrid>
-            ))}
+          {items?.map((recipe, i) => (
+            <MotionGrid
+              key={i}
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              custom={i}
+              variants={item}
+              initial="hidden"
+              animate="show"
+              layoutId={`container ${i}`}
+            >
+              <RecipeComp
+                recipe={recipe}
+                setSelected={() => {
+                  setSelected(recipe);
+                  setShow(true);
+                }}
+                id={i}
+                selected={!!selected && getRecipeId(selected) === i}
+              />
+            </MotionGrid>
+          ))}
 
           <Backdrop
             open={show}
@@ -105,7 +100,9 @@ const Recipes = () => {
             style={{ zIndex: 100 }}
           />
           <AnimatePresence>
-            {show && <DetailedRecipe recipe={selected!} />}
+            {show && selected && (
+              <DetailedRecipe recipe={selected} id={getRecipeId(selected)} />
+            )}
           </AnimatePresence>
         </AnimateSharedLayout>
       </Grid>

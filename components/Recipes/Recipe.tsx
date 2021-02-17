@@ -30,6 +30,7 @@ interface Props {
   selected: boolean;
   style?: React.CSSProperties;
   active?: boolean;
+  id: number;
 }
 
 export const useStyle = makeStyles<Theme, any>((theme) => ({
@@ -104,23 +105,16 @@ const Recipe = ({
   selected,
   style,
   active = false,
+  id,
 }: Props) => {
-  const {
-    label,
-    source,
-    yield: _yield,
-    totalTime,
-    calories,
-    uri,
-    image,
-  } = recipe;
+  const { label, source, yield: _yield, totalTime, calories, image } = recipe;
   const classes = useStyle({ selected });
 
   return (
     <MotionCard
       className={classes.root}
       elevation={3}
-      layoutId={`card ${uri}`}
+      layoutId={`card ${id}`}
       style={style}
     >
       <CardActionArea
@@ -132,37 +126,37 @@ const Recipe = ({
         <motion.img
           src={image}
           className={classes.image}
-          layoutId={`image ${uri}`}
+          layoutId={`image ${id}`}
         />
         <div className={classes.content}>
           <MotionCardHeader
             title={label}
             subheader={source}
             className={classes.header}
-            layoutId={`header ${uri}`}
+            layoutId={`header ${id}`}
           />
           <CardContent className={classes.footer}>
             <IconValue
               icon={<Person />}
               value={_yield}
-              layoutId={`person_icon ${uri}`}
+              layoutId={`person_icon ${id}`}
             />
             {!!totalTime && (
               <IconValue
                 icon={<WatchLater />}
                 value={totalTime}
-                layoutId={`time_icon ${uri}`}
+                layoutId={`time_icon ${id}`}
               />
             )}
             <IconValue
               icon={<Whatshot />}
               value={Math.floor(calories)}
-              layoutId={`calories_icon ${uri}`}
+              layoutId={`calories_icon ${id}`}
             />
           </CardContent>
         </div>
       </CardActionArea>
-      <MotionIconButton className={classes.fab} layoutId={`icon ${uri}`}>
+      <MotionIconButton className={classes.fab} layoutId={`icon ${id}`}>
         <FavoriteBorderOutlined className={classes.secondary} />
       </MotionIconButton>
     </MotionCard>

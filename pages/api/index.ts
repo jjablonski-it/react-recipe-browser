@@ -2,14 +2,15 @@ import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 // import data from "./data.json";
 
-const LIMIT = 48;
+const LIMIT = 24;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // TESTING
   // return res.json(data);
 
   const q = req.query.q;
-  const from = +req.query.from;
+  const baseFrom = +req.query.from;
+  const from = baseFrom + Math.floor(baseFrom / LIMIT);
   const to = from + LIMIT;
 
   console.log("from:", from, "to:", to);

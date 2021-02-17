@@ -13,7 +13,7 @@ const item: Variants = {
   show: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.2 * i },
+    transition: { delay: 0.15 * i },
   }),
 };
 
@@ -50,8 +50,6 @@ const Recipes = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [more, loading]);
-
-  console.log(prevItemsCount);
 
   return (
     <>

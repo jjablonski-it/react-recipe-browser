@@ -8,7 +8,14 @@ import {
   Paper,
 } from "@material-ui/core";
 import { motion } from "framer-motion";
-import React from "react";
+import React, {
+  ReactDOM,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
 import Chips from "./Chips";
 import Recipe from "./Recipe";
@@ -25,17 +32,27 @@ const maxWidth = 500;
 
 const DetailedRecipe = ({ recipe, id }: Props) => {
   const classes = useDetailedRecipeStyles({ maxWidth });
+  const [height, setHeight] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
 
   if (!recipe) return <></>;
   const { ingredientLines, healthLabels, dietLabels, url } = recipe;
+
+  // FRAMER MOTION ISSUE WORK AROUND
+  useEffect(() => {
+    if (ref.current)
+      setTimeout(() => setHeight(ref.current!.clientHeight), 400);
+  }, []);
+
+  console.log(height);
 
   return (
     <MotionGrid
       className={classes.root}
       container
       drag="y"
-      draggable
-      dragConstraints={{ top: -300, bottom: 0 }}
+      dragConstraints={{ top: -height + 400, bottom: 0 }}
+      ref={ref}
     >
       <MotionGrid
         container
@@ -53,12 +70,7 @@ const DetailedRecipe = ({ recipe, id }: Props) => {
           />
         </MotionGrid>
         <Grid item xs={12} className={classes.paperGrid}>
-          <MotionPaper
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={classes.paper}
-          >
+          <MotionPaper className={classes.paper}>
             <Chips data={healthLabels} color="secondary" />
             <Chips data={dietLabels} />
             <List className={classes.list}>

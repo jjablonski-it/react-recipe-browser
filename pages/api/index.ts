@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 // import data from "./data.json";
 
 const LIMIT = 48;
-const { APP_KEY, APP_ID, API_URL } = process.env;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // TESTING
@@ -16,10 +15,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("from:", from, "to:", to);
   if (!q || !to) return res.status(400).json({});
 
-  const recipeData = await axios.get(API_URL, {
+  const recipeData = await axios.get(process.env.API_URL, {
     params: {
-      app_key: APP_KEY,
-      app_id: APP_ID,
+      app_key: process.env.APP_KEY,
+      app_id: process.env.APP_ID,
       q,
       from,
       to,

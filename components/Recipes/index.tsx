@@ -5,14 +5,8 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-import {
-  AnimatePresence,
-  AnimateSharedLayout,
-  motion,
-  useDomEvent,
-  Variants,
-} from "framer-motion";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { AnimatePresence, AnimateSharedLayout, Variants } from "framer-motion";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { Recipe } from "../../context/types";
 import { MotionGrid } from "../MotionElements";
@@ -44,7 +38,6 @@ const Recipes = () => {
       document.body.offsetHeight - 2
     )
       if (!loading && more) {
-        console.log("MOAR");
         getItems!(keywords);
       }
   };

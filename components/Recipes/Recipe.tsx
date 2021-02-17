@@ -1,9 +1,4 @@
-import {
-  CardActionArea,
-  CardContent,
-  makeStyles,
-  Theme,
-} from "@material-ui/core";
+import { CardActionArea, CardContent } from "@material-ui/core";
 import {
   FavoriteBorderOutlined,
   Person,
@@ -19,6 +14,7 @@ import {
   MotionIconButton,
 } from "../MotionElements";
 import IconValue from "./IconValue";
+import { useRecipeStyles } from "./style";
 
 interface Props {
   recipe: RecipeInterface;
@@ -29,72 +25,6 @@ interface Props {
   id: number;
 }
 
-export const useStyle = makeStyles<Theme, any>((theme) => ({
-  root: {
-    zIndex: ({ selected }) => (selected ? 1 : 0),
-    height: 400,
-    borderRadius: "3%",
-    color: theme.palette.grey[50],
-    width: "100%",
-    position: "relative",
-  },
-  clickable: {
-    height: "100%",
-    width: "100%",
-  },
-  imageContainer: {
-    height: "100%",
-    width: "100%",
-    position: "absolute",
-    margin: 0,
-    top: 0,
-  },
-  image: {
-    width: 500,
-  },
-  overlay: {
-    top: 0,
-    left: 0,
-    position: "absolute",
-    height: "100%",
-    width: "100%",
-    zIndex: 1,
-    background: `linear-gradient(rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 87%, rgba(0,0,0,.6) 100%)`,
-  },
-  header: {
-    width: 260,
-    padding: "inherit",
-  },
-  content: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    position: "absolute",
-    top: 0,
-    zIndex: 2,
-    height: "100%",
-    width: "100%",
-    padding: 4,
-  },
-  secondary: {
-    color: theme.palette.grey[200],
-  },
-  footer: {
-    display: "flex",
-    width: "100%",
-    justifyContent: "space-between",
-    marginTop: "auto",
-    padding: "inherit",
-    paddingBottom: "4px!important",
-  },
-  fab: {
-    position: "absolute",
-    right: 1,
-    top: 5,
-    zIndex: 2,
-  },
-}));
-
 const Recipe = ({
   recipe,
   setSelected,
@@ -104,7 +34,7 @@ const Recipe = ({
   id,
 }: Props) => {
   const { label, source, yield: _yield, totalTime, calories, image } = recipe;
-  const classes = useStyle({ selected });
+  const classes = useRecipeStyles({ selected });
 
   return (
     <MotionCard

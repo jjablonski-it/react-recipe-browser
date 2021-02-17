@@ -1,5 +1,7 @@
+import { makeStyles } from "@material-ui/core";
 import { motion } from "framer-motion";
 import React from "react";
+import { useIconValueStyles } from "./style";
 
 interface Props {
   icon: JSX.Element;
@@ -8,18 +10,11 @@ interface Props {
 }
 
 const IconValue = ({ icon, value, layoutId }: Props) => {
+  const classes = useIconValueStyles();
+
   return (
-    <motion.span
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        fontSize: 20,
-      }}
-      layoutId={layoutId}
-    >
-      {icon}
-      {value}
+    <motion.span className={classes.root} layoutId={layoutId}>
+      {icon} <span className={classes.value}>{value}</span>
     </motion.span>
   );
 };

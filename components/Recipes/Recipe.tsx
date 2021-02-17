@@ -50,6 +50,8 @@ const Recipe = ({
       >
         <div className={classes.overlay} />
         <motion.img
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           src={image}
           className={classes.image}
           layoutId={`image ${id}`}

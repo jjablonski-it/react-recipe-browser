@@ -19,6 +19,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
   const { items } = state;
 
   const getItems = async (keywords: string[]) => {
+    keywords = keywords.filter((kw) => !!kw);
     if (keywords.length === 0) return;
     dispatch({ type: "ITEMS_LOADING" });
 

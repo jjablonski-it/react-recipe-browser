@@ -8,14 +8,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import { motion } from "framer-motion";
-import React, {
-  ReactDOM,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Recipe as RecipeInterface } from "../../context/types";
 import Chips from "./Chips";
 import Recipe from "./Recipe";

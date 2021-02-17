@@ -1,7 +1,7 @@
-import React, { createContext, useEffect, useReducer } from "react";
-import { ApiRequest, ApiResponse, State } from "./types";
-import { reducer } from "./Reducer";
 import axios from "axios";
+import React, { createContext, useReducer } from "react";
+import { reducer } from "./Reducer";
+import { ApiRequest, ApiResponse, State } from "./types";
 
 const initialState: State = {
   items: [],

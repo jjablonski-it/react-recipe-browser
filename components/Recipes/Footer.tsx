@@ -19,7 +19,11 @@ const Footer = ({ loading, more, keywordsLen, itemsLen }: Props) => {
       </Typography>
     );
   } else if (itemsLen === 0 && keywordsLen === 0) {
-    content = <Typography variant="h5">Type smth..</Typography>;
+    content = (
+      <Typography variant="h5" color="textSecondary">
+        Enter ingredients you want to use
+      </Typography>
+    );
   }
 
   return (

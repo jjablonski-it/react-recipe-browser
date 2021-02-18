@@ -1,5 +1,7 @@
 import { CardActionArea, CardContent } from "@material-ui/core";
 import {
+  Favorite,
+  FavoriteBorder,
   FavoriteBorderOutlined,
   Person,
   WatchLater,
@@ -7,7 +9,7 @@ import {
 } from "@material-ui/icons";
 import { motion } from "framer-motion";
 import React from "react";
-import { Recipe as RecipeInterface } from "../../context/types";
+import { Recipe as RecipeInterface, State } from "../../context/types";
 import {
   MotionCard,
   MotionCardHeader,
@@ -22,6 +24,8 @@ interface Props {
   selected: boolean;
   style?: React.CSSProperties;
   active?: boolean;
+  handleSave: State["toggleSaveItem"];
+  isSaved: boolean;
   id: number;
 }
 
@@ -32,8 +36,18 @@ const Recipe = ({
   style,
   active = false,
   id,
+  isSaved,
+  handleSave,
 }: Props) => {
-  const { label, source, yield: _yield, totalTime, calories, image } = recipe;
+  const {
+    label,
+    source,
+    yield: _yield,
+    totalTime,
+    calories,
+    image,
+    uri,
+  } = recipe;
   const classes = useRecipeStyles({ selected });
 
   return (
@@ -84,8 +98,17 @@ const Recipe = ({
           </CardContent>
         </div>
       </CardActionArea>
-      <MotionIconButton className={classes.fab} layoutId={`icon ${id}`}>
-        <FavoriteBorderOutlined className={classes.secondary} />
+      <MotionIconButton
+        className={classes.fab}
+        layoutId={`icon ${id}`}
+        onClick={() => handleSave!(uri)}
+      >
+        {isSaved ? (
+          <Favorite className={classes.secondary} />
+        ) : (
+          // <FavoriteBorder className={classes.secondary} />
+          <FavoriteBorderOutlined className={classes.secondary} />
+        )}
       </MotionIconButton>
     </MotionCard>
   );

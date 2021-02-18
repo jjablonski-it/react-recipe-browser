@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { createContext, useReducer } from "react";
 import { reducer } from "./Reducer";
-import { ApiRequest, ApiResponse, State } from "./types";
+import { ApiRequest, ApiResponse, Recipe, State } from "./types";
 
 const initialState: State = {
   items: [],
+  saved: JSON.parse(
+    (typeof window !== "undefined" && localStorage.getItem("saved")) || "[]"
+  ),
   prevItemsCount: 0,
   keywords: [],
   loading: false,
@@ -56,9 +59,24 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "CLEAR_ITEMS" });
   };
 
+  const toggleSaveItem = (uri: string) => {
+    if (!state.saved.includes(uri)) {
+      dispatch({ type: "SAVE_ITEM", payload: uri });
+    } else {
+      dispatch({ type: "REMOVE_ITEM", payload: uri });
+    }
+  };
+
   return (
     <Context.Provider
-      value={{ ...state, getItems, addKeyword, removeKeyword, clearItems }}
+      value={{
+        ...state,
+        getItems,
+        addKeyword,
+        removeKeyword,
+        clearItems,
+        toggleSaveItem,
+      }}
     >
       {children}
     </Context.Provider>

@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
-import { Recipe as RecipeInterface } from "../../context/types";
+import { Recipe as RecipeInterface, State } from "../../context/types";
 import Chips from "./Chips";
 import Recipe from "./Recipe";
 import { useDetailedRecipeStyles } from "./style";
@@ -19,11 +19,13 @@ const MotionPaper = motion.custom(Paper);
 interface Props {
   recipe: RecipeInterface;
   id: number;
+  handleSave: State["toggleSaveItem"];
+  isSaved: boolean;
 }
 
 const maxWidth = 500;
 
-const DetailedRecipe = ({ recipe, id }: Props) => {
+const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
   const classes = useDetailedRecipeStyles({ maxWidth });
   const [height, setHeight] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -60,6 +62,8 @@ const DetailedRecipe = ({ recipe, id }: Props) => {
             selected={true}
             active={true}
             id={id}
+            handleSave={handleSave}
+            isSaved={isSaved}
           />
         </MotionGrid>
         <Grid item xs={12} className={classes.paperGrid}>

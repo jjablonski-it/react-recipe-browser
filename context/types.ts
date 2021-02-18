@@ -111,6 +111,7 @@ interface Ingredient {
   }; //	Food
   foodCategory: string; //	Shopping aisle category
 }
+
 export interface Recipe {
   uri: string; //	Ontology identifier
   label: string; //	Recipe title
@@ -153,6 +154,7 @@ export interface Recipe {
 }
 export interface State {
   items: Recipe[];
+  saved: Recipe["uri"][];
   prevItemsCount: number;
   loading: boolean;
   keywords: string[];
@@ -161,6 +163,7 @@ export interface State {
   addKeyword?: (keyword: string) => void;
   removeKeyword?: (keyword: string) => void;
   clearItems?: () => void;
+  toggleSaveItem?: (uri: string) => void;
 }
 
 export type Action =
@@ -170,4 +173,6 @@ export type Action =
   | { type: "ADD_KEYWORD"; payload: string }
   | { type: "REMOVE_KEYWORD"; payload: string }
   | { type: "SET_MORE"; payload: boolean }
-  | { type: "CLEAR_ITEMS" };
+  | { type: "CLEAR_ITEMS" }
+  | { type: "SAVE_ITEM"; payload: string }
+  | { type: "REMOVE_ITEM"; payload: string };

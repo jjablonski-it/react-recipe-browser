@@ -25,6 +25,8 @@ const Recipes = () => {
     more,
     keywords,
     prevItemsCount,
+    toggleSaveItem,
+    saved,
   } = useContext(Context);
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [show, setShow] = useState(false);
@@ -62,6 +64,8 @@ const Recipes = () => {
         <AnimateSharedLayout type="crossfade">
           {items?.map((recipe, i) => {
             const isSelected = !!selected && getRecipeId(selected) === i;
+            const isSaved = saved.includes(recipe.uri);
+
             return (
               <MotionGrid
                 key={i}
@@ -83,6 +87,8 @@ const Recipes = () => {
                     setSelected(recipe);
                     setShow(true);
                   }}
+                  handleSave={toggleSaveItem}
+                  isSaved={isSaved}
                   id={i}
                   selected={isSelected}
                 />
@@ -99,7 +105,12 @@ const Recipes = () => {
           />
           <AnimatePresence>
             {show && selected && (
-              <DetailedRecipe recipe={selected} id={getRecipeId(selected)} />
+              <DetailedRecipe
+                recipe={selected}
+                id={getRecipeId(selected)}
+                handleSave={toggleSaveItem}
+                isSaved={saved.includes(selected.uri)}
+              />
             )}
           </AnimatePresence>
         </AnimateSharedLayout>

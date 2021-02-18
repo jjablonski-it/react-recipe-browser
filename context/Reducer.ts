@@ -1,3 +1,7 @@
+import {
+  pushToLocalStorageList,
+  removeFromLocalStorageList,
+} from "../utils/helpers";
 import { Action, State } from "./types";
 
 export const reducer = (state: State, action: Action): State => {
@@ -40,6 +44,18 @@ export const reducer = (state: State, action: Action): State => {
         keywords: [
           ...state.keywords.filter((keyword) => keyword !== action.payload),
         ],
+      };
+    }
+
+    case "SAVE_ITEM":
+      pushToLocalStorageList("saved", action.payload);
+      return { ...state, saved: [...state.saved, action.payload] };
+
+    case "REMOVE_ITEM": {
+      removeFromLocalStorageList("saved", action.payload);
+      return {
+        ...state,
+        saved: [...state.saved.filter((item) => item !== action.payload)],
       };
     }
 

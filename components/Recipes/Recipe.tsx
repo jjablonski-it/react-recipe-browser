@@ -1,7 +1,6 @@
 import { CardActionArea, CardContent } from "@material-ui/core";
 import {
   Favorite,
-  FavoriteBorder,
   FavoriteBorderOutlined,
   Person,
   WatchLater,
@@ -106,7 +105,6 @@ const Recipe = ({
         {isSaved ? (
           <Favorite className={classes.secondary} />
         ) : (
-          // <FavoriteBorder className={classes.secondary} />
           <FavoriteBorderOutlined className={classes.secondary} />
         )}
       </MotionIconButton>

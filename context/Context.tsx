@@ -58,6 +58,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
         qs.stringify(params, { arrayFormat: "repeat" }),
     });
     dispatch({ type: "ITEMS_LOADED", payload: data });
+    dispatch({ type: "SET_MORE", payload: false });
   };
 
   const addKeyword = (keyword: string) => {

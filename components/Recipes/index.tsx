@@ -44,7 +44,7 @@ const Recipes = () => {
     setShow(false);
     if (
       window.innerHeight + window.pageYOffset >=
-      document.body.offsetHeight - 2
+      document.body.offsetHeight * 0.75 - 2
     )
       if (!loading && more) {
         getItems!(keywords);

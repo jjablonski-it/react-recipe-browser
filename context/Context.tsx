@@ -48,14 +48,16 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
   };
 
   const getSaved = async () => {
-    const res = await axios.get<ApiResponse<Recipe>>("/api/saved", {
+    dispatch({ type: "ITEMS_LOADING" });
+
+    const { data } = await axios.get<Recipe[]>("/api/saved", {
       params: {
         r: saved,
       },
       paramsSerializer: (params) =>
         qs.stringify(params, { arrayFormat: "repeat" }),
     });
-    console.log(res);
+    dispatch({ type: "ITEMS_LOADED", payload: data });
   };
 
   const addKeyword = (keyword: string) => {

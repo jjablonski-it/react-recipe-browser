@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   else if (typeof r === "object")
     r = r.map((rId) => process.env.URI_PREFIX + rId);
 
-  if (!r) return res.json({});
+  if (!r) return res.json([]);
 
   const { data } = await axios.get<RecipeWhole[]>(process.env.API_URL, {
     params: {

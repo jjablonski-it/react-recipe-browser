@@ -10,6 +10,7 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: 50,
     right: 50,
+    zIndex: 1000,
   },
 });
 

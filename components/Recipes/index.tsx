@@ -10,10 +10,15 @@ import RecipeComp from "./Recipe";
 
 const item: Variants = {
   hidden: { opacity: 0, y: -20 },
-  show: (i) => ({
+  show: ({ i, prevItemsCount }) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.15 * i },
+    transition: { delay: 0.15 * (i - prevItemsCount) },
+  }),
+  exit: ({ i, itemsCount }) => ({
+    opacity: 0,
+    y: -20,
+    transition: { delay: (itemsCount - i) * 0.04 },
   }),
 };
 
@@ -62,48 +67,49 @@ const Recipes = () => {
         style={{ margin: "10px 0 50px 0" }}
       >
         <AnimateSharedLayout type="crossfade">
-          {items?.map((recipe, i) => {
-            const isSelected = !!selected && getRecipeId(selected) === i;
-            const isSaved = saved.includes(recipe.uri);
-
-            return (
-              <MotionGrid
-                key={i}
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                custom={i - prevItemsCount}
-                variants={item}
-                initial="hidden"
-                animate="show"
-                layoutId={`container ${i}`}
-                style={{ zIndex: isSelected ? 1 : 0 }}
-              >
-                <RecipeComp
-                  recipe={recipe}
-                  setSelected={() => {
-                    setSelected(recipe);
-                    setShow(true);
-                  }}
-                  handleSave={toggleSaveItem}
-                  isSaved={isSaved}
-                  id={i}
-                  selected={isSelected}
-                />
-              </MotionGrid>
-            );
-          })}
-
-          <Backdrop
-            open={show}
-            onClick={() => {
-              setShow(false);
-            }}
-            style={{ zIndex: 100 }}
-          />
           <AnimatePresence>
+            {items?.map((recipe, i) => {
+              const isSelected = !!selected && getRecipeId(selected) === i;
+              const isSaved = saved.includes(recipe.uri);
+
+              return (
+                <MotionGrid
+                  key={i}
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                  custom={{ i, prevItemsCount, itemsCount: items.length }}
+                  variants={item}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  layoutId={`container ${i}`}
+                  style={{ zIndex: isSelected ? 1 : 0 }}
+                >
+                  <RecipeComp
+                    recipe={recipe}
+                    setSelected={() => {
+                      setSelected(recipe);
+                      setShow(true);
+                    }}
+                    handleSave={toggleSaveItem}
+                    isSaved={isSaved}
+                    id={i}
+                    selected={isSelected}
+                  />
+                </MotionGrid>
+              );
+            })}
+
+            <Backdrop
+              open={show}
+              onClick={() => {
+                setShow(false);
+              }}
+              style={{ zIndex: 100 }}
+            />
             {show && selected && (
               <DetailedRecipe
                 recipe={selected}

@@ -4,6 +4,7 @@ declare global {
       APP_KEY: string;
       APP_ID: string;
       API_URL: string;
+      URI_PREFIX: string;
     }
   }
 }

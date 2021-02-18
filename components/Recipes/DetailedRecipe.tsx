@@ -39,8 +39,6 @@ const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
       setTimeout(() => setHeight(ref.current!.clientHeight), 400);
   }, []);
 
-  console.log(height);
-
   return (
     <MotionGrid
       className={classes.root}

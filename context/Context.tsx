@@ -31,14 +31,13 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     const isSame = q === lastQ;
     lastQ = q;
 
-    const { data } = await axios.get<ApiResponse>("/api", {
+    const { data } = await axios.get<ApiResponse<Recipe>>("/api", {
       params: {
         q,
         from: isSame ? items.length : 0,
       } as ApiRequest,
     });
 
-    data.hits = data.hits.map((hit) => (hit as any).recipe);
     if (isSame) {
       dispatch({ type: "ITEMS_APPEND", payload: data.hits });
     } else {

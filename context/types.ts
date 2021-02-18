@@ -89,11 +89,11 @@ export interface ApiRequest {
   excluded?: string; //	Excluding recipes with certain ingredients. The format is excluded=FOOD where FOOD is replaced by the name of the specific food you don’t want to be present in the recipe results. More than one food can be excluded at the same time. Example: excluded=vinegar&excluded=pretzel will exclude any recipes which contain vinegar or pretzels in their ingredient list
   callback?: string; //	Callback parameter for JSONP. This will “envelop” the result in a JavaScript function call to the specified callback. Optional
 }
-export interface ApiResponse {
+export interface ApiResponse<T> {
   count: number;
   from: number;
   to: number;
-  hits: Recipe[];
+  hits: T[];
   more: boolean;
   q: string;
 }
@@ -120,10 +120,9 @@ export interface Recipe {
   url: string; //	Original recipe URL
   yield: number; //	Number of servings
   calories: number; //	Total energy, kcal
-  totalWeight: number; //	Total weight, (g)
+
   ingredientLines: Ingredient[]; //	Ingredients list
-  totalNutrients: string; //	Total nutrients for the entire recipe. TotalNutrients/yield equals nutrients per serving
-  totalDaily: string; // daily value for the entire recipe. Total/Daily/yield equals nutrients per serving
+
   dietLabels: // (labels are per serving)
   (
     | "balanced"
@@ -152,6 +151,17 @@ export interface Recipe {
   )[];
   totalTime: number;
 }
+
+export interface RecipeUseless {
+  digest: any;
+  totalDaily: string; // daily value for the entire recipe. Total/Daily/yield equals nutrients per serving
+  totalNutrients: any; //	Total nutrients for the entire recipe. TotalNutrients/yield equals nutrients per serving
+  totalWeight: number; //	Total weight, (g)
+  ingredients: any;
+  shareAs: any;
+}
+
+export type RecipeWhole = Recipe & RecipeUseless;
 export interface State {
   items: Recipe[];
   saved: Recipe["uri"][];

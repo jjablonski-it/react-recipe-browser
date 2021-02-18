@@ -1,5 +1,11 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
+import {
+  ApiResponse,
+  Recipe,
+  RecipeUseless,
+  RecipeWhole,
+} from "../../context/types";
 // import data from "./data.json";
 
 const LIMIT = 24;
@@ -15,17 +21,36 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log(r);
 
   console.log("from:", from, "to:", to);
-  if (!q || !to) return res.status(400).json({});
+  if (!r && (!q || !to)) return res.status(400).json({});
 
-  const recipeData = await axios.get(process.env.API_URL, {
-    params: {
-      app_key: process.env.APP_KEY,
-      app_id: process.env.APP_ID,
-      q,
-      from,
-      to,
-    },
-  });
+  const { data } = await axios.get<ApiResponse<RecipeWhole>>(
+    process.env.API_URL,
+    {
+      params: {
+        app_key: process.env.APP_KEY,
+        app_id: process.env.APP_ID,
+        q,
+        from,
+        to,
+      },
+    }
+  );
+  const hits: Recipe[] = data.hits
+    .map((hit) => (hit as any).recipe)
+    .map(cleanRecipe);
 
-  res.status(200).json(recipeData.data);
+  res.status(200).json({ ...data, hits });
+};
+
+const cleanRecipe = ({
+  digest,
+  totalDaily,
+  totalNutrients,
+  totalWeight,
+  ingredients,
+  shareAs,
+  ...props
+}: RecipeWhole): Recipe => {
+  let uri = props.uri.replace(process.env.URI_PREFIX, "");
+  return { ...props, uri };
 };

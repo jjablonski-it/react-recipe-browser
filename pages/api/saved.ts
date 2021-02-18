@@ -1,7 +1,7 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 import qs from "qs";
-import { ApiResponse, RecipeWhole } from "../../context/types";
+import { RecipeWhole } from "../../context/types";
 import { cleanRecipe } from "../../utils/helpers";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -22,9 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     paramsSerializer: (params) =>
       qs.stringify(params, { arrayFormat: "repeat" }),
   });
-  console.log(data.map((data) => data.label));
+  const cleanData = data.map((recipe) => recipe).map(cleanRecipe);
 
-  const hits = data.map((recipe) => recipe).map(cleanRecipe);
-
-  res.status(200).json({ ...data, hits });
+  res.status(200).json(cleanData);
 };

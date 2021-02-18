@@ -6,6 +6,7 @@ import {
   RecipeUseless,
   RecipeWhole,
 } from "../../context/types";
+import { cleanRecipe } from "../../utils/helpers";
 // import data from "./data.json";
 
 const LIMIT = 24;
@@ -14,14 +15,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // TESTING
   // return res.json(data);
 
-  const { q, r, from: baseFrom } = req.query;
+  const { q, from: baseFrom } = req.query;
   const from = +baseFrom + Math.floor(+baseFrom / LIMIT);
   const to = from + LIMIT;
 
-  console.log(r);
-
   console.log("from:", from, "to:", to);
-  if (!r && (!q || !to)) return res.status(400).json({});
+  if (!q || !to) return res.status(400).json({});
 
   const { data } = await axios.get<ApiResponse<RecipeWhole>>(
     process.env.API_URL,
@@ -35,22 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     }
   );
-  const hits: Recipe[] = data.hits
-    .map((hit) => (hit as any).recipe)
-    .map(cleanRecipe);
+  const hits = data.hits.map((hit) => (hit as any).recipe).map(cleanRecipe);
 
   res.status(200).json({ ...data, hits });
-};
-
-const cleanRecipe = ({
-  digest,
-  totalDaily,
-  totalNutrients,
-  totalWeight,
-  ingredients,
-  shareAs,
-  ...props
-}: RecipeWhole): Recipe => {
-  let uri = props.uri.replace(process.env.URI_PREFIX, "");
-  return { ...props, uri };
 };

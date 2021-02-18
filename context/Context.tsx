@@ -48,7 +48,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
   };
 
   const getSaved = async () => {
-    const res = await axios.get<ApiResponse>("/api", {
+    const res = await axios.get<ApiResponse<Recipe>>("/api/saved", {
       params: {
         r: saved,
       },

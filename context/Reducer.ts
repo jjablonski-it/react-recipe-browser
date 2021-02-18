@@ -60,8 +60,6 @@ export const reducer = (state: State, action: Action): State => {
     }
 
     case "SET_MORE":
-      console.log("more", action.payload);
-
       return { ...state, more: action.payload };
   }
 };

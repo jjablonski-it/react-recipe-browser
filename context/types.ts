@@ -160,6 +160,7 @@ export interface State {
   keywords: string[];
   more: boolean;
   getItems?: (keywords: string[]) => void;
+  getSaved?: () => void;
   addKeyword?: (keyword: string) => void;
   removeKeyword?: (keyword: string) => void;
   clearItems?: () => void;

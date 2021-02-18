@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 });
 
 const Saved = (props: Props) => {
-  const { clearItems } = useContext(Context);
+  const { clearItems, getSaved } = useContext(Context);
   const classes = useStyles();
 
   return (
@@ -23,6 +23,7 @@ const Saved = (props: Props) => {
       className={classes.root}
       onClick={() => {
         clearItems!();
+        getSaved!();
       }}
     >
       <Favorite />

@@ -8,10 +8,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // TESTING
   // return res.json(data);
 
-  const q = req.query.q;
-  const baseFrom = +req.query.from;
-  const from = baseFrom + Math.floor(baseFrom / LIMIT);
+  const { q, r, from: baseFrom } = req.query;
+  const from = +baseFrom + Math.floor(+baseFrom / LIMIT);
   const to = from + LIMIT;
+
+  console.log(r);
 
   console.log("from:", from, "to:", to);
   if (!q || !to) return res.status(400).json({});

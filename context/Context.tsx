@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { createContext, useReducer } from "react";
 import { reducer } from "./Reducer";
 import { ApiRequest, ApiResponse, Recipe, State } from "./types";
+import qs from "qs";
 
 const initialState: State = {
   items: [],
@@ -19,7 +20,7 @@ let lastQ = "";
 
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { items } = state;
+  const { items, saved } = state;
 
   const getItems = async (keywords: string[]) => {
     keywords = keywords.filter((kw) => !!kw);
@@ -45,6 +46,17 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     }
 
     dispatch({ type: "SET_MORE", payload: data.more });
+  };
+
+  const getSaved = async () => {
+    const res = await axios.get<ApiResponse>("/api", {
+      params: {
+        r: saved,
+      },
+      paramsSerializer: (params) =>
+        qs.stringify(params, { arrayFormat: "repeat" }),
+    });
+    console.log(res);
   };
 
   const addKeyword = (keyword: string) => {
@@ -76,6 +88,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
         removeKeyword,
         clearItems,
         toggleSaveItem,
+        getSaved,
       }}
     >
       {children}

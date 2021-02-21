@@ -3,6 +3,18 @@ import { FilterList, Sort } from "@material-ui/icons";
 import React from "react";
 import { Recipe } from "../../context/types";
 
+type OptionalRecipe = {
+  [P in keyof Recipe]?: any;
+};
+
+const recipeSchema: OptionalRecipe = {
+  totalTime: 0,
+  calories: 0,
+  yield: 0,
+  label: 0,
+  source: 0,
+};
+
 interface Props {}
 
 const SortAndFilter = (props: Props) => {
@@ -29,9 +41,9 @@ const SortAndFilter = (props: Props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Option</MenuItem>
-        <MenuItem onClick={handleClose}>Option</MenuItem>
-        <MenuItem onClick={handleClose}>Option</MenuItem>
+        {Object.keys(recipeSchema).map((r) => (
+          <MenuItem>{r}</MenuItem>
+        ))}
       </Menu>
     </>
   );

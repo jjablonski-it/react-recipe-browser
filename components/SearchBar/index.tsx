@@ -1,9 +1,8 @@
 import { Chip, TextField } from "@material-ui/core";
 import { motion } from "framer-motion";
 import React, { useContext, useState } from "react";
-import { Context } from "../context/Context";
-
-const MotionChip = motion.custom(Chip);
+import { Context } from "../../context/Context";
+import Keywords from "./Keywords";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
@@ -52,18 +51,7 @@ const SearchBar = () => {
           justifyContent: "space-evenly",
         }}
       >
-        {keywords.map((keyword, i) => (
-          <MotionChip
-            key={i}
-            label={keyword}
-            style={{ margin: 5 }}
-            layout
-            color="primary"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            onClick={() => removeKeyword!(keyword)}
-          />
-        ))}
+        <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
       </motion.div>
     </form>
   );

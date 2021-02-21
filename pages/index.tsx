@@ -1,7 +1,7 @@
 import { Grid, Typography } from "@material-ui/core";
 import Recipes from "../components/Recipes";
 import Saved from "../components/Saved";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/SearchBar/";
 
 export default function Home() {
   return (

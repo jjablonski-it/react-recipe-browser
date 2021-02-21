@@ -4,17 +4,17 @@ import { reducer } from "./Reducer";
 import { ApiRequest, ApiResponse, Recipe, SortKey, State } from "./types";
 import qs from "qs";
 
+const isClient = typeof window !== "undefined";
+
 const initialState: State = {
   items: [],
-  saved: JSON.parse(
-    (typeof window !== "undefined" && localStorage.getItem("saved")) || "[]"
-  ),
   prevItemsCount: 0,
   keywords: [],
   loading: false,
   more: true,
-  sortBy: "label",
-  sortAsc: true,
+  saved: JSON.parse((isClient && localStorage.getItem("saved")) || "[]"),
+  sortBy: (isClient && (localStorage.getItem("sortBy") as SortKey)) || "label",
+  sortAsc: isClient && "true" == localStorage.getItem("sortAsc"),
 };
 
 export const Context = createContext(initialState);

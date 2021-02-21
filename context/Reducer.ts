@@ -66,6 +66,8 @@ export const reducer = (state: State, action: Action): State => {
       //   a[key] > b[key] ? (asc ? 1 : -1) : asc ? -1 : 1
       // );
 
+      localStorage.setItem("sortBy", key);
+      localStorage.setItem("sortAsc", String(asc));
       return { ...state, sortBy: key, sortAsc: asc };
     }
 

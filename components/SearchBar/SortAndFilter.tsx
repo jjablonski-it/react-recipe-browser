@@ -23,7 +23,6 @@ const recipeSchema: OptionalRecipe = {
 
 const SortAndFilter = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [asc, setAsc] = useState(true);
 
   const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,7 +38,10 @@ const SortAndFilter = () => {
       <IconButton>
         <FilterList />
       </IconButton>
-      <IconButton onClick={handleSortClick}>
+      <IconButton
+        onClick={handleSortClick}
+        color={sortBy === null ? "default" : "secondary"}
+      >
         <Sort />
       </IconButton>
       <Menu
@@ -49,7 +51,7 @@ const SortAndFilter = () => {
         onClose={handleClose}
       >
         {Object.keys(recipeSchema).map((key) => (
-          <MenuItem onClick={() => sortItems!(key as SortKey, asc)}>
+          <MenuItem onClick={() => sortItems!(key as SortKey)}>
             {key}
             {key === sortBy &&
               (sortAsc ? <KeyboardArrowUp /> : <KeyboardArrowDown />)}

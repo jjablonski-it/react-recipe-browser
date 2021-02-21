@@ -5,7 +5,7 @@ import {
   KeyboardArrowUp,
   Sort,
 } from "@material-ui/icons";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Context } from "../../context/Context";
 import { Recipe, SortKey } from "../../context/types";
 

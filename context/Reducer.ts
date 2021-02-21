@@ -61,11 +61,6 @@ export const reducer = (state: State, action: Action): State => {
 
     case "SORT_ITEMS": {
       const { asc, key } = action.payload;
-      // const { items } = state;
-      // const newItems = items.sort((a, b) =>
-      //   a[key] > b[key] ? (asc ? 1 : -1) : asc ? -1 : 1
-      // );
-
       localStorage.setItem("sortBy", key);
       localStorage.setItem("sortAsc", String(asc));
       return { ...state, sortBy: key, sortAsc: asc };

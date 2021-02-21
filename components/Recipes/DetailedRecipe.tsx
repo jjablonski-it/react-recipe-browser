@@ -91,7 +91,7 @@ const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
               variant={"h5"}
               target="_blank"
             >
-              Source
+              Instructions
             </Link>
           </MotionPaper>
         </Grid>

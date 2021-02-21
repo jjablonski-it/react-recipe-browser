@@ -20,7 +20,13 @@ const variants: Variants = {
 
 const Keywords = ({ keywords, removeKeyword }: Props) => {
   return (
-    <>
+    <motion.div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-evenly",
+      }}
+    >
       {keywords.map((keyword, i) => (
         <MotionChip
           key={i}
@@ -35,7 +41,7 @@ const Keywords = ({ keywords, removeKeyword }: Props) => {
           onClick={() => removeKeyword(keyword)}
         />
       ))}
-    </>
+    </motion.div>
   );
 };
 

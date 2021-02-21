@@ -1,4 +1,4 @@
-import { Chip, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { motion } from "framer-motion";
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
@@ -44,15 +44,7 @@ const SearchBar = () => {
           } else setValue(() => e.target.value);
         }}
       />
-      <motion.div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
-      </motion.div>
+      <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
     </form>
   );
 };

@@ -22,7 +22,7 @@ let lastQ = "";
 
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { items, saved } = state;
+  const { items, saved, sortBy, sortAsc } = state;
 
   const getItems = async (keywords: string[]) => {
     keywords = keywords.filter((kw) => !!kw);
@@ -83,7 +83,8 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     }
   };
 
-  const sortItems = (key: SortKey, asc: boolean) => {
+  const sortItems = (key: SortKey) => {
+    const asc = key !== sortBy ? true : !sortAsc;
     dispatch({ type: "SORT_ITEMS", payload: { key, asc } });
   };
 

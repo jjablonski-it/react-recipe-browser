@@ -15,9 +15,7 @@ const recipeSchema: OptionalRecipe = {
   source: 0,
 };
 
-interface Props {}
-
-const SortAndFilter = (props: Props) => {
+const SortAndFilter = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -41,8 +39,8 @@ const SortAndFilter = (props: Props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {Object.keys(recipeSchema).map((r) => (
-          <MenuItem>{r}</MenuItem>
+        {Object.keys(recipeSchema).map((key) => (
+          <MenuItem>{key}</MenuItem>
         ))}
       </Menu>
     </>

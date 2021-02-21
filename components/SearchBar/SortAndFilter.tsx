@@ -1,5 +1,10 @@
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
-import { FilterList, Sort } from "@material-ui/icons";
+import {
+  FilterList,
+  KeyboardArrowDown,
+  KeyboardArrowUp,
+  Sort,
+} from "@material-ui/icons";
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import { Recipe, SortKey } from "../../context/types";
@@ -23,7 +28,7 @@ const SortAndFilter = () => {
   const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const { sortItems } = useContext(Context);
+  const { sortItems, sortBy, sortAsc } = useContext(Context);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -46,6 +51,8 @@ const SortAndFilter = () => {
         {Object.keys(recipeSchema).map((key) => (
           <MenuItem onClick={() => sortItems!(key as SortKey, asc)}>
             {key}
+            {key === sortBy &&
+              (sortAsc ? <KeyboardArrowUp /> : <KeyboardArrowDown />)}
           </MenuItem>
         ))}
       </Menu>

@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import Input from "./Input";
 import Keywords from "./Keywords";
+import SortAndFilter from "./SortAndFIlter";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
@@ -33,7 +34,14 @@ const SearchBar = () => {
       }}
       style={{ width: "100%" }}
     >
-      <Input newKeyword={newKeyword} setValue={setValue} value={value} />
+      <Grid container>
+        <Grid item xs={11}>
+          <Input newKeyword={newKeyword} setValue={setValue} value={value} />
+        </Grid>
+        <Grid item style={{ marginTop: 5 }}>
+          <SortAndFilter />
+        </Grid>
+      </Grid>
       <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
     </form>
   );

@@ -13,6 +13,8 @@ const initialState: State = {
   keywords: [],
   loading: false,
   more: true,
+  sortBy: "label",
+  sortAsc: true,
 };
 
 export const Context = createContext(initialState);

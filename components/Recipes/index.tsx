@@ -32,6 +32,8 @@ const Recipes = () => {
     prevItemsCount,
     toggleSaveItem,
     saved,
+    sortBy,
+    sortAsc,
   } = useContext(Context);
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [show, setShow] = useState(false);
@@ -51,6 +53,12 @@ const Recipes = () => {
       }
   };
 
+  const handleSort = (a: Recipe, b: Recipe): number => {
+    let compare = a[sortBy] > b[sortBy];
+    if (!sortAsc) compare = !compare;
+    return compare ? 1 : -1;
+  };
+
   useEffect(() => {
     if (window) window.addEventListener("scroll", handleScroll);
     return () => {
@@ -67,7 +75,7 @@ const Recipes = () => {
         style={{ margin: "10px 0 50px 0" }}
       >
         <AnimateSharedLayout type="crossfade">
-          {items?.map((recipe, i) => {
+          {items?.sort(handleSort).map((recipe, i) => {
             const isSelected = !!selected && getRecipeId(selected) === i;
             const isSaved = saved.includes(recipe.uri);
 

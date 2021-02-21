@@ -171,6 +171,8 @@ export interface State {
   loading: boolean;
   keywords: string[];
   more: boolean;
+  sortBy: SortKey;
+  sortAsc: boolean;
   getItems?: (keywords: string[]) => void;
   getSaved?: () => void;
   addKeyword?: (keyword: string) => void;

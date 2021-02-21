@@ -54,6 +54,7 @@ const Recipes = () => {
   };
 
   const handleSort = (a: Recipe, b: Recipe): number => {
+    if (sortBy === null) return 1;
     let compare = a[sortBy] > b[sortBy];
     if (!sortAsc) compare = !compare;
     return compare ? 1 : -1;

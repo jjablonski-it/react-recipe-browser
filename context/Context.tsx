@@ -13,7 +13,7 @@ const initialState: State = {
   loading: false,
   more: true,
   saved: JSON.parse((isClient && localStorage.getItem("saved")) || "[]"),
-  sortBy: (isClient && (localStorage.getItem("sortBy") as SortKey)) || "label",
+  sortBy: (isClient && (localStorage.getItem("sortBy") as SortKey)) || null,
   sortAsc: isClient && "true" == localStorage.getItem("sortAsc"),
 };
 
@@ -84,7 +84,11 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
   };
 
   const sortItems = (key: SortKey) => {
-    const asc = key !== sortBy ? true : !sortAsc;
+    let asc = true;
+    if (key === sortBy) {
+      if (!sortAsc) key = null;
+      else asc = false;
+    }
     dispatch({ type: "SORT_ITEMS", payload: { key, asc } });
   };
 

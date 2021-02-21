@@ -163,7 +163,7 @@ export interface RecipeUseless {
 
 export type RecipeWhole = Recipe & RecipeUseless;
 
-export type SortKey = keyof Recipe;
+export type SortKey = keyof Recipe | null;
 export interface State {
   items: Recipe[];
   saved: Recipe["uri"][];

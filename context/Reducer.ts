@@ -59,6 +59,15 @@ export const reducer = (state: State, action: Action): State => {
       };
     }
 
+    case "SORT_ITEMS": {
+      const { items } = state;
+      const { asc, key } = action.payload;
+      const newItems = items.sort((a, b) =>
+        a[key] > b[key] ? (asc ? 1 : -1) : asc ? -1 : 1
+      );
+      return { ...state, items };
+    }
+
     case "SET_MORE":
       return { ...state, more: action.payload };
   }

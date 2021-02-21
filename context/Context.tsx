@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { createContext, useReducer } from "react";
 import { reducer } from "./Reducer";
-import { ApiRequest, ApiResponse, Recipe, State } from "./types";
+import { ApiRequest, ApiResponse, Recipe, SortKey, State } from "./types";
 import qs from "qs";
 
 const initialState: State = {
@@ -81,6 +81,10 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     }
   };
 
+  const sortItems = (key: SortKey, asc: boolean) => {
+    dispatch({ type: "SORT_ITEMS", payload: { key, asc } });
+  };
+
   return (
     <Context.Provider
       value={{
@@ -91,6 +95,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
         clearItems,
         toggleSaveItem,
         getSaved,
+        sortItems,
       }}
     >
       {children}

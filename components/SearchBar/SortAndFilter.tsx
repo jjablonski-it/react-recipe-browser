@@ -1,7 +1,8 @@
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { FilterList, Sort } from "@material-ui/icons";
-import React from "react";
-import { Recipe } from "../../context/types";
+import React, { useContext, useState } from "react";
+import { Context } from "../../context/Context";
+import { Recipe, SortKey } from "../../context/types";
 
 type OptionalRecipe = {
   [P in keyof Recipe]?: any;
@@ -17,9 +18,12 @@ const recipeSchema: OptionalRecipe = {
 
 const SortAndFilter = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [asc, setAsc] = useState(true);
+
   const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const { sortItems } = useContext(Context);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -40,7 +44,9 @@ const SortAndFilter = () => {
         onClose={handleClose}
       >
         {Object.keys(recipeSchema).map((key) => (
-          <MenuItem>{key}</MenuItem>
+          <MenuItem onClick={() => sortItems!(key as SortKey, asc)}>
+            {key}
+          </MenuItem>
         ))}
       </Menu>
     </>

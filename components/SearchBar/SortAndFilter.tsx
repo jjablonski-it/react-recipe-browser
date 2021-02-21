@@ -33,6 +33,8 @@ const SortAndFilter = () => {
     setAnchorEl(null);
   };
 
+  console.log(sortBy);
+
   return (
     <>
       <IconButton>
@@ -40,18 +42,18 @@ const SortAndFilter = () => {
       </IconButton>
       <IconButton
         onClick={handleSortClick}
-        color={sortBy === null ? "default" : "secondary"}
+        color={!sortBy ? "default" : "secondary"}
       >
         <Sort />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={!!anchorEl}
         onClose={handleClose}
       >
-        {Object.keys(recipeSchema).map((key) => (
-          <MenuItem onClick={() => sortItems!(key as SortKey)}>
+        {Object.keys(recipeSchema).map((key, i) => (
+          <MenuItem onClick={() => sortItems!(key as SortKey)} key={i}>
             {key}
             {key === sortBy &&
               (sortAsc ? <KeyboardArrowUp /> : <KeyboardArrowDown />)}

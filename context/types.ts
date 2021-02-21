@@ -163,7 +163,7 @@ export interface RecipeUseless {
 
 export type RecipeWhole = Recipe & RecipeUseless;
 
-export type SortKey = keyof Recipe | null;
+export type SortKey = keyof Recipe | "";
 export interface State {
   items: Recipe[];
   saved: Recipe["uri"][];
@@ -192,4 +192,4 @@ export type Action =
   | { type: "CLEAR_ITEMS" }
   | { type: "SAVE_ITEM"; payload: string }
   | { type: "REMOVE_ITEM"; payload: string }
-  | { type: "SORT_ITEMS"; payload: { key: SortKey } };
+  | { type: "SORT_ITEMS"; payload: { key: SortKey; asc: boolean } };

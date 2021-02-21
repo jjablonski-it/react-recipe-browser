@@ -1,7 +1,8 @@
-import { TextField } from "@material-ui/core";
-import { motion } from "framer-motion";
+import { Grid, IconButton } from "@material-ui/core";
+import { FilterList, Sort } from "@material-ui/icons";
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
+import Input from "./Input";
 import Keywords from "./Keywords";
 
 const SearchBar = () => {
@@ -32,18 +33,7 @@ const SearchBar = () => {
       }}
       style={{ width: "100%" }}
     >
-      <TextField
-        value={value}
-        label="Search"
-        fullWidth
-        color="secondary"
-        onChange={(e) => {
-          const value = e.target.value;
-          if (value.slice(-1) === " ") {
-            newKeyword(value);
-          } else setValue(() => e.target.value);
-        }}
-      />
+      <Input newKeyword={newKeyword} setValue={setValue} value={value} />
       <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
     </form>
   );

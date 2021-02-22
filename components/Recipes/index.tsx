@@ -76,7 +76,7 @@ const Recipes = () => {
         style={{ margin: "10px 0 50px 0" }}
       >
         <AnimateSharedLayout type="crossfade">
-          {items?.sort(handleSort).map((recipe, i) => {
+          {[...items]?.sort(handleSort).map((recipe, i) => {
             const isSelected = !!selected && getRecipeId(selected) === i;
             const isSaved = saved.includes(recipe.uri);
 

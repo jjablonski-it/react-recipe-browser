@@ -72,7 +72,13 @@ const Recipe = ({
         <div className={classes.content}>
           <MotionCardHeader
             title={label}
-            subheader={source}
+            subheader={
+              <div>
+                {id}
+                <br />
+                {uri}
+              </div>
+            }
             className={classes.header}
             layoutId={`header ${id}`}
           />

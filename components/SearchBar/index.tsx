@@ -38,7 +38,7 @@ const SearchBar = () => {
         <Grid item xs={11}>
           <Input newKeyword={newKeyword} setValue={setValue} value={value} />
         </Grid>
-        <Grid item style={{ marginTop: 5 }}>
+        <Grid item style={{ marginTop: 5 }} xs={1}>
           <SortAndFilter />
         </Grid>
       </Grid>

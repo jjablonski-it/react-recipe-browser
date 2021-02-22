@@ -5,7 +5,7 @@ import {
   KeyboardArrowUp,
   Sort,
 } from "@material-ui/icons";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { Recipe, SortKey } from "../../context/types";
 
@@ -22,8 +22,8 @@ const recipeSchema: OptionalRecipe = {
 };
 
 const SortAndFilter = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [sortActive, setSortActive] = useState(false);
   const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -33,7 +33,9 @@ const SortAndFilter = () => {
     setAnchorEl(null);
   };
 
-  console.log(sortBy);
+  useEffect(() => {
+    setSortActive(!!sortBy);
+  }, [sortBy]);
 
   return (
     <>
@@ -42,7 +44,7 @@ const SortAndFilter = () => {
       </IconButton>
       <IconButton
         onClick={handleSortClick}
-        color={!sortBy ? "default" : "secondary"}
+        color={sortActive ? "secondary" : "default"}
       >
         <Sort />
       </IconButton>
@@ -51,6 +53,7 @@ const SortAndFilter = () => {
         keepMounted
         open={!!anchorEl}
         onClose={handleClose}
+        style={{ marginTop: 50 }}
       >
         {Object.keys(recipeSchema).map((key, i) => (
           <MenuItem onClick={() => sortItems!(key as SortKey)} key={i}>

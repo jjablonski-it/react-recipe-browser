@@ -7,13 +7,13 @@ import {
   RecipeWhole,
 } from "../../context/types";
 import { cleanRecipe } from "../../utils/helpers";
-// import data from "./data.json";
+import testData from "./data.json";
 
 const LIMIT = 24;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // TESTING
-  // return res.json(data);
+  return res.json(testData);
 
   const { q, from: baseFrom } = req.query;
   const from = +baseFrom + Math.floor(+baseFrom / LIMIT);

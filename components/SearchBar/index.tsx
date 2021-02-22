@@ -4,7 +4,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
 import Input from "./Input";
 import Keywords from "./Keywords";
-import SortAndFilter from "./SortAndFIlter";
+import SortAndFilter from "./SortAndFilter";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");

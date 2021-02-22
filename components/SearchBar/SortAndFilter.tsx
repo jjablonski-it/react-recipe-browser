@@ -21,13 +21,23 @@ const recipeSchema: OptionalRecipe = {
   source: 0,
 };
 
-const SortAndFilter = () => {
+interface Props {
+  setShowFilter: React.Dispatch<React.SetStateAction<boolean>>;
+  showFilter: boolean;
+}
+
+const SortAndFilter = ({ setShowFilter, showFilter }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [sortActive, setSortActive] = useState(false);
+  const { sortItems, sortBy, sortAsc } = useContext(Context);
+
   const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const { sortItems, sortBy, sortAsc } = useContext(Context);
+
+  const handleFilterClick = () => {
+    setShowFilter(!showFilter);
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -39,7 +49,7 @@ const SortAndFilter = () => {
 
   return (
     <>
-      <IconButton>
+      <IconButton onClick={handleFilterClick}>
         <FilterList />
       </IconButton>
       <IconButton

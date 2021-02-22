@@ -1,13 +1,15 @@
-import { Grid, IconButton } from "@material-ui/core";
-import { FilterList, Sort } from "@material-ui/icons";
+import { Grid } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
+import FilterOptions from "./FilterOptions";
 import Input from "./Input";
 import Keywords from "./Keywords";
 import SortAndFilter from "./SortAndFilter";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
+  const [showFilter, setShowFilter] = useState(false);
+
   const {
     getItems,
     addKeyword,
@@ -39,7 +41,13 @@ const SearchBar = () => {
           <Input newKeyword={newKeyword} setValue={setValue} value={value} />
         </Grid>
         <Grid item style={{ marginTop: 5 }} xs={1}>
-          <SortAndFilter />
+          <SortAndFilter
+            setShowFilter={setShowFilter}
+            showFilter={showFilter}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          {showFilter && <FilterOptions />}
         </Grid>
       </Grid>
       <Keywords keywords={keywords} removeKeyword={removeKeyword!} />

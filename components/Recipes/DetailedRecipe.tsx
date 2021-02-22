@@ -50,7 +50,7 @@ const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
       <MotionGrid
         container
         item
-        layoutId={`container ${id}`}
+        layoutId={`container ${recipe.uri}`}
         className={classes.mainGrid}
       >
         <MotionGrid item xs={12}>

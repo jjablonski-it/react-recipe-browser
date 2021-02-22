@@ -78,11 +78,12 @@ const Recipes = () => {
         <AnimateSharedLayout type="crossfade">
           {[...items]?.sort(handleSort).map((recipe, i) => {
             const isSelected = !!selected && getRecipeId(selected) === i;
-            const isSaved = saved.includes(recipe.uri);
+            const { uri } = recipe;
+            const isSaved = saved.includes(uri);
 
             return (
               <MotionGrid
-                key={i}
+                key={uri}
                 item
                 xs={12}
                 sm={6}
@@ -93,7 +94,7 @@ const Recipes = () => {
                 initial="hidden"
                 animate="show"
                 // exit="exit"
-                layoutId={`container ${i}`}
+                layoutId={`container ${uri}`}
                 style={{ zIndex: isSelected ? 1 : 0 }}
               >
                 <RecipeComp

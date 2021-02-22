@@ -53,7 +53,7 @@ const Recipe = ({
     <MotionCard
       className={classes.root}
       elevation={3}
-      layoutId={`card ${id}`}
+      layoutId={`card ${uri}`}
       style={style}
     >
       <CardActionArea
@@ -67,45 +67,39 @@ const Recipe = ({
           animate={{ opacity: 1 }}
           src={image}
           className={classes.image}
-          layoutId={`image ${id}`}
+          layoutId={`image ${uri}`}
         />
         <div className={classes.content}>
           <MotionCardHeader
             title={label}
-            subheader={
-              <div>
-                {id}
-                <br />
-                {uri}
-              </div>
-            }
+            subheader={source}
             className={classes.header}
-            layoutId={`header ${id}`}
+            layoutId={`header ${uri}`}
           />
           <CardContent className={classes.footer}>
             <IconValue
               icon={<Person />}
               value={_yield}
-              layoutId={`person_icon ${id}`}
+              layoutId={`person_icon ${uri}`}
             />
             {!!totalTime && (
               <IconValue
                 icon={<WatchLater />}
                 value={totalTime}
-                layoutId={`time_icon ${id}`}
+                layoutId={`time_icon ${uri}`}
               />
             )}
             <IconValue
               icon={<Whatshot />}
               value={Math.floor(calories)}
-              layoutId={`calories_icon ${id}`}
+              layoutId={`calories_icon ${uri}`}
             />
           </CardContent>
         </div>
       </CardActionArea>
       <MotionIconButton
         className={classes.fab}
-        layoutId={`icon ${id}`}
+        layoutId={`icon ${uri}`}
         onClick={() => handleSave!(uri)}
       >
         {isSaved ? (

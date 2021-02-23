@@ -49,8 +49,8 @@ export interface ApiRequest {
   from?: number; //	First result index (default 0). Example: from=20. The maximum value of the “from” parameter is limitted by the number of results a plan is entitled to.
   to?: number; //	Last result index (exclusive, default from + 10). Example: to=30
   ingr?: number; //	Maximum number of ingredients. Example: ingr=5
-  diet?: Diet; //	Diet label: one of “balanced”, “high-protein”, “high-fiber”, “low-fat”, “low-carb”, “low-sodium”
-  health?: Health;
+  diet?: Diet[]; //	Diet label: one of “balanced”, “high-protein”, “high-fiber”, “low-fat”, “low-carb”, “low-sodium”
+  health?: Health[];
   cuisineType?:
     | "American"
     | "Asian"
@@ -147,12 +147,10 @@ export type RecipeWhole = Recipe & RecipeUseless;
 export type SortKey = keyof Recipe | "";
 
 export interface FilterState {
-  health: Recipe["healthLabels"];
-  diet: Recipe["dietLabels"];
+  health: Health[];
+  diet: Diet[];
 }
-export type FilterValues =
-  | Recipe["healthLabels"][number]
-  | Recipe["dietLabels"][number];
+export type FilterValues = Diet | Health;
 export interface State {
   items: Recipe[];
   saved: Recipe["uri"][];

@@ -1,6 +1,6 @@
-import { Grid } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import { AnimatePresence } from "framer-motion";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Context } from "../../context/Context";
 import FilterOptions from "./FilterOptions";
 import Input from "./Input";
@@ -27,12 +27,15 @@ const SearchBar = () => {
     }
   };
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <Grid container>
       <Grid item xs={11}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            inputRef.current?.blur();
             clearItems!();
             getItems!([...keywords, value]);
             newKeyword(value);
@@ -40,7 +43,19 @@ const SearchBar = () => {
           }}
           style={{ width: "100%" }}
         >
-          <Input newKeyword={newKeyword} setValue={setValue} value={value} />
+          <TextField
+            value={value}
+            label="Search"
+            fullWidth
+            color="secondary"
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value.slice(-1) === " ") {
+                newKeyword(value);
+              } else setValue(() => e.target.value);
+            }}
+            inputRef={inputRef}
+          />
         </form>
       </Grid>
       <Grid item style={{ marginTop: 5 }} xs={1}>

@@ -29,7 +29,8 @@ interface Props {
 const SortAndFilter = ({ setShowFilter, showFilter }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [sortActive, setSortActive] = useState(false);
-  const { sortItems, sortBy, sortAsc } = useContext(Context);
+  const [filterActive, setFilterActive] = useState(false);
+  const { sortItems, sortBy, sortAsc, filters } = useContext(Context);
 
   const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,11 +46,19 @@ const SortAndFilter = ({ setShowFilter, showFilter }: Props) => {
 
   useEffect(() => {
     setSortActive(!!sortBy);
-  }, [sortBy]);
+
+    const isActive = (Object.keys(filters) as (keyof typeof filters)[]).some(
+      (key) => filters[key].length > 0
+    );
+    setFilterActive(isActive);
+  }, [sortBy, filters]);
 
   return (
     <>
-      <IconButton onClick={handleFilterClick}>
+      <IconButton
+        onClick={handleFilterClick}
+        color={filterActive ? "secondary" : "default"}
+      >
         <FilterList />
       </IconButton>
       <IconButton

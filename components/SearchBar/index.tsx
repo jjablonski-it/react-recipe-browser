@@ -29,33 +29,30 @@ const SearchBar = () => {
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        clearItems!();
-        getItems!([...keywords, value]);
-        newKeyword(value);
-      }}
-      style={{ width: "100%" }}
-    >
-      <Grid container>
-        <Grid item xs={11}>
+    <Grid container>
+      <Grid item xs={11}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            clearItems!();
+            getItems!([...keywords, value]);
+            newKeyword(value);
+          }}
+          style={{ width: "100%" }}
+        >
           <Input newKeyword={newKeyword} setValue={setValue} value={value} />
-        </Grid>
-        <Grid item style={{ marginTop: 5 }} xs={1}>
-          <SortAndFilter
-            setShowFilter={setShowFilter}
-            showFilter={showFilter}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
-        </Grid>
-        <Grid item xs={12} component={motion.div} layout>
-          {showFilter && <FilterOptions />}
-        </Grid>
+        </form>
       </Grid>
-    </form>
+      <Grid item style={{ marginTop: 5 }} xs={1}>
+        <SortAndFilter setShowFilter={setShowFilter} showFilter={showFilter} />
+      </Grid>
+      <Grid item xs={12}>
+        <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
+      </Grid>
+      <Grid item xs={12} component={motion.div} layout>
+        {showFilter && <FilterOptions />}
+      </Grid>
+    </Grid>
   );
 };
 

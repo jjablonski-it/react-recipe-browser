@@ -1,17 +1,21 @@
 import {
   Checkbox,
   Grid,
+  Input,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   ListSubheader,
+  TextField,
+  Typography,
 } from "@material-ui/core";
 import { motion } from "framer-motion";
 import { useAnimatedState } from "framer-motion/types/animation/use-animated-state";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { FilterValues, Recipe } from "../../context/types";
+import Chips from "../Recipes/Chips";
 
 interface Props {}
 

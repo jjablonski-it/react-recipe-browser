@@ -1,4 +1,5 @@
-import { Chip } from "@material-ui/core";
+import { Chip, IconButton } from "@material-ui/core";
+import { Delete } from "@material-ui/icons";
 import { motion, Variants } from "framer-motion";
 import React, { useContext } from "react";
 import { Context } from "../../context/Context";
@@ -20,7 +21,9 @@ const variants: Variants = {
 };
 
 const Keywords = ({ keywords, removeKeyword }: Props) => {
-  const { excluded, addExclude, removeExclude } = useContext(Context);
+  const { excluded, addExclude, removeExclude, setKeywords } = useContext(
+    Context
+  );
 
   const isExcluded = (value: string) => excluded.includes(value);
 
@@ -34,28 +37,40 @@ const Keywords = ({ keywords, removeKeyword }: Props) => {
   };
 
   return (
-    <motion.div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "space-evenly",
-      }}
-    >
-      {keywords.map((keyword, i) => (
-        <MotionChip
-          key={i}
-          label={keyword}
-          style={{ margin: 5 }}
-          layout
-          color={isExcluded(keyword) ? "secondary" : "primary"}
-          variants={variants}
-          initial="hidden"
-          animate="show"
-          exit="hidden"
-          onClick={() => handleToggle(keyword)}
-        />
-      ))}
-    </motion.div>
+    <>
+      {keywords.length > 0 && (
+        <IconButton
+          style={{ float: "left", marginTop: 4 }}
+          size="small"
+          color="secondary"
+          onClick={() => setKeywords!([])}
+        >
+          <Delete />
+        </IconButton>
+      )}
+      <motion.div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-evenly",
+        }}
+      >
+        {keywords.map((keyword, i) => (
+          <MotionChip
+            key={i}
+            label={keyword}
+            style={{ margin: 5 }}
+            layout
+            color={isExcluded(keyword) ? "secondary" : "primary"}
+            variants={variants}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            onClick={() => handleToggle(keyword)}
+          />
+        ))}
+      </motion.div>
+    </>
   );
 };
 

@@ -48,9 +48,8 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
         from: isSame ? items.length : 0,
         ...filters,
       } as ApiRequest,
-      paramsSerializer: (params) => {
-        return qs.stringify(params, { arrayFormat: "repeat" });
-      },
+      paramsSerializer: (params) =>
+        qs.stringify(params, { arrayFormat: "repeat" }),
     });
 
     if (isSame) {

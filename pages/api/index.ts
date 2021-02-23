@@ -1,4 +1,5 @@
 import axios from "axios";
+import qs from "qs";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
   ApiResponse,
@@ -15,9 +16,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // TESTING
   // return res.json(testData);
 
-  const { q, from: baseFrom } = req.query;
+  const { q, from: baseFrom, health, diet } = req.query;
   const from = +baseFrom + Math.floor(+baseFrom / LIMIT);
   const to = from + LIMIT;
+  console.log(health, diet);
+  console.log("typeof diet", typeof diet);
 
   console.log("from:", from, "to:", to);
   if (!q || !to) return res.status(400).json({});
@@ -31,7 +34,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         q,
         from,
         to,
+        health,
+        diet,
       },
+      paramsSerializer: (params) =>
+        qs.stringify(params, { arrayFormat: "repeat" }),
     }
   );
   const hits = data.hits.map((hit) => (hit as any).recipe).map(cleanRecipe);

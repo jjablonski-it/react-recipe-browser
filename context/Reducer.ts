@@ -70,15 +70,15 @@ export const reducer = (state: State, action: Action): State => {
       return { ...state, filters: action.payload };
 
     case "ADD_EXCLUDE": {
-      if (state.exclude.includes(action.payload)) return state;
-      return { ...state, exclude: [...state.exclude, action.payload] };
+      if (state.excluded.includes(action.payload)) return state;
+      return { ...state, excluded: [...state.excluded, action.payload] };
     }
 
     case "REMOVE_EXCLUDE": {
       return {
         ...state,
-        exclude: [
-          ...state.exclude.filter((filter) => filter !== action.payload),
+        excluded: [
+          ...state.excluded.filter((filter) => filter !== action.payload),
         ],
       };
     }

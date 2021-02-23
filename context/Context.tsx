@@ -23,7 +23,7 @@ const initialState: State = {
   sortBy: (isClient && (localStorage.getItem("sortBy") as SortKey)) || "",
   sortAsc: isClient && "true" == localStorage.getItem("sortAsc"),
   filters: { health: [], diet: [] },
-  exclude: [],
+  excluded: [],
 };
 
 export const Context = createContext(initialState);
@@ -31,7 +31,7 @@ let lastQ = "";
 
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { items, saved, sortBy, sortAsc, filters, exclude } = state;
+  const { items, saved, sortBy, sortAsc, filters, excluded } = state;
 
   const getItems = async (keywords: string[]) => {
     keywords = keywords.filter((kw) => !!kw);
@@ -47,6 +47,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
         q,
         from: isSame ? items.length : 0,
         ...filters,
+        excluded,
       } as ApiRequest,
       paramsSerializer: (params) =>
         qs.stringify(params, { arrayFormat: "repeat" }),

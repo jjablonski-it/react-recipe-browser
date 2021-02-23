@@ -60,7 +60,7 @@ const healthSchema: Health[] = [
 const dataSchema = { diet: dietSchema, health: healthSchema };
 
 const FilterOptions = (props: Props) => {
-  const { setFilters, addExclude, removeExclude, exclude } = useContext(
+  const { setFilters, addExclude, removeExclude, excluded } = useContext(
     Context
   );
 
@@ -75,9 +75,9 @@ const FilterOptions = (props: Props) => {
     let cState = [...state[key]] as FilterValues[];
     console.log(typeof value);
 
-    if (!cState.includes(value) && !exclude.includes(value)) {
+    if (!cState.includes(value) && !excluded.includes(value)) {
       cState.push(value);
-    } else if (cState.includes(value) && !exclude.includes(value)) {
+    } else if (cState.includes(value) && !excluded.includes(value)) {
       cState = cState.filter((val) => val !== value);
       addExclude!(value);
     } else {
@@ -88,7 +88,7 @@ const FilterOptions = (props: Props) => {
 
   useEffect(() => {
     setFilters!(state);
-  }, [exclude, state]);
+  }, [excluded, state]);
 
   return (
     <motion.div layout>
@@ -124,9 +124,9 @@ const FilterOptions = (props: Props) => {
                         edge="start"
                         checked={
                           (state[key] as any).includes(value) ||
-                          exclude.includes(value)
+                          excluded.includes(value)
                         }
-                        indeterminate={exclude.includes(value)}
+                        indeterminate={excluded.includes(value)}
                         disableRipple
                         inputProps={{}}
                       />

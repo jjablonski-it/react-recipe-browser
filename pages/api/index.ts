@@ -16,11 +16,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // TESTING
   // return res.json(testData);
 
-  const { q, from: baseFrom, health, diet } = req.query;
+  const { q, from: baseFrom, health, diet, excluded } = req.query;
   const from = +baseFrom + Math.floor(+baseFrom / LIMIT);
   const to = from + LIMIT;
-  console.log(health, diet);
-  console.log("typeof diet", typeof diet);
+  console.log(health, diet, excluded);
 
   console.log("from:", from, "to:", to);
   if (!q || !to) return res.status(400).json({});
@@ -36,6 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         to,
         health,
         diet,
+        excluded,
       },
       paramsSerializer: (params) =>
         qs.stringify(params, { arrayFormat: "repeat" }),

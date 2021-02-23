@@ -91,7 +91,7 @@ export interface ApiRequest {
     | "Starter"; //	The dish type a recipe belongs to – soup, salad, sandwich etc. You can simultatniousely use saveral dish types this way “dishType=soup&dishType=dessert”
   calories?: Range; //	The format is calories=RANGE where RANGE is replaced by the value in kcal. RANGE is in one of MIN+, MIN-MAX or MAX, where MIN and MAX are non-negative number numbers. The + symbol needs to be properly encoded. Examples: “calories=100-300” will return all recipes with which have between 100 and 300 kcal per serving.
   time?: Range; //	Time range for the total cooking and prep time for a recipe . The format is time=RANGE where RANGE is replaced by the value in minutes. RANGE is in one of MIN+, MIN-MAX or MAX, where MIN and MAX are non-negative number numbers. The + symbol needs to be properly encoded. Examples: “time=1%2B” will return all recipes with available total time greater then 1 minute
-  excluded?: string; //	Excluding recipes with certain ingredients. The format is excluded=FOOD where FOOD is replaced by the name of the specific food you don’t want to be present in the recipe results. More than one food can be excluded at the same time. Example: excluded=vinegar&excluded=pretzel will exclude any recipes which contain vinegar or pretzels in their ingredient list
+  excluded?: string[]; //	Excluding recipes with certain ingredients. The format is excluded=FOOD where FOOD is replaced by the name of the specific food you don’t want to be present in the recipe results. More than one food can be excluded at the same time. Example: excluded=vinegar&excluded=pretzel will exclude any recipes which contain vinegar or pretzels in their ingredient list
   callback?: string; //	Callback parameter for JSONP. This will “envelop” the result in a JavaScript function call to the specified callback. Optional
 }
 export interface ApiResponse<T> {
@@ -161,7 +161,7 @@ export interface State {
   sortBy: SortKey;
   sortAsc: boolean;
   filters: FilterState;
-  exclude: string[];
+  excluded: string[];
   getItems?: (keywords: string[]) => void;
   getSaved?: () => void;
   addKeyword?: (keyword: string) => void;

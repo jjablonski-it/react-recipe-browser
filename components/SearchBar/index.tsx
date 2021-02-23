@@ -49,8 +49,8 @@ const SearchBar = () => {
       <Grid item xs={12}>
         <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
       </Grid>
-      <Grid item xs={12} component={motion.div} layout>
-        {showFilter && <FilterOptions />}
+      <Grid item xs={12}>
+        <AnimatePresence>{showFilter && <FilterOptions />}</AnimatePresence>
       </Grid>
     </Grid>
   );

@@ -7,7 +7,7 @@ import {
   ListItemText,
   ListSubheader,
 } from "@material-ui/core";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { Diet, FilterValues, Health } from "../../context/types";
@@ -59,6 +59,17 @@ const healthSchema: Health[] = [
 
 const dataSchema = { diet: dietSchema, health: healthSchema };
 
+const variants: Variants = {
+  hidden: {
+    opacity: 0,
+    height: "0%",
+  },
+  show: {
+    opacity: 1,
+    height: "auto",
+  },
+};
+
 const FilterOptions = (props: Props) => {
   const { setFilters, excluded, filters } = useContext(Context);
 
@@ -83,7 +94,12 @@ const FilterOptions = (props: Props) => {
   }, [state]);
 
   return (
-    <motion.div layout>
+    <motion.div
+      variants={variants}
+      initial="hidden"
+      animate="show"
+      exit="hidden"
+    >
       <Grid container>
         {(Object.keys(dataSchema) as (keyof typeof dataSchema)[]).map((key) => (
           <Grid item xs={6} key={key}>

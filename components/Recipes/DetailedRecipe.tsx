@@ -13,9 +13,6 @@ import { Recipe as RecipeInterface, State } from "../../context/types";
 import Chips from "./Chips";
 import Recipe from "./Recipe";
 import { useDetailedRecipeStyles } from "./style";
-
-const MotionGrid = motion.custom(Grid);
-const MotionPaper = motion.custom(Paper);
 interface Props {
   recipe: RecipeInterface;
   id: number;
@@ -40,20 +37,22 @@ const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
   }, []);
 
   return (
-    <MotionGrid
+    <Grid
+      component={motion.div}
       className={classes.root}
       container
       drag="y"
       dragConstraints={{ top: -height + 400, bottom: 0 }}
       ref={ref}
     >
-      <MotionGrid
+      <Grid
+        component={motion.div}
         container
         item
         layoutId={`container ${recipe.uri}`}
         className={classes.mainGrid}
       >
-        <MotionGrid item xs={12}>
+        <Grid item xs={12}>
           <Recipe
             recipe={recipe}
             setSelected={() => {}}
@@ -63,9 +62,11 @@ const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
             handleSave={handleSave}
             isSaved={isSaved}
           />
-        </MotionGrid>
+        </Grid>
         <Grid item xs={12} className={classes.paperGrid}>
-          <MotionPaper
+          <Paper
+            //@ts-ignore
+            component={motion.div}
             className={classes.paper}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -93,10 +94,10 @@ const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
             >
               Instructions
             </Link>
-          </MotionPaper>
+          </Paper>
         </Grid>
-      </MotionGrid>
-    </MotionGrid>
+      </Grid>
+    </Grid>
   );
 };
 

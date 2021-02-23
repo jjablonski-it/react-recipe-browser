@@ -7,7 +7,7 @@ import {
   ListItemText,
   ListSubheader,
 } from "@material-ui/core";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { Diet, FilterValues, Health } from "../../context/types";

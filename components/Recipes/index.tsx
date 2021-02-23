@@ -1,9 +1,13 @@
 import { Backdrop, Grid } from "@material-ui/core";
-import { AnimatePresence, AnimateSharedLayout, Variants } from "framer-motion";
+import {
+  AnimatePresence,
+  AnimateSharedLayout,
+  motion,
+  Variants,
+} from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { Recipe } from "../../context/types";
-import { MotionGrid } from "../MotionElements";
 import DetailedRecipe from "./DetailedRecipe";
 import Footer from "./Footer";
 import RecipeComp from "./Recipe";
@@ -85,7 +89,8 @@ const Recipes = () => {
               const isSaved = saved.includes(uri);
 
               return (
-                <MotionGrid
+                <Grid
+                  component={motion.div}
                   key={uri}
                   item
                   xs={12}
@@ -111,7 +116,7 @@ const Recipes = () => {
                     id={i}
                     selected={isSelected}
                   />
-                </MotionGrid>
+                </Grid>
               );
             })}
 

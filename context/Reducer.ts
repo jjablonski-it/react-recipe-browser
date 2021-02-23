@@ -1,6 +1,7 @@
 import {
   pushToLocalStorageList,
   removeFromLocalStorageList,
+  saveObjectToLocalStorage,
 } from "../utils/helpers";
 import { Action, State } from "./types";
 
@@ -67,14 +68,16 @@ export const reducer = (state: State, action: Action): State => {
     }
 
     case "SET_FILTERS":
+      saveObjectToLocalStorage("filters", action.payload);
       return { ...state, filters: action.payload };
 
     case "SET_KEYWORDS":
       return { ...state, keywords: action.payload };
 
     case "ADD_EXCLUDE": {
-      if (state.excluded.includes(action.payload)) return state;
-      return { ...state, excluded: [...state.excluded, action.payload] };
+      const { payload } = action;
+      if (state.excluded.includes(payload)) return state;
+      return { ...state, excluded: [...state.excluded, payload] };
     }
 
     case "REMOVE_EXCLUDE": {

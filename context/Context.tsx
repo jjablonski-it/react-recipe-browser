@@ -10,8 +10,10 @@ import {
   State,
 } from "./types";
 import qs from "qs";
-
-const isClient = typeof window !== "undefined";
+import {
+  getObjectFromLocalStorage,
+  getValueFromLocalStorage,
+} from "../utils/helpers";
 
 const initialState: State = {
   items: [],
@@ -19,10 +21,10 @@ const initialState: State = {
   keywords: [],
   loading: false,
   more: true,
-  saved: JSON.parse((isClient && localStorage.getItem("saved")) || "[]"),
-  sortBy: (isClient && (localStorage.getItem("sortBy") as SortKey)) || "",
-  sortAsc: isClient && "true" == localStorage.getItem("sortAsc"),
-  filters: { health: [], diet: [] },
+  saved: getObjectFromLocalStorage("saved", []),
+  sortBy: getValueFromLocalStorage("sortBy", ""),
+  sortAsc: "true" == getValueFromLocalStorage("sortAsc", "true"),
+  filters: getObjectFromLocalStorage("filters", { health: [], diet: [] }),
   excluded: [],
 };
 

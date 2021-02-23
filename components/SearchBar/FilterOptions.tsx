@@ -44,39 +44,49 @@ const dataSchema = { diet: dietSchema, health: healthSchema };
 const FilterOptions = (props: Props) => {
   return (
     <motion.div layout>
-      test
-      {() => console.log("test1")}
       <Grid container>
         {(Object.keys(dataSchema) as (keyof typeof dataSchema)[]).map((key) => (
-          <Grid item xs={2}>
+          <Grid item xs={6}>
             <List
-              disablePadding
+              style={{
+                display: "flex",
+                // justifyContent: "flex-start",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                // width: "100%",
+              }}
               subheader={
-                <ListSubheader component="div" id="nested-list-subheader">
+                <ListSubheader
+                  component="div"
+                  id="nested-list-subheader"
+                  style={{ width: "100%", textAlign: "center" }}
+                >
                   {key}
                 </ListSubheader>
               }
               //  className={classes.root}
             >
               {(dataSchema[key] as string[]).map((value) => (
-                <ListItem
-                  key={value}
-                  role={undefined}
-                  dense
-                  button
-                  // onClick={handleToggle(value)}
-                >
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      // checked={checked.indexOf(value) !== -1}
-                      tabIndex={-1}
-                      disableRipple
-                      inputProps={{}}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={value} />
-                </ListItem>
+                <Grid item xs={12} sm={6} lg={4}>
+                  <ListItem
+                    key={value}
+                    role={undefined}
+                    dense
+                    button
+                    // onClick={handleToggle(value)}
+                  >
+                    <ListItemIcon>
+                      <Checkbox
+                        edge="start"
+                        // checked={checked.indexOf(value) !== -1}
+                        tabIndex={-1}
+                        disableRipple
+                        inputProps={{}}
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary={value} />
+                  </ListItem>
+                </Grid>
               ))}
             </List>
           </Grid>

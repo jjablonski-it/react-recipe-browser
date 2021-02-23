@@ -1,6 +1,8 @@
 import { Grid } from "@material-ui/core";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
+import { MotionGrid } from "../MotionElements";
 import FilterOptions from "./FilterOptions";
 import Input from "./Input";
 import Keywords from "./Keywords";
@@ -47,10 +49,12 @@ const SearchBar = () => {
           />
         </Grid>
         <Grid item xs={12}>
+          <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
+        </Grid>
+        <Grid item xs={12} component={motion.div} layout>
           {showFilter && <FilterOptions />}
         </Grid>
       </Grid>
-      <Keywords keywords={keywords} removeKeyword={removeKeyword!} />
     </form>
   );
 };

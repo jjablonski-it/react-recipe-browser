@@ -1,6 +1,7 @@
 import { Chip } from "@material-ui/core";
 import { motion, Variants } from "framer-motion";
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../../context/Context";
 
 interface Props {
   keywords: string[];
@@ -19,6 +20,19 @@ const variants: Variants = {
 };
 
 const Keywords = ({ keywords, removeKeyword }: Props) => {
+  const { excluded, addExclude, removeExclude } = useContext(Context);
+
+  const isExcluded = (value: string) => excluded.includes(value);
+
+  const handleToggle = (value: string) => {
+    if (!isExcluded(value)) {
+      addExclude!(value);
+    } else {
+      removeExclude!(value);
+      removeKeyword(value);
+    }
+  };
+
   return (
     <motion.div
       style={{
@@ -33,12 +47,12 @@ const Keywords = ({ keywords, removeKeyword }: Props) => {
           label={keyword}
           style={{ margin: 5 }}
           layout
-          color="primary"
+          color={isExcluded(keyword) ? "secondary" : "primary"}
           variants={variants}
           initial="hidden"
           animate="show"
           exit="hidden"
-          onClick={() => removeKeyword(keyword)}
+          onClick={() => handleToggle(keyword)}
         />
       ))}
     </motion.div>

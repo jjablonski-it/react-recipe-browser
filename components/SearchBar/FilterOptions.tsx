@@ -8,7 +8,8 @@ import {
   ListSubheader,
 } from "@material-ui/core";
 import { motion } from "framer-motion";
-import React from "react";
+import { useAnimatedState } from "framer-motion/types/animation/use-animated-state";
+import React, { useState } from "react";
 import { Recipe } from "../../context/types";
 
 interface Props {}
@@ -41,19 +42,43 @@ const healthSchema: Recipe["healthLabels"] = [
 
 const dataSchema = { diet: dietSchema, health: healthSchema };
 
+type DataValue = Recipe["healthLabels"][number] | Recipe["dietLabels"][number];
+
 const FilterOptions = (props: Props) => {
+  const [state, setState] = useState<{
+    health: Recipe["healthLabels"];
+    diet: Recipe["dietLabels"];
+  }>({ health: [], diet: [] });
+  // const [health, setHealth] = useState<string[]>([]);
+  // const [diet, setDiet] = useState<string[]>([]);
+  const [exclude, setExclude] = useState<string[]>([]);
+
+  const handleToggle = (key: keyof typeof state, value: DataValue) => {
+    let cState = [...state[key]] as DataValue[];
+    console.log(typeof value);
+
+    if (!cState.includes(value) && !exclude.includes(value)) {
+      cState.push(value);
+      setState((s) => ({ ...s, [key]: cState }));
+    } else if (cState.includes(value) && !exclude.includes(value)) {
+      cState = cState.filter((val) => val !== value);
+      setExclude((s) => [...s, value]);
+      setState((s) => ({ ...s, [key]: cState }));
+    } else {
+      setExclude((s) => [...s.filter((val) => val !== value)]);
+    }
+  };
+
   return (
     <motion.div layout>
       <Grid container>
         {(Object.keys(dataSchema) as (keyof typeof dataSchema)[]).map((key) => (
-          <Grid item xs={6}>
+          <Grid item xs={6} key={key}>
             <List
               style={{
                 display: "flex",
-                // justifyContent: "flex-start",
                 flexDirection: "row",
                 flexWrap: "wrap",
-                // width: "100%",
               }}
               subheader={
                 <ListSubheader
@@ -64,22 +89,23 @@ const FilterOptions = (props: Props) => {
                   {key}
                 </ListSubheader>
               }
-              //  className={classes.root}
             >
-              {(dataSchema[key] as string[]).map((value) => (
-                <Grid item xs={12} sm={6} lg={4}>
+              {(dataSchema[key] as DataValue[]).map((value) => (
+                <Grid item xs={12} sm={6} lg={4} key={value}>
                   <ListItem
-                    key={value}
                     role={undefined}
                     dense
                     button
-                    // onClick={handleToggle(value)}
+                    onClick={() => handleToggle(key, value)}
                   >
                     <ListItemIcon>
                       <Checkbox
                         edge="start"
-                        // checked={checked.indexOf(value) !== -1}
-                        tabIndex={-1}
+                        checked={
+                          (state[key] as any).includes(value) ||
+                          exclude.includes(value)
+                        }
+                        indeterminate={exclude.includes(value)}
                         disableRipple
                         inputProps={{}}
                       />

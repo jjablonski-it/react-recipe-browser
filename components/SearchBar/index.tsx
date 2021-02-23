@@ -3,7 +3,6 @@ import { AnimatePresence } from "framer-motion";
 import React, { useContext, useRef, useState } from "react";
 import { Context } from "../../context/Context";
 import FilterOptions from "./FilterOptions";
-import Input from "./Input";
 import Keywords from "./Keywords";
 import SortAndFilter from "./SortAndFilter";
 

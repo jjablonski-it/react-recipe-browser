@@ -9,8 +9,9 @@ import {
 } from "@material-ui/core";
 import { motion } from "framer-motion";
 import { useAnimatedState } from "framer-motion/types/animation/use-animated-state";
-import React, { useState } from "react";
-import { Recipe } from "../../context/types";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../../context/Context";
+import { FilterValues, Recipe } from "../../context/types";
 
 interface Props {}
 
@@ -42,32 +43,36 @@ const healthSchema: Recipe["healthLabels"] = [
 
 const dataSchema = { diet: dietSchema, health: healthSchema };
 
-type DataValue = Recipe["healthLabels"][number] | Recipe["dietLabels"][number];
-
 const FilterOptions = (props: Props) => {
+  const { setFilters, addExclude, removeExclude, exclude } = useContext(
+    Context
+  );
+
   const [state, setState] = useState<{
     health: Recipe["healthLabels"];
     diet: Recipe["dietLabels"];
   }>({ health: [], diet: [] });
   // const [health, setHealth] = useState<string[]>([]);
   // const [diet, setDiet] = useState<string[]>([]);
-  const [exclude, setExclude] = useState<string[]>([]);
 
-  const handleToggle = (key: keyof typeof state, value: DataValue) => {
-    let cState = [...state[key]] as DataValue[];
+  const handleToggle = (key: keyof typeof state, value: FilterValues) => {
+    let cState = [...state[key]] as FilterValues[];
     console.log(typeof value);
 
     if (!cState.includes(value) && !exclude.includes(value)) {
       cState.push(value);
-      setState((s) => ({ ...s, [key]: cState }));
     } else if (cState.includes(value) && !exclude.includes(value)) {
       cState = cState.filter((val) => val !== value);
-      setExclude((s) => [...s, value]);
-      setState((s) => ({ ...s, [key]: cState }));
+      addExclude!(value);
     } else {
-      setExclude((s) => [...s.filter((val) => val !== value)]);
+      removeExclude!(value);
     }
+    setState((s) => ({ ...s, [key]: cState }));
   };
+
+  useEffect(() => {
+    setFilters!(state);
+  }, [exclude, state]);
 
   return (
     <motion.div layout>
@@ -90,7 +95,7 @@ const FilterOptions = (props: Props) => {
                 </ListSubheader>
               }
             >
-              {(dataSchema[key] as DataValue[]).map((value) => (
+              {(dataSchema[key] as FilterValues[]).map((value) => (
                 <Grid item xs={12} sm={6} lg={4} key={value}>
                   <ListItem
                     role={undefined}

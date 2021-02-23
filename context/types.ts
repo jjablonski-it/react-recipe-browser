@@ -164,6 +164,14 @@ export interface RecipeUseless {
 export type RecipeWhole = Recipe & RecipeUseless;
 
 export type SortKey = keyof Recipe | "";
+
+export interface FilterState {
+  health: Recipe["healthLabels"];
+  diet: Recipe["dietLabels"];
+}
+export type FilterValues =
+  | Recipe["healthLabels"][number]
+  | Recipe["dietLabels"][number];
 export interface State {
   items: Recipe[];
   saved: Recipe["uri"][];
@@ -173,6 +181,8 @@ export interface State {
   more: boolean;
   sortBy: SortKey;
   sortAsc: boolean;
+  filters: FilterState;
+  exclude: string[];
   getItems?: (keywords: string[]) => void;
   getSaved?: () => void;
   addKeyword?: (keyword: string) => void;
@@ -180,6 +190,9 @@ export interface State {
   clearItems?: () => void;
   toggleSaveItem?: (uri: string) => void;
   sortItems?: (key: SortKey) => void;
+  setFilters?: (filters: FilterState) => void;
+  addExclude?: (value: string) => void;
+  removeExclude?: (value: string) => void;
 }
 
 export type Action =
@@ -192,4 +205,7 @@ export type Action =
   | { type: "CLEAR_ITEMS" }
   | { type: "SAVE_ITEM"; payload: string }
   | { type: "REMOVE_ITEM"; payload: string }
-  | { type: "SORT_ITEMS"; payload: { key: SortKey; asc: boolean } };
+  | { type: "SORT_ITEMS"; payload: { key: SortKey; asc: boolean } }
+  | { type: "SET_FILTERS"; payload: FilterState }
+  | { type: "ADD_EXCLUDE"; payload: string }
+  | { type: "REMOVE_EXCLUDE"; payload: string };

@@ -1,7 +1,14 @@
 import axios from "axios";
 import React, { createContext, useReducer } from "react";
 import { reducer } from "./Reducer";
-import { ApiRequest, ApiResponse, Recipe, SortKey, State } from "./types";
+import {
+  ApiRequest,
+  ApiResponse,
+  FilterState,
+  Recipe,
+  SortKey,
+  State,
+} from "./types";
 import qs from "qs";
 
 const isClient = typeof window !== "undefined";
@@ -15,6 +22,8 @@ const initialState: State = {
   saved: JSON.parse((isClient && localStorage.getItem("saved")) || "[]"),
   sortBy: (isClient && (localStorage.getItem("sortBy") as SortKey)) || "",
   sortAsc: isClient && "true" == localStorage.getItem("sortAsc"),
+  filters: { health: [], diet: [] },
+  exclude: [],
 };
 
 export const Context = createContext(initialState);
@@ -92,6 +101,18 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "SORT_ITEMS", payload: { key, asc } });
   };
 
+  const setFilters = (filters: FilterState) => {
+    dispatch({ type: "SET_FILTERS", payload: filters });
+  };
+
+  const addExclude = (value: string) => {
+    dispatch({ type: "ADD_EXCLUDE", payload: value });
+  };
+
+  const removeExclude = (value: string) => {
+    dispatch({ type: "REMOVE_EXCLUDE", payload: value });
+  };
+
   return (
     <Context.Provider
       value={{
@@ -103,6 +124,9 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
         toggleSaveItem,
         getSaved,
         sortItems,
+        setFilters,
+        addExclude,
+        removeExclude,
       }}
     >
       {children}

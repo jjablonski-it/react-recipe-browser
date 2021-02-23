@@ -66,6 +66,23 @@ export const reducer = (state: State, action: Action): State => {
       return { ...state, sortBy: key, sortAsc: asc };
     }
 
+    case "SET_FILTERS":
+      return { ...state, filters: action.payload };
+
+    case "ADD_EXCLUDE": {
+      if (state.exclude.includes(action.payload)) return state;
+      return { ...state, exclude: [...state.exclude, action.payload] };
+    }
+
+    case "REMOVE_EXCLUDE": {
+      return {
+        ...state,
+        exclude: [
+          ...state.exclude.filter((filter) => filter !== action.payload),
+        ],
+      };
+    }
+
     case "SET_MORE":
       return { ...state, more: action.payload };
   }

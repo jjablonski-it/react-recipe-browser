@@ -31,7 +31,7 @@ let lastQ = "";
 
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { items, saved, sortBy, sortAsc } = state;
+  const { items, saved, sortBy, sortAsc, filters, exclude } = state;
 
   const getItems = async (keywords: string[]) => {
     keywords = keywords.filter((kw) => !!kw);

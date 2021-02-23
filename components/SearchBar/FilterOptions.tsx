@@ -1,25 +1,20 @@
 import {
   Checkbox,
   Grid,
-  Input,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  TextField,
-  Typography,
 } from "@material-ui/core";
 import { motion } from "framer-motion";
-import { useAnimatedState } from "framer-motion/types/animation/use-animated-state";
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
-import { FilterValues, Recipe } from "../../context/types";
-import Chips from "../Recipes/Chips";
+import { Diet, FilterValues, Health } from "../../context/types";
 
 interface Props {}
 
-const dietSchema: Recipe["dietLabels"] = [
+const dietSchema: Diet[] = [
   "balanced",
   "high-fiber",
   "high-protein",
@@ -28,17 +23,34 @@ const dietSchema: Recipe["dietLabels"] = [
   "low-sodium",
 ];
 
-const healthSchema: Recipe["healthLabels"] = [
+const healthSchema: Health[] = [
+  "alcohol-free",
+  "celery-free",
+  "crustacean-free",
   "dairy-free",
   "egg-free",
-  "fat-free",
   "fish-free",
+  "fodmap-free",
+  "friendly",
   "gluten-free",
+  "immuno-supportive",
+  "keto-friendly",
+  "kosher",
   "low-sugar",
+  "low-fat-abs",
+  "low-potassium",
+  "lupine-free",
+  "mustard-free",
+  "o-oil-added",
   "paleo",
   "peanut-free",
+  "pecatarian",
+  "pork-free",
+  "red-meat-free",
+  "sesame-free",
   "shellfish-free",
   "soy-free",
+  "sugar-conscious",
   "tree-nut-free",
   "vegan",
   "vegetarian",
@@ -53,8 +65,8 @@ const FilterOptions = (props: Props) => {
   );
 
   const [state, setState] = useState<{
-    health: Recipe["healthLabels"];
-    diet: Recipe["dietLabels"];
+    health: Health[];
+    diet: Diet[];
   }>({ health: [], diet: [] });
   // const [health, setHealth] = useState<string[]>([]);
   // const [diet, setDiet] = useState<string[]>([]);
@@ -119,7 +131,7 @@ const FilterOptions = (props: Props) => {
                         inputProps={{}}
                       />
                     </ListItemIcon>
-                    <ListItemText primary={value} />
+                    <ListItemText primary={value.replace("-", " ")} />
                   </ListItem>
                 </Grid>
               ))}

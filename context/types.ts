@@ -1,4 +1,46 @@
 type Range = `${number}-${number}`;
+
+export type Diet =
+  | "low-sodium"
+  | "low-fat"
+  | "low-carb"
+  | "high-protein"
+  | "high-fiber"
+  | "balanced";
+
+export type Health =
+  | "alcohol-free" //	No alcohol used or contained
+  | "immuno-supportive" //	Recipes which fit a science-based approach to eating to strengthen the immune system
+  | "celery-free" //	Does not contain celery or derivatives
+  | "crustacean-free" //	Does not contain crustaceans (shrimp, lobster etc.) or derivatives
+  | "dairy-free" //	No dairy; no lactose
+  | "egg-free" //	No eggs or products containing eggs
+  | "fish-free" //	No fish or fish derivatives
+  | "fodmap-free" //	Does not contain FODMAP foods
+  | "gluten-free" //	No ingredients containing gluten
+  | "keto-friendly" //	Maximum 7 grams of net carbs per serving
+  | "friendly" //	kidney-friendly	Per serving – phosphorus less than 250 mg AND potassium less than 500 mg AND sodium less than 500 mg
+  | "kosher" //	Contains only ingredients allowed by the kosher diet. However it does not guarantee kosher preparation of the ingredients themselves
+  | "low-potassium" //	Less than 150mg per serving
+  | "lupine-free" //	Does not contain lupine or derivatives
+  | "mustard-free" //	Does not contain mustard or derivatives
+  | "low-fat-abs" //	Less than 3g of fat per serving
+  | "o-oil-added" //	No oil added except to what is contained in the basic ingredients
+  | "low-sugar" // No simple sugars – glucose, dextrose, galactose, fructose, sucrose, lactose, maltose
+  | "paleo" //	Excludes what are perceived to be agricultural products; grains, legumes, dairy products, potatoes, refined salt, refined sugar, and processed oils
+  | "peanut-free" //	No peanuts or products containing peanuts
+  | "pecatarian" //	Does not contain meat or meat based products, can contain dairy and fish
+  | "pork-free" //	Does not contain pork or derivatives
+  | "red-meat-free" //	Does not contain beef, lamb, pork, duck, goose, game, horse, and other types of red meat or products containing red meat.
+  | "sesame-free" //	Does not contain sesame seed or derivatives
+  | "shellfish-free" //	No shellfish or shellfish derivatives
+  | "soy-free" //	No soy or products containing soy
+  | "sugar-conscious" //	Less than 4g of sugar per serving
+  | "tree-nut-free" //	No tree nuts or products containing tree nuts
+  | "vegan" //	No meat, poultry, fish, dairy, eggs or honey
+  | "vegetarian" //	No meat, poultry, or fish
+  | "wheat-free"; //	No wheat, can have gluten though; //	Health label: One of the Health api parameters listed in Diet and Health Labels table at the end of this documentation. Miltiple labels cab be submitted simultatniousely this way “health=peanut-free&health=tree-nut-free”
+
 export interface ApiRequest {
   q?: string; //	Query text. For example q=chicken. *This or the r parameter are required
   r?: string; //	Returns information about a specific recipe based on its ID ie. r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_9b5945e03f05acbf9d69625138385408 *This or the q parameter are required
@@ -7,45 +49,8 @@ export interface ApiRequest {
   from?: number; //	First result index (default 0). Example: from=20. The maximum value of the “from” parameter is limitted by the number of results a plan is entitled to.
   to?: number; //	Last result index (exclusive, default from + 10). Example: to=30
   ingr?: number; //	Maximum number of ingredients. Example: ingr=5
-  diet?:
-    | "low-sodium"
-    | "low-fat"
-    | "low-carb"
-    | "high-protein"
-    | "high-fiber"
-    | "balanced"; //	Diet label: one of “balanced”, “high-protein”, “high-fiber”, “low-fat”, “low-carb”, “low-sodium”
-  health?:
-    | "alcohol-free" //	No alcohol used or contained
-    | "immuno-supportive" //	Recipes which fit a science-based approach to eating to strengthen the immune system
-    | "celery-free" //	Does not contain celery or derivatives
-    | "crustacean-free" //	Does not contain crustaceans (shrimp, lobster etc.) or derivatives
-    | "dairy-free" //	No dairy; no lactose
-    | "egg-free" //	No eggs or products containing eggs
-    | "fish-free" //	No fish or fish derivatives
-    | "fodmap-free" //	Does not contain FODMAP foods
-    | "gluten-free" //	No ingredients containing gluten
-    | "keto-friendly" //	Maximum 7 grams of net carbs per serving
-    | "friendly" //	kidney-friendly	Per serving – phosphorus less than 250 mg AND potassium less than 500 mg AND sodium less than 500 mg
-    | "kosher" //	Contains only ingredients allowed by the kosher diet. However it does not guarantee kosher preparation of the ingredients themselves
-    | "low-potassium" //	Less than 150mg per serving
-    | "lupine-free" //	Does not contain lupine or derivatives
-    | "mustard-free" //	Does not contain mustard or derivatives
-    | "low-fat-abs" //	Less than 3g of fat per serving
-    | "o-oil-added" //	No oil added except to what is contained in the basic ingredients
-    | "low-sugar" // No simple sugars – glucose, dextrose, galactose, fructose, sucrose, lactose, maltose
-    | "paleo" //	Excludes what are perceived to be agricultural products; grains, legumes, dairy products, potatoes, refined salt, refined sugar, and processed oils
-    | "peanut-free" //	No peanuts or products containing peanuts
-    | "pecatarian" //	Does not contain meat or meat based products, can contain dairy and fish
-    | "pork-free" //	Does not contain pork or derivatives
-    | "red-meat-free" //	Does not contain beef, lamb, pork, duck, goose, game, horse, and other types of red meat or products containing red meat.
-    | "sesame-free" //	Does not contain sesame seed or derivatives
-    | "shellfish-free" //	No shellfish or shellfish derivatives
-    | "soy-free" //	No soy or products containing soy
-    | "sugar-conscious" //	Less than 4g of sugar per serving
-    | "tree-nut-free" //	No tree nuts or products containing tree nuts
-    | "vegan" //	No meat, poultry, fish, dairy, eggs or honey
-    | "vegetarian" //	No meat, poultry, or fish
-    | "wheat-free"; //	No wheat, can have gluten though; //	Health label: One of the Health api parameters listed in Diet and Health Labels table at the end of this documentation. Miltiple labels cab be submitted simultatniousely this way “health=peanut-free&health=tree-nut-free”
+  diet?: Diet; //	Diet label: one of “balanced”, “high-protein”, “high-fiber”, “low-fat”, “low-carb”, “low-sodium”
+  health?: Health;
   cuisineType?:
     | "American"
     | "Asian"
@@ -123,32 +128,8 @@ export interface Recipe {
 
   ingredientLines: Ingredient[]; //	Ingredients list
 
-  dietLabels: // (labels are per serving)
-  (
-    | "balanced"
-    | "high-protein"
-    | "high-fiber"
-    | "low-fat"
-    | "low-carb"
-    | "low-sodium"
-  )[];
-  healthLabels: // (labels are per serving)
-  (
-    | "vegan"
-    | "vegetarian"
-    | "paleo"
-    | "dairy-free"
-    | "gluten-free"
-    | "wheat-free"
-    | "fat-free"
-    | "low-sugar"
-    | "egg-free"
-    | "peanut-free"
-    | "tree-nut-free"
-    | "soy-free"
-    | "fish-free"
-    | "shellfish-free"
-  )[];
+  dietLabels: Diet[];
+  healthLabels: Health[];
   totalTime: number;
 }
 

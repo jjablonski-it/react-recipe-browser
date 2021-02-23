@@ -1,4 +1,5 @@
 import {
+  Checkbox,
   Divider,
   Grid,
   Link,
@@ -80,6 +81,7 @@ const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
                   <Divider />
                   <ListItem>
                     <ListItemText primary={ing} />
+                    <Checkbox />
                   </ListItem>
                 </span>
               ))}

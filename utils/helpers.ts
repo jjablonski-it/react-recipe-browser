@@ -43,8 +43,6 @@ export const getObjectFromLocalStorage = (
   const data = localStorage.getItem(key);
   let result = defaultValue;
   try {
-    console.log(data, typeof data);
-
     if (data) result = JSON.parse(data);
   } catch (e) {
     console.log(e);

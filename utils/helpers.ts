@@ -16,6 +16,19 @@ export const removeFromLocalStorageList = (key: string, item: any) => {
   localStorage.setItem(key, JSON.stringify(newState));
 };
 
+export const saveObjectToLocalStorage = (key: string, data: any) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+export const getObjectFromLocalStorage = (key: string) => {
+  const data = localStorage.getItem(key);
+  let result = null;
+  try {
+    if (data) result = JSON.parse(data);
+  } catch (e) {}
+  return result;
+};
+
 export const cleanRecipe = ({
   digest,
   totalDaily,

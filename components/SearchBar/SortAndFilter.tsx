@@ -32,8 +32,6 @@ const SortAndFilter = ({ setShowFilter, showFilter }: Props) => {
   const [filterActive, setFilterActive] = useState(false);
   const { sortItems, sortBy, sortAsc, filters } = useContext(Context);
 
-  console.log(filters);
-
   const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };

@@ -16,79 +16,71 @@ interface Props {}
 
 const dietSchema: Diet[] = [
   "balanced",
-  "high-fiber",
+  // "high-fiber",
   "high-protein",
   "low-carb",
   "low-fat",
-  "low-sodium",
+  // "low-sodium",
 ];
 
 const healthSchema: Health[] = [
   "alcohol-free",
-  "celery-free",
-  "crustacean-free",
-  "dairy-free",
-  "egg-free",
-  "fish-free",
-  "fodmap-free",
-  "friendly",
-  "gluten-free",
+  // "celery-free",
+  // "crustacean-free",
+  // "dairy-free",
+  // "egg-free",
+  // "fish-free",
+  // "fodmap-free",
+  // "friendly",
+  // "gluten-free",
   "immuno-supportive",
-  "keto-friendly",
-  "kosher",
-  "low-sugar",
-  "low-fat-abs",
-  "low-potassium",
-  "lupine-free",
-  "mustard-free",
-  "o-oil-added",
-  "paleo",
+  // "keto-friendly",
+  // "kosher",
+  // "low-sugar",
+  // "low-fat-abs",
+  // "low-potassium",
+  // "lupine-free",
+  // "mustard-free",
+  // "o-oil-added",
+  // "paleo",
   "peanut-free",
-  "pecatarian",
-  "pork-free",
-  "red-meat-free",
-  "sesame-free",
-  "shellfish-free",
-  "soy-free",
+  // "pecatarian",
+  // "pork-free",
+  // "red-meat-free",
+  // "sesame-free",
+  // "shellfish-free",
+  // "soy-free",
   "sugar-conscious",
   "tree-nut-free",
   "vegan",
   "vegetarian",
-  "wheat-free",
+  // "wheat-free",
 ];
 
 const dataSchema = { diet: dietSchema, health: healthSchema };
 
 const FilterOptions = (props: Props) => {
-  const { setFilters, addExclude, removeExclude, excluded } = useContext(
-    Context
-  );
+  const { setFilters, excluded } = useContext(Context);
 
   const [state, setState] = useState<{
     health: Health[];
     diet: Diet[];
   }>({ health: [], diet: [] });
-  // const [health, setHealth] = useState<string[]>([]);
-  // const [diet, setDiet] = useState<string[]>([]);
 
   const handleToggle = (key: keyof typeof state, value: FilterValues) => {
     let cState = [...state[key]] as FilterValues[];
-    console.log(typeof value);
 
-    if (!cState.includes(value) && !excluded.includes(value)) {
+    if (!cState.includes(value)) {
       cState.push(value);
-    } else if (cState.includes(value) && !excluded.includes(value)) {
-      cState = cState.filter((val) => val !== value);
-      addExclude!(value);
     } else {
-      removeExclude!(value);
+      cState = cState.filter((val) => val !== value);
     }
     setState((s) => ({ ...s, [key]: cState }));
   };
 
   useEffect(() => {
     setFilters!(state);
-  }, [excluded, state]);
+  }, [state]);
 
   return (
     <motion.div layout>

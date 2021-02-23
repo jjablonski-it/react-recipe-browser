@@ -4,6 +4,7 @@ import {
   CssBaseline,
   ThemeProvider,
 } from "@material-ui/core";
+import { yellow } from "@material-ui/core/colors";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import React from "react";
 import ContextProvider from "../context/Context";
@@ -11,6 +12,7 @@ import "../styles/globals.css";
 
 const theme = createMuiTheme({
   palette: {
+    primary: yellow,
     type: "dark",
     background: {
       default: "#242424",

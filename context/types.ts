@@ -164,6 +164,7 @@ export interface State {
   excluded: string[];
   getItems?: (keywords: string[]) => void;
   getSaved?: () => void;
+  setKeywords?: (keywords: string[]) => void;
   addKeyword?: (keyword: string) => void;
   removeKeyword?: (keyword: string) => void;
   clearItems?: () => void;
@@ -187,4 +188,5 @@ export type Action =
   | { type: "SORT_ITEMS"; payload: { key: SortKey; asc: boolean } }
   | { type: "SET_FILTERS"; payload: FilterState }
   | { type: "ADD_EXCLUDE"; payload: string }
-  | { type: "REMOVE_EXCLUDE"; payload: string };
+  | { type: "REMOVE_EXCLUDE"; payload: string }
+  | { type: "SET_KEYWORDS"; payload: string[] };

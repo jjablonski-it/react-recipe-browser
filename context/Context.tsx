@@ -76,6 +76,10 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "SET_MORE", payload: false });
   };
 
+  const setKeywords = (keywords: string[]) => {
+    dispatch({ type: "SET_KEYWORDS", payload: keywords });
+  };
+
   const addKeyword = (keyword: string) => {
     dispatch({ type: "ADD_KEYWORD", payload: keyword });
   };
@@ -131,6 +135,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
         setFilters,
         addExclude,
         removeExclude,
+        setKeywords,
       }}
     >
       {children}

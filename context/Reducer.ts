@@ -69,6 +69,9 @@ export const reducer = (state: State, action: Action): State => {
     case "SET_FILTERS":
       return { ...state, filters: action.payload };
 
+    case "SET_KEYWORDS":
+      return { ...state, keywords: action.payload };
+
     case "ADD_EXCLUDE": {
       if (state.excluded.includes(action.payload)) return state;
       return { ...state, excluded: [...state.excluded, action.payload] };

@@ -60,12 +60,12 @@ const healthSchema: Health[] = [
 const dataSchema = { diet: dietSchema, health: healthSchema };
 
 const FilterOptions = (props: Props) => {
-  const { setFilters, excluded } = useContext(Context);
+  const { setFilters, excluded, filters } = useContext(Context);
 
   const [state, setState] = useState<{
     health: Health[];
     diet: Diet[];
-  }>({ health: [], diet: [] });
+  }>(filters);
 
   const handleToggle = (key: keyof typeof state, value: FilterValues) => {
     let cState = [...state[key]] as FilterValues[];

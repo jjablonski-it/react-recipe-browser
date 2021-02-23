@@ -37,6 +37,7 @@ const SearchBar = () => {
             clearItems!();
             getItems!([...keywords, value]);
             newKeyword(value);
+            setShowFilter(false);
           }}
           style={{ width: "100%" }}
         >

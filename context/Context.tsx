@@ -34,31 +34,29 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
   const { items, saved, sortBy, sortAsc, filters, excluded } = state;
 
   const getItems = async (keywords: string[]) => {
-    keywords = keywords.filter((kw) => !!kw);
-    if (keywords.length === 0) return;
-    dispatch({ type: "ITEMS_LOADING" });
+    const q = getKeywords(keywords);
+    if (!q) return;
 
-    const q = keywords.join(" ");
-    const isSame = q === lastQ;
+    dispatch({ type: "ITEMS_LOADING" });
     lastQ = q;
 
-    const { data } = await axios.get<ApiResponse<Recipe>>("/api", {
-      params: {
-        q,
-        from: isSame ? items.length : 0,
-        ...filters,
-        excluded,
-      } as ApiRequest,
-      paramsSerializer: (params) =>
-        qs.stringify(params, { arrayFormat: "repeat" }),
+    const data = await loadData("/api", { q, excluded, ...filters });
+
+    dispatch({ type: "ITEMS_LOADED", payload: data.hits });
+    dispatch({ type: "SET_MORE", payload: data.more });
+  };
+
+  const appendItems = async () => {
+    dispatch({ type: "ITEMS_LOADING" });
+
+    const data = await loadData("/api", {
+      from: items.length,
+      q: lastQ,
+      excluded,
+      ...filters,
     });
 
-    if (isSame) {
-      dispatch({ type: "ITEMS_APPEND", payload: data.hits });
-    } else {
-      dispatch({ type: "ITEMS_LOADED", payload: data.hits });
-    }
-
+    dispatch({ type: "ITEMS_APPEND", payload: data.hits });
     dispatch({ type: "SET_MORE", payload: data.more });
   };
 
@@ -136,6 +134,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
         addExclude,
         removeExclude,
         setKeywords,
+        appendItems,
       }}
     >
       {children}
@@ -144,3 +143,26 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
 };
 
 export default ContextProvider;
+
+const getKeywords = (keywords: string[]): string => {
+  keywords = keywords.filter((kw) => !!kw);
+  return keywords.join(" ");
+};
+
+const loadData = async (
+  uri: string,
+  { excluded, q, from = 0, health, diet }: ApiRequest
+) => {
+  const { data } = await axios.get<ApiResponse<Recipe>>(uri, {
+    params: {
+      q,
+      from,
+      health,
+      diet,
+      excluded,
+    } as ApiRequest,
+    paramsSerializer: (params) =>
+      qs.stringify(params, { arrayFormat: "repeat" }),
+  });
+  return data;
+};

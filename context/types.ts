@@ -163,6 +163,7 @@ export interface State {
   filters: FilterState;
   excluded: string[];
   getItems?: (keywords: string[]) => void;
+  appendItems?: () => void;
   getSaved?: () => void;
   setKeywords?: (keywords: string[]) => void;
   addKeyword?: (keyword: string) => void;

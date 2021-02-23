@@ -25,7 +25,6 @@ const item: Variants = {
 const Recipes = () => {
   const {
     items,
-    getItems,
     loading,
     more,
     keywords,
@@ -34,6 +33,7 @@ const Recipes = () => {
     saved,
     sortBy,
     sortAsc,
+    appendItems,
   } = useContext(Context);
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [show, setShow] = useState(false);
@@ -49,7 +49,7 @@ const Recipes = () => {
       document.body.offsetHeight * 0.75 - 2
     )
       if (!loading && more) {
-        getItems!(keywords);
+        appendItems!();
       }
   };
 

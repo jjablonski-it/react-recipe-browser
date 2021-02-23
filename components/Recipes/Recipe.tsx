@@ -1,4 +1,10 @@
-import { CardActionArea, CardContent } from "@material-ui/core";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
+  IconButton,
+} from "@material-ui/core";
 import {
   Favorite,
   FavoriteBorderOutlined,
@@ -9,14 +15,10 @@ import {
 import { motion } from "framer-motion";
 import React from "react";
 import { Recipe as RecipeInterface, State } from "../../context/types";
-import {
-  MotionCard,
-  MotionCardHeader,
-  MotionIconButton,
-} from "../MotionElements";
 import IconValue from "./IconValue";
 import { useRecipeStyles } from "./style";
 
+const MotionIconButton = motion.custom(IconButton);
 interface Props {
   recipe: RecipeInterface;
   setSelected: () => void;
@@ -50,7 +52,9 @@ const Recipe = ({
   const classes = useRecipeStyles({ selected });
 
   return (
-    <MotionCard
+    <Card
+      //@ts-ignore
+      component={motion.div}
       className={classes.root}
       elevation={3}
       layoutId={`card ${uri}`}
@@ -70,7 +74,8 @@ const Recipe = ({
           layoutId={`image ${uri}`}
         />
         <div className={classes.content}>
-          <MotionCardHeader
+          <CardHeader
+            component={motion.div}
             title={label}
             subheader={source}
             className={classes.header}
@@ -108,7 +113,7 @@ const Recipe = ({
           <FavoriteBorderOutlined className={classes.secondary} />
         )}
       </MotionIconButton>
-    </MotionCard>
+    </Card>
   );
 };
 

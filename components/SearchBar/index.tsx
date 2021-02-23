@@ -1,8 +1,7 @@
 import { Grid } from "@material-ui/core";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import React, { useContext, useState } from "react";
 import { Context } from "../../context/Context";
-import { MotionGrid } from "../MotionElements";
 import FilterOptions from "./FilterOptions";
 import Input from "./Input";
 import Keywords from "./Keywords";

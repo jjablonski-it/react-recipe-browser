@@ -9,8 +9,6 @@ interface Props {
   removeKeyword: (keyword: string) => void;
 }
 
-const MotionChip = motion.custom(Chip);
-
 const variants: Variants = {
   hidden: {
     opacity: 0,
@@ -56,11 +54,12 @@ const Keywords = ({ keywords, removeKeyword }: Props) => {
         }}
       >
         {keywords.map((keyword, i) => (
-          <MotionChip
+          <Chip
+            component={motion.div}
+            layout
             key={i}
             label={keyword}
             style={{ margin: 5 }}
-            layout
             color={isExcluded(keyword) ? "secondary" : "primary"}
             variants={variants}
             initial="hidden"

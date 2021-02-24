@@ -1,4 +1,5 @@
 import { Box, CircularProgress, Typography } from "@material-ui/core";
+import { FilterList, SortOutlined } from "@material-ui/icons";
 import React, { ReactNode } from "react";
 
 interface Props {
@@ -7,6 +8,13 @@ interface Props {
   keywordsLen: number;
   itemsLen: number;
 }
+
+const B: React.FC<{}> = ({ children }) => (
+  <Typography variant="h5" component="span" color="textPrimary">
+    {" "}
+    {children}
+  </Typography>
+);
 
 const Footer = ({ loading, more, keywordsLen, itemsLen }: Props) => {
   let content: ReactNode;
@@ -20,8 +28,24 @@ const Footer = ({ loading, more, keywordsLen, itemsLen }: Props) => {
     );
   } else if (itemsLen === 0 && keywordsLen === 0) {
     content = (
-      <Typography variant="h5" color="textSecondary">
-        Enter ingredients you want to use
+      <Typography variant="h5" color="textSecondary" align="center">
+        <p>
+          Enter <B>comma</B> separated ingredients
+        </p>
+        <p>
+          Click once to <B>exclude</B>, twice to <B>remove</B> keyword
+        </p>
+        <p>
+          <B>
+            <FilterList />
+          </B>{" "}
+          to <B>filter</B>
+          <B>
+            <SortOutlined />
+          </B>{" "}
+          to
+          <B>sort</B>
+        </p>
       </Typography>
     );
   }

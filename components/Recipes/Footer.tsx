@@ -30,7 +30,7 @@ const Footer = ({ loading, more, keywordsLen, itemsLen }: Props) => {
     content = (
       <Typography variant="h5" color="textSecondary" align="center">
         <p>
-          Enter <B>comma</B> separated ingredients
+          Enter <B>comma-separated</B> ingredients
         </p>
         <p>
           Click once to <B>exclude</B>, twice to <B>remove</B> keyword

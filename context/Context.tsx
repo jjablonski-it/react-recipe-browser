@@ -37,7 +37,9 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
 
   const getItems = async (keywords: string[]) => {
     const q = getKeywords(keywords);
-    if (!q) return;
+    console.log(q);
+
+    // if (!q) return;
 
     dispatch({ type: "ITEMS_LOADING" });
     lastQ = q;

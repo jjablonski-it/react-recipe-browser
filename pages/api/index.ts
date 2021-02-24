@@ -1,14 +1,8 @@
 import axios from "axios";
-import qs from "qs";
 import { NextApiRequest, NextApiResponse } from "next";
-import {
-  ApiResponse,
-  Recipe,
-  RecipeUseless,
-  RecipeWhole,
-} from "../../context/types";
+import qs from "qs";
+import { ApiResponse, RecipeWhole } from "../../context/types";
 import { cleanRecipe } from "../../utils/helpers";
-import testData from "./data.json";
 
 const LIMIT = 24;
 
@@ -22,7 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log(health, diet, excluded);
 
   console.log("from:", from, "to:", to);
-  if (!q || !to) return res.status(400).json({});
+  if (!to) return res.status(400).json({});
 
   const { data } = await axios.get<ApiResponse<RecipeWhole>>(
     process.env.API_URL,

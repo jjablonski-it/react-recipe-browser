@@ -1,6 +1,7 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import { ServerStyleSheets, useTheme } from "@material-ui/core/styles";
+import { ServerStyleSheets } from "@material-ui/core/styles";
+import Document, { Head, Html, Main, NextScript } from "next/document";
 import React from "react";
+import { theme } from "./_app";
 
 class MyDocument extends Document {
   render() {
@@ -10,7 +11,7 @@ class MyDocument extends Document {
           {/* PWA primary color */}
           <link rel="manifest" href="/manifest.json" />
           <link rel="apple-touch-icon" href="/favicon.ico" />
-          {/* <meta name="theme-color" content={this.theme.palette.primary.main} /> */}
+          <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

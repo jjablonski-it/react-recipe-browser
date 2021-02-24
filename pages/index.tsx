@@ -6,7 +6,9 @@ import SearchBar from "../components/SearchBar/";
 export default function Home() {
   return (
     <Grid container justify="center">
-      <Typography variant="h1">RE🥐IPE</Typography>
+      <Typography style={{ marginTop: 10, fontSize: "5rem" }}>
+        RE🥐IPE
+      </Typography>
       <SearchBar />
       <Saved />
       <Recipes />

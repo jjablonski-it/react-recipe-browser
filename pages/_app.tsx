@@ -11,7 +11,7 @@ import React from "react";
 import ContextProvider from "../context/Context";
 import "../styles/globals.css";
 
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
   palette: {
     primary: yellow,
     type: "dark",

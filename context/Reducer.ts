@@ -35,9 +35,13 @@ export const reducer = (state: State, action: Action): State => {
     case "CLEAR_ITEMS":
       return { ...state, items: [] };
 
-    case "ADD_KEYWORD":
-      if (state.keywords.includes(action.payload)) return state;
-      return { ...state, keywords: [...state.keywords, action.payload] };
+    case "ADD_KEYWORDS": {
+      const { payload } = action;
+      const newKeywords = payload.filter(
+        (keyword) => !state.keywords.includes(keyword)
+      );
+      return { ...state, keywords: [...state.keywords, ...newKeywords] };
+    }
 
     case "REMOVE_KEYWORD": {
       return {

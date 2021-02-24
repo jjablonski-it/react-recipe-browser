@@ -166,7 +166,7 @@ export interface State {
   appendItems?: () => void;
   getSaved?: () => void;
   setKeywords?: (keywords: string[]) => void;
-  addKeyword?: (keyword: string) => void;
+  addKeywords?: (keyword: string[]) => void;
   removeKeyword?: (keyword: string) => void;
   clearItems?: () => void;
   toggleSaveItem?: (uri: string) => void;
@@ -180,8 +180,9 @@ export type Action =
   | { type: "ITEMS_LOADED"; payload: Recipe[] }
   | { type: "ITEMS_APPEND"; payload: Recipe[] }
   | { type: "ITEMS_LOADING" }
-  | { type: "ADD_KEYWORD"; payload: string }
+  | { type: "ADD_KEYWORDS"; payload: string[] }
   | { type: "REMOVE_KEYWORD"; payload: string }
+  | { type: "SET_KEYWORDS"; payload: string[] }
   | { type: "SET_MORE"; payload: boolean }
   | { type: "CLEAR_ITEMS" }
   | { type: "SAVE_ITEM"; payload: string }
@@ -189,5 +190,4 @@ export type Action =
   | { type: "SORT_ITEMS"; payload: { key: SortKey; asc: boolean } }
   | { type: "SET_FILTERS"; payload: FilterState }
   | { type: "ADD_EXCLUDE"; payload: string }
-  | { type: "REMOVE_EXCLUDE"; payload: string }
-  | { type: "SET_KEYWORDS"; payload: string[] };
+  | { type: "REMOVE_EXCLUDE"; payload: string };

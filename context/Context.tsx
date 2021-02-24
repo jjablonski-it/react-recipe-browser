@@ -80,8 +80,11 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "SET_KEYWORDS", payload: keywords });
   };
 
-  const addKeyword = (keyword: string) => {
-    dispatch({ type: "ADD_KEYWORD", payload: keyword });
+  const addKeywords = (keywords: string[]) => {
+    keywords = keywords
+      .map((kw) => kw.trim().toLowerCase().replace(",", ""))
+      .filter((kw) => !!kw);
+    dispatch({ type: "ADD_KEYWORDS", payload: keywords });
   };
 
   const removeKeyword = (keyword: string) => {
@@ -126,7 +129,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
       value={{
         ...state,
         getItems,
-        addKeyword,
+        addKeywords,
         removeKeyword,
         clearItems,
         toggleSaveItem,

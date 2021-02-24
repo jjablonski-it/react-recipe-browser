@@ -7,24 +7,16 @@ import Keywords from "./Keywords";
 import SortAndFilter from "./SortAndFilter";
 
 const SearchBar = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<string>("");
   const [showFilter, setShowFilter] = useState(false);
 
   const {
     getItems,
-    addKeyword,
+    addKeywords,
     removeKeyword,
     keywords,
     clearItems,
   } = useContext(Context);
-
-  const newKeyword = (value: string) => {
-    value = value.trim();
-    if (value) {
-      addKeyword!(value.toLocaleLowerCase());
-      setValue("");
-    }
-  };
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -37,7 +29,7 @@ const SearchBar = () => {
             inputRef.current?.blur();
             clearItems!();
             getItems!([...keywords, value]);
-            newKeyword(value);
+            addKeywords!([value]);
             setShowFilter(false);
           }}
           style={{ width: "100%" }}
@@ -48,10 +40,11 @@ const SearchBar = () => {
             fullWidth
             color="secondary"
             onChange={(e) => {
-              const value = e.target.value;
-              if (value.slice(-1) === " ") {
-                newKeyword(value);
-              } else setValue(() => e.target.value);
+              const { value } = e.target;
+              if (value.slice(-1) === ",") {
+                addKeywords!([value]);
+                setValue("");
+              } else setValue(() => value);
             }}
             inputRef={inputRef}
           />

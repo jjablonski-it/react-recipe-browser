@@ -3,12 +3,15 @@ import { ServerStyleSheets, useTheme } from "@material-ui/core/styles";
 import React from "react";
 
 export default class MyDocument extends Document {
+  theme = useTheme();
   render() {
     return (
       <Html lang="en">
         <Head>
           {/* PWA primary color */}
-          {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="apple-touch-icon" href="/favicon.ico" />
+          <meta name="theme-color" content={this.theme.palette.primary.main} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

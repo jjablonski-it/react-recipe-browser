@@ -1,0 +1,10 @@
+{
+  "name": "Recipe Browser",
+  "short_name": "Recipe",
+  "theme_color": "#000000",
+  "background_color": "#8e8e8e",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/"
+}

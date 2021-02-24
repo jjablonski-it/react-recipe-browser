@@ -2,8 +2,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets, useTheme } from "@material-ui/core/styles";
 import React from "react";
 
-export default class MyDocument extends Document {
-  theme = useTheme();
+class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
@@ -11,7 +10,7 @@ export default class MyDocument extends Document {
           {/* PWA primary color */}
           <link rel="manifest" href="/manifest.json" />
           <link rel="apple-touch-icon" href="/favicon.ico" />
-          <meta name="theme-color" content={this.theme.palette.primary.main} />
+          {/* <meta name="theme-color" content={this.theme.palette.primary.main} /> */}
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -25,6 +24,8 @@ export default class MyDocument extends Document {
     );
   }
 }
+
+export default MyDocument;
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with server-side generation (SSG).

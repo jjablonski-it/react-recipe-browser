@@ -10,7 +10,7 @@ class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <link rel="manifest" href="/manifest.json" />
-          <link rel="apple-touch-icon" href="/favicon.ico" />
+          <link rel="apple-touch-icon" href="/icon-256x256.png" />
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             rel="stylesheet"

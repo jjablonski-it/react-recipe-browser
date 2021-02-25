@@ -29,6 +29,7 @@ const SearchBar = () => {
             inputRef.current?.blur();
             clearItems!();
             getItems!([...keywords, value]);
+            setValue("");
             addKeywords!([value]);
             setShowFilter(false);
           }}

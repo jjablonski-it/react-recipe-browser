@@ -6,7 +6,7 @@ interface Props {
   handleClose: () => void;
 }
 
-const Alert: React.FC<Props> = ({ children, handleClose, open }) => {
+const Alert: React.FC<Props> = ({ children, handleClose }) => {
   return (
     <AlertMUI
       severity="error"

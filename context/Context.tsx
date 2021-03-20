@@ -27,6 +27,7 @@ const initialState: State = {
   sortAsc: "true" == getValueFromLocalStorage("sortAsc", "true"),
   filters: getObjectFromLocalStorage("filters", { health: [], diet: [] }),
   excluded: [],
+  error: "",
 };
 
 export const Context = createContext(initialState);
@@ -46,6 +47,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     lastQ = q;
 
     const data = await loadData("/api", { q, excluded, ...filters });
+    if (!data) return;
 
     dispatch({ type: "ITEMS_LOADED", payload: data.hits });
     dispatch({ type: "SET_MORE", payload: data.more });
@@ -60,6 +62,7 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
       excluded,
       ...filters,
     });
+    if (!data) return;
 
     dispatch({ type: "ITEMS_APPEND", payload: data.hits });
     dispatch({ type: "SET_MORE", payload: data.more });
@@ -127,6 +130,37 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "REMOVE_EXCLUDE", payload: value });
   };
 
+  const setError = (error: string) => {
+    dispatch({ type: "SET_ERROR", payload: error });
+  };
+
+  const resetError = () => {
+    dispatch({ type: "RESET_ERROR" });
+  };
+
+  const loadData = async (
+    uri: string,
+    { excluded, q, from = 0, health, diet }: ApiRequest
+  ) => {
+    try {
+      const { data } = await axios.get<ApiResponse<Recipe>>(uri, {
+        params: {
+          q,
+          from,
+          health,
+          diet,
+          excluded,
+        } as ApiRequest,
+        paramsSerializer: (params) =>
+          qs.stringify(params, { arrayFormat: "repeat" }),
+      });
+      return { ...data, hits: countIngredients(data) };
+    } catch (e) {
+      setError("Too many requests! Try again in a minute.");
+      return null;
+    }
+  };
+
   return (
     <Context.Provider
       value={{
@@ -143,6 +177,8 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
         removeExclude,
         setKeywords,
         appendItems,
+        setError,
+        resetError,
       }}
     >
       {children}
@@ -155,23 +191,4 @@ export default ContextProvider;
 const getKeywords = (keywords: string[]): string => {
   keywords = keywords.filter((kw) => !!kw);
   return keywords.join(" ");
-};
-
-const loadData = async (
-  uri: string,
-  { excluded, q, from = 0, health, diet }: ApiRequest
-) => {
-  const { data } = await axios.get<ApiResponse<Recipe>>(uri, {
-    params: {
-      q,
-      from,
-      health,
-      diet,
-      excluded,
-    } as ApiRequest,
-    paramsSerializer: (params) =>
-      qs.stringify(params, { arrayFormat: "repeat" }),
-  });
-
-  return { ...data, hits: countIngredients(data) };
 };

@@ -163,6 +163,7 @@ export interface State {
   sortAsc: boolean;
   filters: FilterState;
   excluded: string[];
+  error: string;
   getItems?: (keywords: string[]) => void;
   appendItems?: () => void;
   getSaved?: () => void;
@@ -175,6 +176,8 @@ export interface State {
   setFilters?: (filters: FilterState) => void;
   addExclude?: (value: string) => void;
   removeExclude?: (value: string) => void;
+  setError?: (error: string) => void;
+  resetError?: () => void;
 }
 
 export type Action =
@@ -191,4 +194,6 @@ export type Action =
   | { type: "SORT_ITEMS"; payload: { key: SortKey; asc: boolean } }
   | { type: "SET_FILTERS"; payload: FilterState }
   | { type: "ADD_EXCLUDE"; payload: string }
-  | { type: "REMOVE_EXCLUDE"; payload: string };
+  | { type: "REMOVE_EXCLUDE"; payload: string }
+  | { type: "SET_ERROR"; payload: string }
+  | { type: "RESET_ERROR" };

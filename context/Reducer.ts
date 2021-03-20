@@ -95,5 +95,11 @@ export const reducer = (state: State, action: Action): State => {
 
     case "SET_MORE":
       return { ...state, more: action.payload };
+
+    case "SET_ERROR":
+      return { ...state, error: action.payload };
+
+    case "RESET_ERROR":
+      return { ...state, error: "" };
   }
 };

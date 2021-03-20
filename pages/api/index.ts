@@ -4,7 +4,7 @@ import qs from "qs";
 import { ApiResponse, RecipeWhole } from "../../context/types";
 import { cleanRecipe } from "../../utils/helpers";
 
-const LIMIT = 24;
+const LIMIT = 48;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // TESTING

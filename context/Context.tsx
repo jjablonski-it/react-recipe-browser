@@ -11,6 +11,7 @@ import {
 } from "./types";
 import qs from "qs";
 import {
+  countIngredients,
   getObjectFromLocalStorage,
   getValueFromLocalStorage,
 } from "../utils/helpers";
@@ -171,5 +172,6 @@ const loadData = async (
     paramsSerializer: (params) =>
       qs.stringify(params, { arrayFormat: "repeat" }),
   });
-  return data;
+
+  return { ...data, hits: countIngredients(data) };
 };

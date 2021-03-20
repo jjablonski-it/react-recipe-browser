@@ -14,11 +14,12 @@ type OptionalRecipe = {
 };
 
 const recipeSchema: OptionalRecipe = {
-  totalTime: 0,
-  calories: 0,
-  yield: 0,
-  label: 0,
-  source: 0,
+  ingredientsCount: "ingredients",
+  totalTime: "total time",
+  calories: "calories",
+  yield: "yield",
+  label: "label",
+  source: "source",
 };
 
 interface Props {
@@ -76,7 +77,7 @@ const SortAndFilter = ({ setShowFilter, showFilter }: Props) => {
       >
         {Object.keys(recipeSchema).map((key, i) => (
           <MenuItem onClick={() => sortItems!(key as SortKey)} key={i}>
-            {key}
+            {recipeSchema[key as keyof typeof recipeSchema]}
             {key === sortBy &&
               (sortAsc ? <KeyboardArrowUp /> : <KeyboardArrowDown />)}
           </MenuItem>

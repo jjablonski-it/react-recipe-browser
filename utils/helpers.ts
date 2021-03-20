@@ -1,4 +1,4 @@
-import { Recipe, RecipeWhole } from "../context/types";
+import { ApiResponse, Recipe, RecipeWhole } from "../context/types";
 const isClient = typeof window !== "undefined";
 
 export const recipeToBasic = (recipe: Recipe): Recipe => {
@@ -61,4 +61,11 @@ export const cleanRecipe = ({
 }: RecipeWhole): Recipe => {
   let uri = props.uri.replace(process.env.URI_PREFIX, "");
   return { ...props, uri };
+};
+
+export const countIngredients = (data: ApiResponse<Recipe>) => {
+  return data.hits.map((recipe) => ({
+    ...recipe,
+    ingredientsCount: recipe.ingredientLines.length,
+  }));
 };

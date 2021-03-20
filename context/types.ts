@@ -127,6 +127,7 @@ export interface Recipe {
   calories: number; //	Total energy, kcal
 
   ingredientLines: Ingredient[]; //	Ingredients list
+  ingredientsCount: number;
 
   dietLabels: Diet[];
   healthLabels: Health[];

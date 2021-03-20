@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@material-ui/core";
 import { useContext } from "react";
+import GithubCorner from "react-github-corner";
 import Alert from "../components/Alert";
 import Recipes from "../components/Recipes";
 import Saved from "../components/Saved";
@@ -18,6 +19,10 @@ export default function Home() {
       <Saved />
       <Recipes />
       {!!error && <Alert handleClose={resetError!}>{error}</Alert>}
+      <GithubCorner
+        href="https://github.com/jjablonski-it/react-recipe-browser"
+        size="70"
+      />
     </Grid>
   );
 }

@@ -80,45 +80,42 @@ const Recipes = () => {
         style={{ margin: "10px 0 50px 0" }}
       >
         <AnimateSharedLayout type="crossfade">
-          {[...items]
-            ?.filter((item, i, self) => self.indexOf(item) === i)
-            .sort(handleSort)
-            .map((recipe, i) => {
-              const isSelected = !!selected && getRecipeId(selected) === i;
-              const { uri } = recipe;
-              const isSaved = saved.includes(uri);
+          {[...items]?.sort(handleSort).map((recipe, i) => {
+            const isSelected = !!selected && getRecipeId(selected) === i;
+            const { uri } = recipe;
+            const isSaved = saved.includes(uri);
 
-              return (
-                <Grid
-                  component={motion.div}
-                  key={uri}
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                  custom={{ i, prevItemsCount, itemsCount: items.length }}
-                  variants={item}
-                  initial="hidden"
-                  animate="show"
-                  // exit="exit"
-                  layoutId={`container ${uri}`}
-                  style={{ zIndex: isSelected ? 1 : 0 }}
-                >
-                  <RecipeComp
-                    recipe={recipe}
-                    setSelected={() => {
-                      setSelected(recipe);
-                      setShow(true);
-                    }}
-                    handleSave={toggleSaveItem}
-                    isSaved={isSaved}
-                    id={i}
-                    selected={isSelected}
-                  />
-                </Grid>
-              );
-            })}
+            return (
+              <Grid
+                component={motion.div}
+                key={uri}
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                custom={{ i, prevItemsCount, itemsCount: items.length }}
+                variants={item}
+                initial="hidden"
+                animate="show"
+                // exit="exit"
+                layoutId={`container ${uri}`}
+                style={{ zIndex: isSelected ? 1 : 0 }}
+              >
+                <RecipeComp
+                  recipe={recipe}
+                  setSelected={() => {
+                    setSelected(recipe);
+                    setShow(true);
+                  }}
+                  handleSave={toggleSaveItem}
+                  isSaved={isSaved}
+                  id={i}
+                  selected={isSelected}
+                />
+              </Grid>
+            );
+          })}
 
           <Backdrop
             open={show}

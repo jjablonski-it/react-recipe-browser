@@ -154,6 +154,7 @@ export interface FilterState {
 export type FilterValues = Diet | Health;
 export interface State {
   items: Recipe[];
+  results: number;
   saved: Recipe["uri"][];
   prevItemsCount: number;
   loading: boolean;

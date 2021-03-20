@@ -13,16 +13,22 @@ export const reducer = (state: State, action: Action): State => {
         loading: false,
         items: action.payload,
         prevItemsCount: 0,
+        results: action.payload.length,
       };
 
     case "ITEMS_APPEND": {
       const prevItemsCount = state.items.length;
+      const results = state.results + action.payload.length;
+      const newItems = action.payload.filter(
+        (recipe) => !state.items.some((existing) => existing.uri === recipe.uri)
+      );
 
       return {
         ...state,
         loading: false,
-        items: [...state.items, ...action.payload],
+        items: [...state.items, ...newItems],
         prevItemsCount,
+        results,
       };
     }
 

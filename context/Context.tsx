@@ -18,6 +18,7 @@ import {
 
 const initialState: State = {
   items: [],
+  results: 0,
   prevItemsCount: 0,
   keywords: [],
   loading: false,
@@ -35,19 +36,18 @@ let lastQ = "";
 
 export const ContextProvider: React.FC<{}> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { items, saved, sortBy, sortAsc, filters, excluded } = state;
+  const { results, saved, sortBy, sortAsc, filters, excluded } = state;
 
   const getItems = async (keywords: string[]) => {
     const q = getKeywords(keywords);
     console.log(q);
-
-    // if (!q) return;
 
     dispatch({ type: "ITEMS_LOADING" });
     lastQ = q;
 
     const data = await loadData("/api", { q, excluded, ...filters });
     if (!data) return;
+    const { hits, more } = data;
 
     dispatch({ type: "ITEMS_LOADED", payload: data.hits });
     dispatch({ type: "SET_MORE", payload: data.more });
@@ -57,15 +57,16 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     dispatch({ type: "ITEMS_LOADING" });
 
     const data = await loadData("/api", {
-      from: items.length,
+      from: results,
       q: lastQ,
       excluded,
       ...filters,
     });
     if (!data) return;
+    const { hits, more } = data;
 
-    dispatch({ type: "ITEMS_APPEND", payload: data.hits });
-    dispatch({ type: "SET_MORE", payload: data.more });
+    dispatch({ type: "ITEMS_APPEND", payload: hits });
+    dispatch({ type: "SET_MORE", payload: more });
   };
 
   const getSaved = async () => {

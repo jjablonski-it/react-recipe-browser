@@ -49,8 +49,8 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     if (!data) return;
     const { hits, more } = data;
 
-    dispatch({ type: "ITEMS_LOADED", payload: data.hits });
-    dispatch({ type: "SET_MORE", payload: data.more });
+    dispatch({ type: "ITEMS_LOADED", payload: hits });
+    dispatch({ type: "SET_MORE", payload: more });
   };
 
   const appendItems = async () => {

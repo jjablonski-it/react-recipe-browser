@@ -12,8 +12,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/Context";
 import { Diet, FilterValues, Health } from "../../context/types";
 
-interface Props {}
-
 const dietSchema: Diet[] = [
   "balanced",
   // "high-fiber",
@@ -70,7 +68,7 @@ const variants: Variants = {
   },
 };
 
-const FilterOptions = (props: Props) => {
+const FilterOptions = () => {
   const { setFilters, excluded, filters } = useContext(Context);
 
   const [state, setState] = useState<{

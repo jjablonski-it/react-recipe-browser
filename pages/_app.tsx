@@ -6,7 +6,6 @@ import {
 } from "@material-ui/core";
 import { yellow } from "@material-ui/core/colors";
 import { AppProps } from "next/dist/next-server/lib/router/router";
-import { Head } from "next/document";
 import React from "react";
 import ContextProvider from "../context/Context";
 import "../styles/globals.css";

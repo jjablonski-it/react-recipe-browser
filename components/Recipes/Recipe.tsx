@@ -36,7 +36,6 @@ const Recipe = ({
   selected,
   style,
   active = false,
-  id,
   isSaved,
   handleSave,
 }: Props) => {

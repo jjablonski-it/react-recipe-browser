@@ -1,4 +1,4 @@
-import { Button, Fab, makeStyles } from "@material-ui/core";
+import { Fab, makeStyles } from "@material-ui/core";
 import { Favorite } from "@material-ui/icons";
 import React, { useContext } from "react";
 import { Context } from "../context/Context";

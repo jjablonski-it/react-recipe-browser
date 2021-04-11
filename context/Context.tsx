@@ -184,13 +184,14 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     setKeywords,
     setError,
     resetError,
-  }), [state])
+  }), [defaultState])
 
+  const itemsValue = useMemo(() => ({ items, loading, getItems, appendItems, clearItems }), [items, loading])
   return (
     <Context.Provider
       value={value}
     >
-      <ItemsContext.Provider value={{ items, loading, getItems, appendItems, clearItems }}>
+      <ItemsContext.Provider value={itemsValue}>
         {children}
       </ItemsContext.Provider>
     </Context.Provider>

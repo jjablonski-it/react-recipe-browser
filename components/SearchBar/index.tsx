@@ -1,7 +1,7 @@
 import { Grid, TextField } from "@material-ui/core";
 import { AnimatePresence } from "framer-motion";
-import React, { useContext, useRef, useState } from "react";
-import { Context, useCtx, useItemsCtx } from "../../context/Context";
+import React, { useRef, useState } from "react";
+import { useCtx, useItemsCtx } from "../../context/Context";
 import FilterOptions from "./FilterOptions";
 import Keywords from "./Keywords";
 import SortAndFilter from "./SortAndFilter";

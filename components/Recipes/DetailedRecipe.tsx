@@ -6,10 +6,10 @@ import {
   List,
   ListItem,
   ListItemText,
-  Paper,
+  Paper
 } from "@material-ui/core";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { Recipe as RecipeInterface, State } from "../../context/types";
 import Chips from "./Chips";
 import Recipe from "./Recipe";
@@ -31,10 +31,9 @@ const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
   if (!recipe) return <></>;
   const { ingredientLines, healthLabels, dietLabels, url } = recipe;
 
-  // FRAMER MOTION ISSUE WORK AROUND
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (ref.current)
-      setTimeout(() => setHeight(ref.current!.clientHeight), 400);
+      setHeight(ref.current!.clientHeight)
   }, []);
 
   return (

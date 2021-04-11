@@ -1,5 +1,11 @@
 import axios from "axios";
+import qs from "qs";
 import React, { createContext, useContext, useMemo, useReducer } from "react";
+import {
+  countIngredients,
+  getObjectFromLocalStorage,
+  getValueFromLocalStorage
+} from "../utils/helpers";
 import { reducer } from "./Reducer";
 import {
   ApiRequest,
@@ -8,15 +14,8 @@ import {
   FilterState,
   ItemsState,
   Recipe,
-  SortKey,
-  State,
+  SortKey
 } from "./types";
-import qs from "qs";
-import {
-  countIngredients,
-  getObjectFromLocalStorage,
-  getValueFromLocalStorage,
-} from "../utils/helpers";
 
 const initialItemsState: ItemsState = {
   items: [],

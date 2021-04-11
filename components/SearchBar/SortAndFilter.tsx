@@ -3,10 +3,10 @@ import {
   FilterList,
   KeyboardArrowDown,
   KeyboardArrowUp,
-  Sort,
+  Sort
 } from "@material-ui/icons";
-import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../../context/Context";
+import React, { useEffect, useState } from "react";
+import { useCtx } from "../../context/Context";
 import { Recipe, SortKey } from "../../context/types";
 
 type OptionalRecipe = {
@@ -31,7 +31,7 @@ const SortAndFilter = ({ setShowFilter, showFilter }: Props) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [sortActive, setSortActive] = useState(false);
   const [filterActive, setFilterActive] = useState(false);
-  const { sortItems, sortBy, sortAsc, filters } = useContext(Context);
+  const { sortItems, sortBy, sortAsc, filters } = useCtx()
 
   const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

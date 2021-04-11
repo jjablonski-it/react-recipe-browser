@@ -56,7 +56,7 @@ const DetailedRecipe = ({ recipe, id, handleSave, isSaved }: Props) => {
         <Grid item xs={12}>
           <Recipe
             recipe={recipe}
-            setSelected={() => {}}
+            setSelected={() => { }}
             selected={true}
             active={true}
             id={id}

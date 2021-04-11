@@ -3,10 +3,10 @@ import {
   AnimatePresence,
   AnimateSharedLayout,
   motion,
-  Variants,
+  Variants
 } from "framer-motion";
-import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../../context/Context";
+import React, { useEffect, useState } from "react";
+import { useCtx, useItemsCtx } from "../../context/Context";
 import { Recipe } from "../../context/types";
 import DetailedRecipe from "./DetailedRecipe";
 import Footer from "./Footer";
@@ -28,8 +28,6 @@ const item: Variants = {
 
 const Recipes = () => {
   const {
-    items,
-    loading,
     more,
     keywords,
     prevItemsCount,
@@ -37,8 +35,14 @@ const Recipes = () => {
     saved,
     sortBy,
     sortAsc,
+  } = useCtx()
+
+  const {
     appendItems,
-  } = useContext(Context);
+    items,
+    loading
+  } = useItemsCtx()
+
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [show, setShow] = useState(false);
 

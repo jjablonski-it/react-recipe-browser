@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useContext, useMemo, useReducer } from "react";
 import { reducer } from "./Reducer";
 import {
   ApiRequest,
   ApiResponse,
+  DefaultState,
   FilterState,
+  ItemsState,
   Recipe,
   SortKey,
   State,
@@ -16,12 +18,15 @@ import {
   getValueFromLocalStorage,
 } from "../utils/helpers";
 
-const initialState: State = {
+const initialItemsState: ItemsState = {
   items: [],
+  loading: false,
+}
+
+const initialState: DefaultState = {
   results: 0,
   prevItemsCount: 0,
   keywords: [],
-  loading: false,
   more: true,
   saved: getObjectFromLocalStorage("saved", []),
   sortBy: getValueFromLocalStorage("sortBy", ""),
@@ -32,10 +37,13 @@ const initialState: State = {
 };
 
 export const Context = createContext(initialState);
+export const ItemsContext = createContext(initialItemsState)
 let lastQ = "";
 
+const combinedState = { ...initialState, ...initialItemsState }
+
 export const ContextProvider: React.FC<{}> = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, combinedState);
   const { results, saved, sortBy, sortAsc, filters, excluded } = state;
 
   const getItems = async (keywords: string[]) => {
@@ -162,27 +170,30 @@ export const ContextProvider: React.FC<{}> = ({ children }) => {
     }
   };
 
+  const { items, loading, ...defaultState } = state
+
+  const value = useMemo(() => ({
+    ...defaultState,
+    addKeywords,
+    removeKeyword,
+    toggleSaveItem,
+    getSaved,
+    sortItems,
+    setFilters,
+    addExclude,
+    removeExclude,
+    setKeywords,
+    setError,
+    resetError,
+  }), [state])
+
   return (
     <Context.Provider
-      value={{
-        ...state,
-        getItems,
-        addKeywords,
-        removeKeyword,
-        clearItems,
-        toggleSaveItem,
-        getSaved,
-        sortItems,
-        setFilters,
-        addExclude,
-        removeExclude,
-        setKeywords,
-        appendItems,
-        setError,
-        resetError,
-      }}
+      value={value}
     >
-      {children}
+      <ItemsContext.Provider value={{ items, loading, getItems, appendItems, clearItems }}>
+        {children}
+      </ItemsContext.Provider>
     </Context.Provider>
   );
 };
@@ -193,3 +204,19 @@ const getKeywords = (keywords: string[]): string => {
   keywords = keywords.filter((kw) => !!kw);
   return keywords.join(" ");
 };
+
+export const useCtx = () => {
+  const context = useContext(Context)
+  if (!context) {
+    throw new Error("useCtx must be used inside the ContextProvider")
+  }
+  return context
+}
+
+export const useItemsCtx = () => {
+  const context = useContext(ItemsContext)
+  if (!context) {
+    throw new Error("useItemsContext must be used inside the ItemsContextProvider")
+  }
+  return context
+}

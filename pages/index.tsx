@@ -1,14 +1,13 @@
 import { Grid, Typography } from "@material-ui/core";
-import { useContext } from "react";
 import GithubCorner from "react-github-corner";
 import Alert from "../components/Alert";
 import Recipes from "../components/Recipes";
 import Saved from "../components/Saved";
 import SearchBar from "../components/SearchBar/";
-import { Context } from "../context/Context";
+import { useCtx } from "../context/Context";
 
 export default function Home() {
-  const { error, resetError } = useContext(Context);
+  const { error, resetError } = useCtx()
 
   return (
     <Grid container justify="center">

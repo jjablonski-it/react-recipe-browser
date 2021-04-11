@@ -1,7 +1,7 @@
 import { Grid, TextField } from "@material-ui/core";
 import { AnimatePresence } from "framer-motion";
 import React, { useContext, useRef, useState } from "react";
-import { Context } from "../../context/Context";
+import { Context, useCtx, useItemsCtx } from "../../context/Context";
 import FilterOptions from "./FilterOptions";
 import Keywords from "./Keywords";
 import SortAndFilter from "./SortAndFilter";
@@ -11,12 +11,12 @@ const SearchBar = () => {
   const [showFilter, setShowFilter] = useState(false);
 
   const {
-    getItems,
     addKeywords,
     removeKeyword,
     keywords,
-    clearItems,
-  } = useContext(Context);
+  } = useCtx()
+
+  const { getItems, clearItems } = useItemsCtx()
 
   const inputRef = useRef<HTMLInputElement>(null);
 

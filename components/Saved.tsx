@@ -1,7 +1,7 @@
 import { Fab, makeStyles } from "@material-ui/core";
 import { Favorite } from "@material-ui/icons";
-import React, { useContext } from "react";
-import { Context } from "../context/Context";
+import React from "react";
+import { useCtx, useItemsCtx } from "../context/Context";
 
 const useStyles = makeStyles({
   root: {
@@ -13,7 +13,8 @@ const useStyles = makeStyles({
 });
 
 const Saved = () => {
-  const { clearItems, getSaved } = useContext(Context);
+  const { getSaved } = useCtx()
+  const { clearItems } = useItemsCtx()
   const classes = useStyles();
 
   return (

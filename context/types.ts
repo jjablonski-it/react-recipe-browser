@@ -152,12 +152,19 @@ export interface FilterState {
   diet: Diet[];
 }
 export type FilterValues = Diet | Health;
-export interface State {
+
+export interface ItemsState {
   items: Recipe[];
+  loading: boolean;
+  getItems?: (keywords: string[]) => void;
+  appendItems?: () => void;
+  clearItems?: () => void;
+}
+
+export interface DefaultState {
   results: number;
   saved: Recipe["uri"][];
   prevItemsCount: number;
-  loading: boolean;
   keywords: string[];
   more: boolean;
   sortBy: SortKey;
@@ -165,13 +172,10 @@ export interface State {
   filters: FilterState;
   excluded: string[];
   error: string;
-  getItems?: (keywords: string[]) => void;
-  appendItems?: () => void;
   getSaved?: () => void;
   setKeywords?: (keywords: string[]) => void;
   addKeywords?: (keyword: string[]) => void;
   removeKeyword?: (keyword: string) => void;
-  clearItems?: () => void;
   toggleSaveItem?: (uri: string) => void;
   sortItems?: (key: SortKey) => void;
   setFilters?: (filters: FilterState) => void;
@@ -180,6 +184,8 @@ export interface State {
   setError?: (error: string) => void;
   resetError?: () => void;
 }
+
+export type State = ItemsState & DefaultState;
 
 export type Action =
   | { type: "ITEMS_LOADED"; payload: Recipe[] }

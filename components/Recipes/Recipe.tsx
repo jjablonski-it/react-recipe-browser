@@ -13,7 +13,7 @@ import {
   Whatshot,
 } from "@material-ui/icons";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useCallback } from "react";
 import { Recipe as RecipeInterface, State } from "../../context/types";
 import IconValue from "./IconValue";
 import { useRecipeStyles } from "./style";
@@ -30,7 +30,14 @@ interface Props {
   id: number;
 }
 
-const Recipe = ({
+function Recipe({
+  setSelected, recipe, ...props }: Props & { setSelected: (recipe: RecipeInterface) => void }) {
+  const setSelectedMemoized = useCallback(() => setSelected(recipe), [recipe])
+
+  return <RecipeImpl {...props} recipe={recipe} setSelected={setSelectedMemoized} />
+}
+
+function RecipeImpl({
   recipe,
   setSelected,
   selected,
@@ -38,7 +45,7 @@ const Recipe = ({
   active = false,
   isSaved,
   handleSave,
-}: Props) => {
+}: Props) {
   const {
     label,
     source,
@@ -115,5 +122,8 @@ const Recipe = ({
     </Card>
   );
 };
+
+//@ts-ignore
+RecipeImpl = React.memo(RecipeImpl)
 
 export default Recipe;

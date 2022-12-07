@@ -16,7 +16,7 @@
     "next": "10.0.6",
     "next-offline": "^5.0.3",
     "next-pwa": "^5.0.5",
-    "qs": "^6.9.6",
+    "qs": "^6.9.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-github-corner": "^2.5.0"
